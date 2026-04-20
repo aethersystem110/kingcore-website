@@ -1,143 +1,1303 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>King Core | The Making of a Paper Core</title>
-  <meta name="description" content="King Core / Imperial Synergies — watch a paper core come to life. Scroll to witness the craft.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KINGCORE — Precision Paper Tubes · Lahore</title>
+<meta name="description" content="KINGCORE manufactures precision spiral-wound paper tubes for packaging mills, film converters, and textile producers. Lahore, Pakistan. Est. MMX.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0E1F3A;
+  --gold: #B8893A;
+  --gold-hi: #D9B066;
+  --burgundy: #6B1E2E;
+  --cream: #F4EFE4;
+  --cream-2: #EDE6D6;
+  --kraft: #8B6F2E;
+  --kraft-lt: #A68544;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Inter', system-ui, sans-serif;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: auto; overflow-x: hidden; }
+body {
+  background: var(--cream);
+  color: var(--navy);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+img, svg { display: block; }
+a { color: inherit; text-decoration: none; }
+
+/* ═══ NAV ═══ */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 20px 48px;
+  background: rgba(244, 239, 228, 0.88);
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  transition: background 0.5s, color 0.5s;
+}
+.nav.inverted {
+  background: rgba(14, 31, 58, 0.92);
+  color: var(--cream);
+}
+.nav.inverted .w3-rule { background: var(--gold); }
+.nav.inverted .w3-sub { color: rgba(244, 239, 228, 0.5); }
+.w3 { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; }
+.w3-name {
+  font-family: var(--sans); font-weight: 700; font-size: 16px;
+  letter-spacing: 5px; text-transform: uppercase; line-height: 1;
+}
+.w3-rule { width: 60%; height: 1px; background: var(--gold); transition: background 0.5s; }
+.w3-sub {
+  font-family: var(--sans); font-weight: 500; font-size: 5.5px;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: rgba(14, 31, 58, 0.4); transition: color 0.5s;
+}
+.nav-links { display: flex; gap: 32px; }
+.nav-links a {
+  font-weight: 600; font-size: 11px; letter-spacing: 3px;
+  text-transform: uppercase; transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--gold); }
+
+/* ═══ HERO ═══ */
+.hero {
+  height: 100vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  position: relative; overflow: hidden; padding: 0 24px;
+}
+.hero-eyebrow {
+  font-family: var(--sans); font-weight: 600; font-size: 10px;
+  letter-spacing: 6px; color: var(--gold); text-transform: uppercase;
+  margin-bottom: 40px;
+}
+.wordmark { text-align: center; }
+.wm-rules { display: flex; flex-direction: column; gap: 8px; width: 100%; max-width: 480px; margin: 0 auto; }
+.wm-rule-outer { height: 2px; background: var(--navy); }
+.wm-rule-inner { height: 0.6px; background: var(--navy); }
+.wm-king, .wm-core {
+  font-family: var(--serif); font-weight: 600;
+  font-size: clamp(56px, 10vw, 120px);
+  letter-spacing: 8px; line-height: 1; text-align: center;
+}
+.wm-signet-row {
+  display: flex; align-items: center; justify-content: center;
+  width: 100%; max-width: 320px; margin: 8px auto;
+}
+.wm-signet-line { flex: 1; height: 0.6px; background: var(--gold); }
+.wm-signet-arrows { display: flex; align-items: center; gap: 1px; padding: 0 6px; }
+.wm-signet-arrows svg { width: 8px; height: 10px; }
+.wm-signet-circle {
+  width: 14px; height: 14px; position: relative;
+  margin: 0 6px; flex-shrink: 0;
+}
+.wm-signet-circle .ring {
+  width: 14px; height: 14px; border: 1.5px solid var(--navy);
+  border-radius: 50%; position: absolute; top: 0; left: 0;
+}
+.wm-signet-circle .disc {
+  width: 8px; height: 8px; background: var(--burgundy);
+  border-radius: 50%; position: absolute; top: 3px; left: 3px;
+}
+.wm-signet-circle .dot {
+  width: 3px; height: 3px; background: var(--gold);
+  border-radius: 50%; position: absolute; top: 5.5px; left: 5.5px;
+}
+.wm-tagline {
+  font-family: var(--sans); font-weight: 600; font-size: 13px;
+  letter-spacing: 9px; color: var(--gold); text-transform: uppercase;
+  margin-top: 6px; text-align: center;
+}
+.hero-seal { margin-top: 48px; }
+.hero-seal svg { width: 80px; height: 80px; margin: 0 auto; }
+.hero-lede {
+  font-family: var(--serif); font-size: clamp(16px, 2vw, 20px);
+  font-weight: 400; color: var(--navy); opacity: 0.65;
+  text-align: center; max-width: 420px; margin-top: 32px; line-height: 1.65;
+}
+.scroll-indicator {
+  position: absolute; bottom: 40px;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+}
+.scroll-indicator span {
+  font-family: var(--sans); font-weight: 600; font-size: 9px;
+  letter-spacing: 4px; text-transform: uppercase; color: var(--gold);
+}
+.scroll-arrow {
+  width: 16px; height: 24px; border: 1.5px solid var(--gold);
+  border-radius: 8px; position: relative;
+}
+.scroll-arrow::after {
+  content: ''; width: 3px; height: 6px; background: var(--gold);
+  border-radius: 2px; position: absolute; top: 4px; left: 50%;
+  transform: translateX(-50%);
+  animation: scrollBounce 2s ease-in-out infinite;
+}
+@keyframes scrollBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+  50% { transform: translateX(-50%) translateY(6px); opacity: 0.3; }
+}
+
+/* ═══ SCROLLYTELLING ═══ */
+.scrollytelling { position: relative; height: 100vh; }
+#tube-canvas { width: 100%; height: 100%; display: block; }
+.scene-overlay {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  display: flex; align-items: center; pointer-events: none;
+  opacity: 0; padding: 0 7%; transition: opacity 0.35s ease;
+}
+.scene-overlay.pos-right { justify-content: flex-end; }
+.scene-overlay.pos-left { justify-content: flex-start; }
+.scene-overlay.pos-bottom { align-items: flex-end; justify-content: center; padding-bottom: 8%; }
+.scene-overlay.pos-center { justify-content: center; }
+.overlay-card { max-width: 320px; }
+.overlay-label {
+  font-family: var(--sans); font-weight: 600; font-size: 10px;
+  letter-spacing: 4px; text-transform: uppercase; color: var(--gold);
+  margin-bottom: 8px; line-height: 1.6;
+}
+.overlay-value {
+  font-family: var(--serif); font-weight: 600;
+  font-size: clamp(32px, 5vw, 56px); color: var(--navy); line-height: 1.15;
+  margin-bottom: 6px;
+}
+.overlay-sub {
+  font-family: var(--sans); font-weight: 500; font-size: 11px;
+  letter-spacing: 2px; color: rgba(14, 31, 58, 0.5); text-transform: uppercase;
+}
+.overlay-tolerance {
+  font-family: var(--sans); font-weight: 600; font-size: 13px;
+  letter-spacing: 1px; color: var(--burgundy); margin-top: 12px;
+}
+.overlay-multi { display: flex; gap: 48px; align-items: flex-end; }
+.overlay-multi .tube-spec { text-align: center; }
+.overlay-multi .tube-spec .spec-id {
+  font-family: var(--serif); font-weight: 600; font-size: 36px; color: var(--navy);
+}
+.overlay-multi .tube-spec .spec-label {
+  font-family: var(--sans); font-weight: 500; font-size: 10px;
+  letter-spacing: 2px; color: rgba(14, 31, 58, 0.5);
+  text-transform: uppercase; margin-top: 4px;
+}
+
+/* ═══ CLOSE ═══ */
+.close-section {
+  min-height: 60vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 80px 24px; background: var(--cream);
+}
+.close-subtitle {
+  font-family: var(--sans); font-weight: 600; font-size: 12px;
+  letter-spacing: 6px; color: var(--gold); text-transform: uppercase;
+  margin-top: 24px;
+}
+
+/* ═══ CLIENTS ═══ */
+.clients {
+  background: var(--navy); color: var(--cream);
+  padding: 120px 48px; text-align: center;
+}
+.clients-eyebrow {
+  font-family: var(--sans); font-weight: 600; font-size: 10px;
+  letter-spacing: 5px; color: var(--gold); text-transform: uppercase;
+  margin-bottom: 32px;
+}
+.clients-headline {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(28px, 4vw, 48px); line-height: 1.35;
+  max-width: 700px; margin: 0 auto 48px;
+}
+.clients-headline em { font-style: italic; color: var(--gold); }
+.clients-names {
+  font-family: var(--sans); font-weight: 600; font-size: 13px;
+  letter-spacing: 4px; text-transform: uppercase;
+  margin-bottom: 64px; color: rgba(244, 239, 228, 0.7);
+}
+.clients-names .gold-dot { color: var(--gold); margin: 0 16px; }
+.stats-row { display: flex; justify-content: center; gap: 64px; flex-wrap: wrap; }
+.stat { text-align: center; }
+.stat-value {
+  font-family: var(--serif); font-weight: 700;
+  font-size: clamp(36px, 5vw, 56px); color: var(--cream); line-height: 1;
+}
+.stat-label {
+  font-family: var(--sans); font-weight: 500; font-size: 10px;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: rgba(244, 239, 228, 0.4); margin-top: 8px;
+}
+
+/* ═══ CTA ═══ */
+.cta {
+  background: var(--cream-2); padding: 120px 48px;
+  text-align: center; position: relative;
+}
+.cta-ribbon {
+  position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
+  background: var(--burgundy); color: var(--cream);
+  padding: 8px 36px 10px;
+  font-family: var(--sans); font-weight: 600; font-size: 10px;
+  letter-spacing: 4px; text-transform: uppercase;
+  clip-path: polygon(6% 0, 94% 0, 100% 100%, 0 100%);
+}
+.cta-headline {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(28px, 4vw, 48px); line-height: 1.35;
+  max-width: 600px; margin: 0 auto 40px;
+}
+.cta-headline em { font-style: italic; color: var(--gold); }
+.cta-btn {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-family: var(--sans); font-weight: 600; font-size: 13px;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--cream); background: var(--navy);
+  padding: 18px 40px; border: none; cursor: pointer;
+  position: relative; overflow: hidden; transition: color 0.35s;
+}
+.cta-btn::before {
+  content: ''; position: absolute; bottom: 0; left: 0;
+  width: 100%; height: 0; background: var(--burgundy);
+  transition: height 0.4s ease; z-index: 0;
+}
+.cta-btn:hover::before { height: 100%; }
+.cta-btn span, .cta-btn .arrow { position: relative; z-index: 1; }
+.cta-btn .arrow { transition: transform 0.3s ease; }
+.cta-btn:hover .arrow { transform: translateX(4px); }
+.cta-meta {
+  margin-top: 48px; font-family: var(--sans); font-weight: 500;
+  font-size: 11px; letter-spacing: 2px; color: rgba(14, 31, 58, 0.4);
+}
+.cta-meta .gold-dot { color: var(--gold); margin: 0 12px; }
+
+/* ═══ FOOTER ═══ */
+footer {
+  background: var(--navy); color: var(--cream);
+  padding: 40px 48px; display: flex;
+  justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 24px;
+}
+.footer-right {
+  font-family: var(--sans); font-weight: 400; font-size: 11px;
+  letter-spacing: 2px; color: rgba(244, 239, 228, 0.4); text-transform: uppercase;
+}
+
+/* ═══ FALLBACK ═══ */
+.no-webgl-banner {
+  display: none; background: var(--burgundy); color: var(--cream);
+  text-align: center; padding: 16px; font-family: var(--sans);
+  font-size: 13px; letter-spacing: 1px;
+}
+body.no-webgl .no-webgl-banner { display: block; }
+body.no-webgl .scrollytelling { display: none; }
+body.no-webgl .fallback-scenes { display: block; }
+.fallback-scenes { display: none; padding: 80px 48px; text-align: center; }
+.fallback-scene {
+  margin-bottom: 64px; max-width: 600px;
+  margin-left: auto; margin-right: auto;
+}
+.fallback-scene h3 { font-family: var(--serif); font-size: 28px; margin-bottom: 12px; }
+.fallback-scene p {
+  font-family: var(--sans); font-size: 14px;
+  color: rgba(14, 31, 58, 0.6); line-height: 1.7;
+}
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 900px) {
+  .nav { padding: 16px 24px; }
+  .nav-links { gap: 20px; }
+  .nav-links a { font-size: 10px; letter-spacing: 2px; }
+  .hero { padding: 0 16px; }
+  .wm-king, .wm-core { letter-spacing: 4px; }
+  .wm-tagline { letter-spacing: 5px; font-size: 11px; }
+  .scene-overlay {
+    padding: 0 5% 12% 5%; align-items: flex-end;
+    justify-content: center !important;
+  }
+  .overlay-card { max-width: 280px; text-align: center; }
+  .overlay-multi { flex-direction: column; gap: 24px; align-items: center; }
+  .clients { padding: 80px 24px; }
+  .stats-row { gap: 32px; }
+  .cta { padding: 80px 24px; }
+  footer { padding: 32px 24px; flex-direction: column; text-align: center; }
+}
+@media (max-width: 480px) {
+  .nav-links { gap: 12px; }
+  .nav-links a { font-size: 9px; letter-spacing: 1.5px; }
+  .overlay-multi { gap: 16px; }
+}
+
+/* ═══ REDUCED MOTION ═══ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .scroll-arrow::after { animation: none; }
+}
+</style>
 </head>
 <body>
 
-  <!-- Fixed Canvas — the animation surface -->
-  <canvas id="stage" class="stage"></canvas>
+<!-- ═══ NAV ═══ -->
+<nav class="nav" id="main-nav" role="navigation" aria-label="Main">
+  <a href="#" class="w3" aria-label="KINGCORE home">
+    <span class="w3-name">KINGCORE</span>
+    <span class="w3-rule"></span>
+    <span class="w3-sub">PRECISION &middot; PAPER &middot; TUBES</span>
+  </a>
+  <div class="nav-links">
+    <a href="#scrollytelling">Process</a>
+    <a href="#clients">Clients</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
 
-  <!-- Progress -->
-  <div class="progress-bar" id="progressBar"></div>
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="hero">
+  <p class="hero-eyebrow fade-up">EST. LAHORE &middot; PRECISION PAPER TUBES</p>
 
-  <!-- Stage labels that appear/fade per scene -->
-  <div class="overlay" id="overlay">
-
-    <!-- Scene: Opening -->
-    <div class="label label-hero" data-scene="hero">
-      <div class="label-brand">
-        <span class="brand-king">KING</span><span class="brand-core">CORE</span>
+  <div class="wordmark fade-up">
+    <div class="wm-rules">
+      <div class="wm-rule-outer"></div>
+      <div class="wm-rule-inner"></div>
+    </div>
+    <div class="wm-king">KING</div>
+    <div class="wm-signet-row">
+      <div class="wm-signet-line"></div>
+      <div class="wm-signet-arrows">
+        <svg viewBox="0 0 8 10" fill="var(--gold)"><polygon points="0,0 8,5 0,10"/></svg>
+        <svg viewBox="0 0 8 10" fill="var(--gold)"><polygon points="0,0 8,5 0,10"/></svg>
       </div>
-      <h1 class="label-title">The Making of<br>a Paper Core</h1>
-      <p class="label-hint">Scroll to begin</p>
-      <div class="scroll-arrow">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      <div class="wm-signet-circle">
+        <div class="ring"></div><div class="disc"></div><div class="dot"></div>
       </div>
-    </div>
-
-    <!-- Scene: Floating strips -->
-    <div class="label label-scene" data-scene="float">
-      <span class="label-chapter">01</span>
-      <h2>Raw Strips</h2>
-      <p>Sheets of strawboard, coreboard, and finishing layers — the raw ingredients of every core.</p>
-    </div>
-
-    <!-- Scene: Spiral winding -->
-    <div class="label label-scene" data-scene="wind">
-      <span class="label-chapter">02</span>
-      <h2>Spiral Winding</h2>
-      <p>Strips feed onto a steel mandrel, spiraling layer over layer under controlled tension. The tube takes shape.</p>
-    </div>
-
-    <!-- Scene: Grinding -->
-    <div class="label label-scene" data-scene="grind">
-      <span class="label-chapter">03</span>
-      <h2>Grinding</h2>
-      <p>A precision grinder shaves the surface. Dust flies. What remains is dimensionally perfect.</p>
-    </div>
-
-    <!-- Scene: Waxing -->
-    <div class="label label-scene" data-scene="wax">
-      <span class="label-chapter">04</span>
-      <h2>Waxing</h2>
-      <p>A hot wax coat seals the surface — smooth, protective, and ready for high-speed applications.</p>
-    </div>
-
-    <!-- Scene: Cutting -->
-    <div class="label label-scene" data-scene="cut">
-      <span class="label-chapter">05</span>
-      <h2>Cutting</h2>
-      <p>The continuous tube meets the blade. Precise lengths, every time.</p>
-    </div>
-
-    <!-- Scene: Chamfering -->
-    <div class="label label-scene" data-scene="chamfer">
-      <span class="label-chapter">06</span>
-      <h2>Chamfering</h2>
-      <p>Rough edges are beveled smooth. The final touch before a core earns the King Core name.</p>
-    </div>
-
-    <!-- Scene: Finished -->
-    <div class="label label-finish" data-scene="finish">
-      <div class="label-brand">
-        <span class="brand-king">KING</span><span class="brand-core">CORE</span>
+      <div class="wm-signet-arrows">
+        <svg viewBox="0 0 8 10" fill="var(--gold)"><polygon points="8,0 0,5 8,10"/></svg>
+        <svg viewBox="0 0 8 10" fill="var(--gold)"><polygon points="8,0 0,5 8,10"/></svg>
       </div>
-      <h2 class="finish-title">Precision Engineered.<br>Ready to Perform.</h2>
-      <p class="finish-sub">Imperial Synergies &middot; Lahore, Pakistan</p>
-      <div class="finish-cta">
-        <a href="#contact" class="cta-btn">Get in Touch</a>
-      </div>
+      <div class="wm-signet-line"></div>
     </div>
-
+    <div class="wm-core">CORE</div>
+    <div class="wm-rules">
+      <div class="wm-rule-inner"></div>
+      <div class="wm-rule-outer"></div>
+    </div>
+    <div class="wm-tagline">PRECISION PAPER TUBES</div>
   </div>
 
-  <!-- Scroll spacer — this creates the scroll distance -->
-  <div class="scroll-spacer" id="scrollSpacer"></div>
+  <div class="hero-seal fade-up">
+    <svg viewBox="0 0 120 120" aria-hidden="true">
+      <circle cx="60" cy="60" r="48" stroke="#B8893A" fill="none" stroke-width="1"/>
+      <circle cx="60" cy="60" r="36" stroke="#B8893A" fill="none" stroke-width="1"/>
+      <circle cx="60" cy="60" r="24" stroke="#B8893A" fill="none" stroke-width="1"/>
+      <circle cx="60" cy="60" r="4" fill="#6B1E2E"/>
+    </svg>
+  </div>
 
-  <!-- Contact section (after the animation) -->
-  <section class="contact" id="contact">
-    <div class="contact-inner">
-      <div class="contact-left">
-        <span class="contact-tag">Get In Touch</span>
-        <h2 class="contact-title">Let's build<br>something <em>strong</em></h2>
-        <p class="contact-text">Whether you need ten thousand cones or a single custom prototype, the conversation starts the same way.</p>
-        <div class="contact-details">
-          <div class="contact-detail">
-            <span class="cd-label">Location</span>
-            <span class="cd-value">Lahore, Punjab, Pakistan</span>
-          </div>
-          <div class="contact-detail">
-            <span class="cd-label">Email</span>
-            <span class="cd-value">info@kingcore.pk</span>
-          </div>
-          <div class="contact-detail">
-            <span class="cd-label">Company</span>
-            <span class="cd-value">Imperial Synergies</span>
-          </div>
+  <p class="hero-lede fade-up">Wound tight. Built to hold. Every tube measured, cut, and chamfered to the tolerance your line demands.</p>
+
+  <div class="scroll-indicator fade-up">
+    <span>Scroll to explore</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- ═══ SCROLLYTELLING ═══ -->
+<section class="scrollytelling" id="scrollytelling">
+  <canvas id="tube-canvas" aria-hidden="true"></canvas>
+
+  <div class="scene-overlay pos-center" data-scene="0" id="ov0"></div>
+
+  <div class="scene-overlay pos-center" data-scene="1" id="ov1"></div>
+
+  <div class="scene-overlay pos-right" data-scene="2" id="ov2">
+    <div class="overlay-card">
+      <p class="overlay-label">SPIRAL-WOUND &middot; 34&deg; HELICAL ANGLE</p>
+      <p class="overlay-value">Layer<br>by Layer</p>
+      <p class="overlay-sub">Kraft ribbons wound helically onto a precision mandrel. Mechanical. Exact.</p>
+    </div>
+  </div>
+
+  <div class="scene-overlay pos-right" data-scene="3" id="ov3">
+    <div class="overlay-card">
+      <p class="overlay-label">WALL THICKNESS</p>
+      <p class="overlay-value" id="wall-value">10 mm</p>
+      <p class="overlay-sub">MULTI-PLY CONSTRUCTION</p>
+      <p class="overlay-tolerance">&plusmn;0.15 mm TOLERANCE</p>
+    </div>
+  </div>
+
+  <div class="scene-overlay pos-left" data-scene="4" id="ov4">
+    <div class="overlay-card">
+      <p class="overlay-label">SURFACE FINISH</p>
+      <p class="overlay-value">18 Micron<br>Wax Layer</p>
+      <p class="overlay-sub">MOISTURE-RESISTANT &middot; RELEASE-GRADE</p>
+    </div>
+  </div>
+
+  <div class="scene-overlay pos-right" data-scene="5" id="ov5">
+    <div class="overlay-card">
+      <p class="overlay-label">RADIAL CRUSH TEST</p>
+      <p class="overlay-value" id="crush-value">0 kg</p>
+      <p class="overlay-sub">FLAT-PLATE COMPRESSION &middot; 6&Prime; ID</p>
+    </div>
+  </div>
+
+  <div class="scene-overlay pos-right" data-scene="6" id="ov6">
+    <div class="overlay-card">
+      <p class="overlay-label">EDGE PRECISION</p>
+      <p class="overlay-value">Chamfered</p>
+      <p class="overlay-sub">DUST-FREE &middot; &plusmn;0.5 MM LENGTH TOLERANCE</p>
+    </div>
+  </div>
+
+  <div class="scene-overlay pos-bottom" data-scene="7" id="ov7">
+    <div class="overlay-card">
+      <div class="overlay-multi">
+        <div class="tube-spec">
+          <div class="spec-id">3&Prime;</div>
+          <div class="spec-label">Film &amp; Label Cores</div>
+        </div>
+        <div class="tube-spec">
+          <div class="spec-id">6&Prime;</div>
+          <div class="spec-label">Textile &amp; Paper Mill</div>
+        </div>
+        <div class="tube-spec">
+          <div class="spec-id" style="font-size:26px">CUSTOM</div>
+          <div class="spec-label">1&Prime; to 12&Prime; Built to Spec</div>
         </div>
       </div>
-      <div class="contact-right">
-        <form class="contact-form" id="contactForm">
-          <input type="text" placeholder="Your name" required>
-          <input type="email" placeholder="Email" required>
-          <input type="text" placeholder="Company">
-          <select required>
-            <option value="" disabled selected>What do you need?</option>
-            <option>Textile Cones</option>
-            <option>Packaging Cores</option>
-            <option>Industrial Tubes</option>
-            <option>Paper Mill Cores</option>
-            <option>Something Custom</option>
-          </select>
-          <textarea placeholder="Tell us about your requirements" rows="4"></textarea>
-          <button type="submit" class="submit-btn">Start the Conversation</button>
-        </form>
-      </div>
     </div>
-    <footer class="footer">
-      <span class="footer-brand"><span class="brand-king">KING</span><span class="brand-core">CORE</span></span>
-      <span class="footer-copy">Imperial Synergies &middot; Lahore &middot; &copy; 2026</span>
-    </footer>
-  </section>
+  </div>
+</section>
 
-  <script src="script.js"></script>
+<!-- Screen reader description -->
+<div class="sr-only" aria-live="polite">
+  KINGCORE precision paper tubes: spiral-wound at 34-degree helical angle.
+  Wall thickness 8 to 12 millimeters with plus-minus 0.15mm tolerance.
+  18-micron wax coating for moisture resistance.
+  1800 kilogram crush strength on 6-inch inner diameter cores.
+  Chamfered, dust-free edges with plus-minus 0.5mm length tolerance.
+  Available from 3-inch to 12-inch inner diameters, custom built to specification.
+</div>
+
+<!-- ═══ CLOSE ═══ -->
+<section class="close-section" id="close-section">
+  <div class="wordmark">
+    <div class="wm-rules">
+      <div class="wm-rule-outer"></div>
+      <div class="wm-rule-inner"></div>
+    </div>
+    <div class="wm-king">KING</div>
+    <div class="wm-signet-row">
+      <div class="wm-signet-line"></div>
+      <div class="wm-signet-arrows">
+        <svg viewBox="0 0 8 10" fill="var(--gold)"><polygon points="0,0 8,5 0,10"/></svg>
+        <svg viewBox="0 0 8 10" fill="var(--gold)"><polygon points="0,0 8,5 0,10"/></svg>
+      </div>
+      <div class="wm-signet-circle">
+        <div class="ring"></div><div class="disc"></div><div class="dot"></div>
+      </div>
+      <div class="wm-signet-arrows">
+        <svg viewBox="0 0 8 10" fill="var(--gold)"><polygon points="8,0 0,5 8,10"/></svg>
+        <svg viewBox="0 0 8 10" fill="var(--gold)"><polygon points="8,0 0,5 8,10"/></svg>
+      </div>
+      <div class="wm-signet-line"></div>
+    </div>
+    <div class="wm-core">CORE</div>
+    <div class="wm-rules">
+      <div class="wm-rule-inner"></div>
+      <div class="wm-rule-outer"></div>
+    </div>
+    <div class="wm-tagline">PRECISION PAPER TUBES</div>
+  </div>
+  <p class="close-subtitle">PRECISION PAPER TUBES &middot; LAHORE &middot; EST. MMX</p>
+</section>
+
+<!-- ═══ CLIENTS ═══ -->
+<section class="clients" id="clients">
+  <p class="clients-eyebrow">BY APPOINTMENT &middot; PURVEYORS OF PRECISION CORES</p>
+  <h2 class="clients-headline">Trusted by mills that measure in <em>microns,</em> not margins of error</h2>
+  <p class="clients-names">
+    IPAK<span class="gold-dot">&middot;</span>GPAK<span class="gold-dot">&middot;</span>NASEER PAPER MILLS
+  </p>
+  <div class="stats-row">
+    <div class="stat">
+      <div class="stat-value" data-value="70" data-suffix="t">0t</div>
+      <div class="stat-label">MONTHLY CAPACITY</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value" data-value="12" data-suffix=" yrs">0 yrs</div>
+      <div class="stat-label">IN TRADE</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value" data-prefix="&plusmn;" data-value="0.5" data-suffix="mm" data-decimals="1">0mm</div>
+      <div class="stat-label">TOLERANCE</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value" data-value="24" data-suffix="hr">0hr</div>
+      <div class="stat-label">QUOTE TURNAROUND</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="cta" id="contact">
+  <div class="cta-ribbon">ORDER INQUIRY</div>
+  <h2 class="cta-headline">Need cores that <em>hold true.</em></h2>
+  <button class="cta-btn" onclick="window.location.href='mailto:info@kingcore.pk'">
+    <span>Request a Quote</span>
+    <span class="arrow">&rarr;</span>
+  </button>
+  <p class="cta-meta">
+    LAHORE, PAKISTAN<span class="gold-dot">&middot;</span>info@kingcore.pk<span class="gold-dot">&middot;</span>REPLY WITHIN 24 HOURS
+  </p>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="w3" style="color:var(--cream)">
+    <span class="w3-name">KINGCORE</span>
+    <span class="w3-rule" style="background:var(--gold)"></span>
+    <span class="w3-sub" style="color:rgba(244,239,228,0.4)">PRECISION &middot; PAPER &middot; TUBES</span>
+  </div>
+  <div class="footer-right">IMPERIAL SYNERGIES &middot; EST. MMX &middot; &copy; 2026</div>
+</footer>
+
+<!-- ═══ FALLBACK ═══ -->
+<div class="no-webgl-banner" role="alert">Your browser does not support WebGL. Showing simplified view.</div>
+<div class="fallback-scenes" aria-label="Manufacturing process">
+  <div class="fallback-scene"><h3>Spiral-Wound Construction</h3><p>Kraft ribbons wound helically at 34&deg; onto precision mandrels. Layer upon layer, mechanically precise.</p></div>
+  <div class="fallback-scene"><h3>Wall Thickness: 8&ndash;12 mm</h3><p>Multi-ply construction with &plusmn;0.15 mm wall tolerance. Engineered for consistent crush performance.</p></div>
+  <div class="fallback-scene"><h3>18 Micron Wax Coating</h3><p>Moisture-resistant, release-grade surface finish. Satin gloss over kraft substrate.</p></div>
+  <div class="fallback-scene"><h3>1,800 kg Crush Strength</h3><p>Flat-plate radial compression tested on every production run. 6-inch ID cores hold without deformation.</p></div>
+  <div class="fallback-scene"><h3>Edge Precision</h3><p>Chamfered, dust-free ends. &plusmn;0.5 mm length tolerance across the full cut.</p></div>
+  <div class="fallback-scene"><h3>Custom Diameters</h3><p>3&Prime; ID for film &amp; labels. 6&Prime; ID for textile &amp; paper mills. Custom from 1&Prime; to 12&Prime; built to your specification.</p></div>
+</div>
+
+<!-- ═══ CDN LIBS ═══ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.0.42/dist/lenis.min.js"></script>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ────────────────────────────────────────────
+     FEATURE DETECTION
+  ──────────────────────────────────────────── */
+  var hasWebGL = (function () {
+    try {
+      var c = document.createElement('canvas');
+      return !!(c.getContext('webgl') || c.getContext('experimental-webgl'));
+    } catch (e) { return false; }
+  })();
+
+  if (!hasWebGL) {
+    document.body.classList.add('no-webgl');
+    return;
+  }
+
+  var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ────────────────────────────────────────────
+     LENIS SMOOTH SCROLL
+  ──────────────────────────────────────────── */
+  if (typeof Lenis !== 'undefined' && !prefersReduced) {
+    var lenis = new Lenis({ duration: 1.2, smoothWheel: true, touchMultiplier: 1.5 });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  /* ────────────────────────────────────────────
+     CONSTANTS
+  ──────────────────────────────────────────── */
+  var C = {
+    NAVY: 0x0E1F3A, GOLD: 0xB8893A, GOLD_HI: 0xD9B066,
+    BURGUNDY: 0x6B1E2E, CREAM: 0xF4EFE4,
+    KRAFT: 0x8B6F2E, KRAFT_LT: 0xA68544
+  };
+  var OUTER_R = 1.0, INNER_R = 0.8, TUBE_LEN = 3.2;
+  var mobile = window.innerWidth < 900;
+  var SEGS = mobile ? 32 : 64;
+
+  /* ────────────────────────────────────────────
+     THREE.JS RENDERER
+  ──────────────────────────────────────────── */
+  var canvas = document.getElementById('tube-canvas');
+  var renderer = new THREE.WebGLRenderer({
+    canvas: canvas, antialias: !mobile, alpha: false
+  });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, mobile ? 1.5 : 2));
+  renderer.localClippingEnabled = true;
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.1;
+  renderer.setClearColor(C.CREAM, 1);
+
+  var scene3 = new THREE.Scene();
+  var camera = new THREE.PerspectiveCamera(
+    35, window.innerWidth / window.innerHeight, 0.1, 100
+  );
+  camera.position.set(0, 0, 6);
+
+  /* ────────────────────────────────────────────
+     LIGHTING — 3-point cinematic
+  ──────────────────────────────────────────── */
+  var keyLight = new THREE.DirectionalLight(0xfff4e6, 1.2);
+  keyLight.position.set(3, 4, 5);
+  scene3.add(keyLight);
+
+  var fillLight = new THREE.DirectionalLight(0xe0e8ff, 0.4);
+  fillLight.position.set(-3, 3, -2);
+  scene3.add(fillLight);
+
+  scene3.add(new THREE.AmbientLight(0xffffff, 0.3));
+
+  /* ────────────────────────────────────────────
+     CLIPPING PLANES (cutaway)
+  ──────────────────────────────────────────── */
+  var clipX = new THREE.Plane(new THREE.Vector3(-1, 0, 0), 0);
+  var clipZ = new THREE.Plane(new THREE.Vector3(0, 0, -1), 0);
+
+  /* ────────────────────────────────────────────
+     MATERIALS
+  ──────────────────────────────────────────── */
+  var kraftMat = new THREE.MeshPhysicalMaterial({
+    color: C.KRAFT, roughness: 0.92, metalness: 0.0,
+    clearcoat: 0.0, clearcoatRoughness: 0.8
+  });
+  var kraftInnerMat = new THREE.MeshStandardMaterial({
+    color: C.KRAFT_LT, roughness: 0.85, side: THREE.BackSide
+  });
+  var endCapMat = new THREE.MeshStandardMaterial({
+    color: 0x9A7B3C, roughness: 0.8
+  });
+  var goldMat = new THREE.MeshStandardMaterial({
+    color: C.GOLD, metalness: 0.35, roughness: 0.35
+  });
+  var burgundyMat = new THREE.MeshStandardMaterial({ color: C.BURGUNDY });
+  var plateMat = new THREE.MeshStandardMaterial({
+    color: 0x777777, metalness: 0.55, roughness: 0.25
+  });
+  var wheelMat = new THREE.MeshStandardMaterial({
+    color: 0x555555, metalness: 0.7, roughness: 0.15
+  });
+  var waxMatl = new THREE.MeshPhysicalMaterial({
+    color: C.GOLD_HI, roughness: 0.08, metalness: 0.0,
+    clearcoat: 1.0, clearcoatRoughness: 0.05,
+    transparent: true, opacity: 0.75
+  });
+
+  /* ────────────────────────────────────────────
+     SEAL GROUP — concentric gold rings + dot
+  ──────────────────────────────────────────── */
+  var sealGroup = new THREE.Group();
+  [1.3, 1.0, 0.7].forEach(function (r) {
+    var g = new THREE.TorusGeometry(r, 0.018, 12, 80);
+    sealGroup.add(new THREE.Mesh(g, goldMat.clone()));
+  });
+  sealGroup.add(new THREE.Mesh(
+    new THREE.SphereGeometry(0.06, 12, 12), burgundyMat.clone()
+  ));
+  scene3.add(sealGroup);
+
+  /* ────────────────────────────────────────────
+     TUBE GROUP — outer, inner, end caps
+  ──────────────────────────────────────────── */
+  var tubeGroup = new THREE.Group();
+  tubeGroup.visible = false;
+
+  var outerMesh = new THREE.Mesh(
+    new THREE.CylinderGeometry(OUTER_R, OUTER_R, TUBE_LEN, SEGS, 1, true),
+    kraftMat
+  );
+  tubeGroup.add(outerMesh);
+
+  var innerMesh = new THREE.Mesh(
+    new THREE.CylinderGeometry(INNER_R, INNER_R, TUBE_LEN, SEGS, 1, true),
+    kraftInnerMat
+  );
+  tubeGroup.add(innerMesh);
+
+  var ringGeo = new THREE.RingGeometry(INNER_R, OUTER_R, SEGS);
+  var topCap = new THREE.Mesh(ringGeo, endCapMat);
+  topCap.position.y = TUBE_LEN / 2;
+  topCap.rotation.x = -Math.PI / 2;
+  tubeGroup.add(topCap);
+
+  var botCapMat = endCapMat.clone();
+  var botCap = new THREE.Mesh(ringGeo.clone(), botCapMat);
+  botCap.position.y = -TUBE_LEN / 2;
+  botCap.rotation.x = Math.PI / 2;
+  tubeGroup.add(botCap);
+
+  scene3.add(tubeGroup);
+
+  /* ────────────────────────────────────────────
+     PLY LAYERS (cutaway reveal)
+  ──────────────────────────────────────────── */
+  var plyGroup = new THREE.Group();
+  plyGroup.visible = false;
+  var plyColors = [0x6E5720, 0x7A6025, 0x8B6F2E, 0x9A7B3C, 0x7A6025];
+  plyColors.forEach(function (c, i) {
+    var r = INNER_R + (OUTER_R - INNER_R) * (i + 0.5) / plyColors.length;
+    var g = new THREE.CylinderGeometry(r, r, TUBE_LEN, SEGS, 1, true);
+    var m = new THREE.MeshStandardMaterial({
+      color: c, roughness: 0.75, side: THREE.DoubleSide,
+      clippingPlanes: [clipX, clipZ]
+    });
+    plyGroup.add(new THREE.Mesh(g, m));
+  });
+  scene3.add(plyGroup);
+
+  /* ────────────────────────────────────────────
+     WINDING RIBBONS — helix TubeGeometry
+  ──────────────────────────────────────────── */
+  function HelixCurve(radius, height, turns, phase) {
+    THREE.Curve.call(this);
+    this._r = radius; this._h = height; this._t = turns; this._p = phase || 0;
+  }
+  HelixCurve.prototype = Object.create(THREE.Curve.prototype);
+  HelixCurve.prototype.constructor = HelixCurve;
+  HelixCurve.prototype.getPoint = function (t) {
+    var a = 2 * Math.PI * this._t * t + this._p;
+    return new THREE.Vector3(
+      this._r * Math.cos(a),
+      this._h * t - this._h / 2,
+      this._r * Math.sin(a)
+    );
+  };
+
+  var ribbonCount = 3;
+  var ribbons = [];
+  var ribbonIndexCounts = [];
+  for (var ri = 0; ri < ribbonCount; ri++) {
+    var hc = new HelixCurve(
+      OUTER_R - 0.01, TUBE_LEN * 1.05, 10,
+      (ri * 2 * Math.PI) / ribbonCount
+    );
+    var tubSegs = mobile ? 150 : 260;
+    var rGeo = new THREE.TubeGeometry(hc, tubSegs, 0.028, 5, false);
+    var rMat = new THREE.MeshStandardMaterial({
+      color: ri % 2 === 0 ? C.KRAFT : C.KRAFT_LT, roughness: 0.8
+    });
+    var rMesh = new THREE.Mesh(rGeo, rMat);
+    rMesh.visible = false;
+    ribbons.push(rMesh);
+    ribbonIndexCounts.push(rGeo.index ? rGeo.index.count : 0);
+    scene3.add(rMesh);
+  }
+
+  /* ────────────────────────────────────────────
+     CRUSH PLATES
+  ──────────────────────────────────────────── */
+  var plateGeoB = new THREE.BoxGeometry(3.2, 0.12, 3.2);
+  var topPlate = new THREE.Mesh(plateGeoB, plateMat);
+  var bottomPlate = new THREE.Mesh(plateGeoB, plateMat.clone());
+  topPlate.visible = false;
+  bottomPlate.visible = false;
+  scene3.add(topPlate);
+  scene3.add(bottomPlate);
+
+  /* ────────────────────────────────────────────
+     GRINDING WHEEL
+  ──────────────────────────────────────────── */
+  var grindingWheel = new THREE.Mesh(
+    new THREE.TorusGeometry(0.22, 0.04, 8, 32), wheelMat
+  );
+  grindingWheel.visible = false;
+  scene3.add(grindingWheel);
+
+  /* ────────────────────────────────────────────
+     DUST PARTICLES
+  ──────────────────────────────────────────── */
+  var dustCount = 24;
+  var dustGeo = new THREE.BufferGeometry();
+  var dustPosArr = new Float32Array(dustCount * 3);
+  var dustVel = [];
+  for (var di = 0; di < dustCount; di++) {
+    dustPosArr[di * 3] = (Math.random() - 0.5) * 0.4;
+    dustPosArr[di * 3 + 1] = TUBE_LEN / 2 + Math.random() * 0.3;
+    dustPosArr[di * 3 + 2] = (Math.random() - 0.5) * 0.4;
+    dustVel.push({
+      x: (Math.random() - 0.5) * 0.05,
+      y: Math.random() * 0.06 + 0.02,
+      z: (Math.random() - 0.5) * 0.05
+    });
+  }
+  dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPosArr, 3));
+  var dustMat = new THREE.PointsMaterial({
+    color: C.KRAFT_LT, size: 0.025, transparent: true, opacity: 0.5
+  });
+  var dustParticles = new THREE.Points(dustGeo, dustMat);
+  dustParticles.visible = false;
+  scene3.add(dustParticles);
+
+  /* ────────────────────────────────────────────
+     WAX RING
+  ──────────────────────────────────────────── */
+  var waxRing = new THREE.Mesh(
+    new THREE.TorusGeometry(OUTER_R + 0.06, 0.035, 8, SEGS), waxMatl
+  );
+  waxRing.rotation.x = Math.PI / 2;
+  waxRing.visible = false;
+  scene3.add(waxRing);
+
+  /* ────────────────────────────────────────────
+     MULTI-TUBE GROUP
+  ──────────────────────────────────────────── */
+  var multiGroup = new THREE.Group();
+  multiGroup.visible = false;
+  var multiSpecs = [
+    { r: 0.5, ir: 0.35, len: 2.0, x: -2.5 },
+    { r: 1.0, ir: 0.8,  len: 3.2, x: 0 },
+    { r: 0.75, ir: 0.58, len: 2.6, x: 2.5 }
+  ];
+  multiSpecs.forEach(function (s) {
+    var g = new THREE.Group();
+    g.add(new THREE.Mesh(
+      new THREE.CylinderGeometry(s.r, s.r, s.len, SEGS, 1, true),
+      kraftMat.clone()
+    ));
+    g.add(new THREE.Mesh(
+      new THREE.CylinderGeometry(s.ir, s.ir, s.len, SEGS, 1, true),
+      kraftInnerMat.clone()
+    ));
+    var rg = new THREE.RingGeometry(s.ir, s.r, SEGS);
+    var tc = new THREE.Mesh(rg, endCapMat.clone());
+    tc.position.y = s.len / 2; tc.rotation.x = -Math.PI / 2;
+    g.add(tc);
+    var bc = new THREE.Mesh(rg.clone(), endCapMat.clone());
+    bc.position.y = -s.len / 2; bc.rotation.x = Math.PI / 2;
+    g.add(bc);
+    g.position.x = s.x;
+    multiGroup.add(g);
+  });
+  scene3.add(multiGroup);
+
+  /* ────────────────────────────────────────────
+     CAMERA TARGETS — per scene
+  ──────────────────────────────────────────── */
+  var camT = [
+    { px: 0,   py: 0,   pz: 6,    lx: 0,   ly: 0,   lz: 0 },     // 0 seal
+    { px: 0,   py: 0.3, pz: 4.5,  lx: 0,   ly: 0,   lz: 0 },     // 1 transition
+    { px: 1.8, py: 1.2, pz: 3.5,  lx: 0,   ly: 0,   lz: -0.5 },  // 2 winding
+    { px: 1.8, py: 0.2, pz: 1.8,  lx: 0.3, ly: 0,   lz: 0 },     // 3 cutaway
+    { px: 2.8, py: 0.6, pz: 2.5,  lx: 0,   ly: 0,   lz: 0 },     // 4 wax
+    { px: 3.8, py: 0.3, pz: 0.5,  lx: 0,   ly: 0,   lz: 0 },     // 5 crush
+    { px: 0.6, py: 2.0, pz: 1.5,  lx: 0,   ly: 1.2, lz: 0 },     // 6 edge
+    { px: 0,   py: 2.2, pz: 7,    lx: 0,   ly: 0,   lz: 0 }      // 7 multi
+  ];
+
+  /* ────────────────────────────────────────────
+     STATE
+  ──────────────────────────────────────────── */
+  var scrollProgress = 0;
+  var isDirty = true;
+  var hasActiveAnim = false;
+  var tubeRotY = 0;
+
+  /* ────────────────────────────────────────────
+     GSAP SCROLL TRIGGER
+  ──────────────────────────────────────────── */
+  gsap.registerPlugin(ScrollTrigger);
+
+  ScrollTrigger.create({
+    trigger: '.scrollytelling',
+    start: 'top top',
+    end: '+=800%',
+    pin: true,
+    scrub: 0.5,
+    onUpdate: function (self) {
+      scrollProgress = self.progress;
+      isDirty = true;
+    }
+  });
+
+  /* ────────────────────────────────────────────
+     OVERLAY MANAGEMENT
+  ──────────────────────────────────────────── */
+  var overlays = document.querySelectorAll('.scene-overlay');
+  var wallEl = document.getElementById('wall-value');
+  var crushEl = document.getElementById('crush-value');
+
+  function updateOverlays(si, lp) {
+    for (var i = 0; i < overlays.length; i++) {
+      var ds = parseInt(overlays[i].getAttribute('data-scene'), 10);
+      if (ds === si) {
+        var op = 1;
+        if (lp < 0.15) op = lp / 0.15;
+        else if (lp > 0.85) op = (1 - lp) / 0.15;
+        overlays[i].style.opacity = String(Math.max(0, Math.min(1, op)));
+      } else {
+        overlays[i].style.opacity = '0';
+      }
+    }
+  }
+
+  /* ────────────────────────────────────────────
+     UTILITY
+  ──────────────────────────────────────────── */
+  function sm(t) { return t * t * (3 - 2 * t); } // smoothstep
+
+  /* ────────────────────────────────────────────
+     HIDE ALL 3D OBJECTS
+  ──────────────────────────────────────────── */
+  function hideAll() {
+    sealGroup.visible = false;
+    tubeGroup.visible = false;
+    plyGroup.visible = false;
+    ribbons.forEach(function (r) { r.visible = false; });
+    topPlate.visible = false;
+    bottomPlate.visible = false;
+    grindingWheel.visible = false;
+    dustParticles.visible = false;
+    waxRing.visible = false;
+    multiGroup.visible = false;
+    hasActiveAnim = false;
+    // Reset clipping
+    kraftMat.clippingPlanes = [];
+    kraftInnerMat.clippingPlanes = [];
+    endCapMat.clippingPlanes = [];
+    botCapMat.clippingPlanes = [];
+    // Reset wax state
+    kraftMat.roughness = 0.92;
+    kraftMat.clearcoat = 0.0;
+    kraftMat.clearcoatRoughness = 0.8;
+    kraftMat.color.setHex(C.KRAFT);
+  }
+
+  /* ────────────────────────────────────────────
+     SCENE 0 — SEAL (static, pre-scroll)
+  ──────────────────────────────────────────── */
+  function sc0(p) {
+    sealGroup.visible = true;
+    sealGroup.rotation.set(0, 0, p * 0.12);
+    sealGroup.scale.setScalar(1);
+    sealGroup.children.forEach(function (c) {
+      c.material.transparent = false;
+      c.material.opacity = 1;
+    });
+  }
+
+  /* ────────────────────────────────────────────
+     SCENE 1 — TRANSITION (seal → tube)
+  ──────────────────────────────────────────── */
+  function sc1(p) {
+    sealGroup.visible = true;
+    sealGroup.rotation.x = p * 1.25;
+    sealGroup.rotation.z = 0;
+    sealGroup.scale.setScalar(1 + p * 0.8);
+    var sealOp = 1 - Math.max(0, (p - 0.55) / 0.45);
+    sealGroup.children.forEach(function (c) {
+      c.material.transparent = true;
+      c.material.opacity = sealOp;
+    });
+    if (p > 0.4) {
+      tubeGroup.visible = true;
+      var tp = (p - 0.4) / 0.6;
+      tubeGroup.scale.setScalar(0.2 + tp * 0.8);
+      outerMesh.material.transparent = true;
+      outerMesh.material.opacity = tp;
+      tubeGroup.rotation.y = 0;
+      tubeRotY = 0;
+    }
+  }
+
+  /* ────────────────────────────────────────────
+     SCENE 2 — WINDING
+  ──────────────────────────────────────────── */
+  function sc2(p) {
+    tubeGroup.visible = true;
+    tubeGroup.scale.setScalar(1);
+    outerMesh.material.transparent = true;
+    outerMesh.material.opacity = Math.min(1, p * 2.5);
+    hasActiveAnim = true;
+    tubeRotY += 0.004;
+    tubeGroup.rotation.y = tubeRotY;
+
+    ribbons.forEach(function (r, i) {
+      r.visible = true;
+      var total = ribbonIndexCounts[i];
+      if (total <= 0) return;
+      var delay = i * 0.08;
+      var rp = Math.max(0, Math.min(1, (p - delay) / (1 - delay)));
+      r.geometry.setDrawRange(0, Math.floor(total * rp));
+    });
+  }
+
+  /* ────────────────────────────────────────────
+     SCENE 3 — WALL THICKNESS / CUTAWAY
+  ──────────────────────────────────────────── */
+  function sc3(p) {
+    tubeGroup.visible = true;
+    tubeGroup.scale.setScalar(1);
+    outerMesh.material.transparent = false;
+    outerMesh.material.opacity = 1;
+    hasActiveAnim = true;
+    tubeRotY += 0.003;
+    tubeGroup.rotation.y = tubeRotY;
+
+    kraftMat.clippingPlanes = [clipX, clipZ];
+    kraftInnerMat.clippingPlanes = [clipX, clipZ];
+    endCapMat.clippingPlanes = [clipX, clipZ];
+    botCapMat.clippingPlanes = [clipX, clipZ];
+
+    plyGroup.visible = true;
+
+    var wallVals = ['8 mm', '10 mm', '12 mm'];
+    var idx = Math.min(2, Math.floor(p * 3));
+    if (wallEl) wallEl.textContent = wallVals[idx];
+  }
+
+  /* ────────────────────────────────────────────
+     SCENE 4 — WAX COATING
+  ──────────────────────────────────────────── */
+  function sc4(p) {
+    tubeGroup.visible = true;
+    tubeGroup.scale.setScalar(1);
+    outerMesh.material.transparent = false;
+    hasActiveAnim = true;
+    tubeRotY += 0.005;
+    tubeGroup.rotation.y = tubeRotY;
+
+    waxRing.visible = true;
+    waxRing.position.y = THREE.MathUtils.lerp(TUBE_LEN * 0.8, -TUBE_LEN * 0.3, Math.min(1, p * 1.6));
+    waxMatl.opacity = Math.min(0.75, p * 2);
+
+    kraftMat.roughness = THREE.MathUtils.lerp(0.92, 0.25, p);
+    kraftMat.clearcoat = p;
+    kraftMat.clearcoatRoughness = THREE.MathUtils.lerp(0.8, 0.08, p);
+  }
+
+  /* ────────────────────────────────────────────
+     SCENE 5 — CRUSH STRENGTH
+  ──────────────────────────────────────────── */
+  function sc5(p) {
+    tubeGroup.visible = true;
+    tubeGroup.scale.setScalar(1);
+    outerMesh.material.transparent = false;
+
+    topPlate.visible = true;
+    bottomPlate.visible = true;
+
+    var pStart = 2.8;
+    var pEnd = TUBE_LEN / 2 + 0.15;
+    var cp = Math.min(1, p * 1.3);
+
+    if (p <= 0.8) {
+      topPlate.position.y = THREE.MathUtils.lerp(pStart, pEnd, cp);
+      bottomPlate.position.y = THREE.MathUtils.lerp(-pStart, -pEnd, cp);
+    } else {
+      var ret = (p - 0.8) / 0.2;
+      topPlate.position.y = THREE.MathUtils.lerp(pEnd, pStart, ret);
+      bottomPlate.position.y = THREE.MathUtils.lerp(-pEnd, -pStart, ret);
+    }
+
+    var forceVals = [0, 500, 1000, 1500, 1800];
+    var fi = Math.min(4, Math.floor(cp * 5));
+    if (crushEl) crushEl.textContent = forceVals[fi].toLocaleString() + ' kg';
+  }
+
+  /* ────────────────────────────────────────────
+     SCENE 6 — EDGE PRECISION
+  ──────────────────────────────────────────── */
+  function sc6(p) {
+    tubeGroup.visible = true;
+    tubeGroup.scale.setScalar(1);
+    outerMesh.material.transparent = false;
+
+    grindingWheel.visible = true;
+    hasActiveAnim = true;
+
+    var angle = p * Math.PI * 2;
+    grindingWheel.position.set(
+      Math.cos(angle) * (OUTER_R + 0.15),
+      TUBE_LEN / 2 + 0.02,
+      Math.sin(angle) * (OUTER_R + 0.15)
+    );
+    grindingWheel.rotation.y = angle;
+    grindingWheel.rotation.z += 0.15;
+
+    if (p > 0.15 && p < 0.85) {
+      dustParticles.visible = true;
+      var posAttr = dustGeo.attributes.position;
+      for (var i = 0; i < dustCount; i++) {
+        var dp = ((p - 0.15) * 5 + i * 0.12) % 1;
+        posAttr.setXYZ(i,
+          grindingWheel.position.x + dustVel[i].x * dp * 10,
+          TUBE_LEN / 2 + dustVel[i].y * dp * 7,
+          grindingWheel.position.z + dustVel[i].z * dp * 10
+        );
+      }
+      posAttr.needsUpdate = true;
+      dustMat.opacity = 0.45 * (1 - Math.abs(p - 0.5) * 2);
+    }
+  }
+
+  /* ────────────────────────────────────────────
+     SCENE 7 — CUSTOM DIAMETERS
+  ──────────────────────────────────────────── */
+  function sc7(p) {
+    multiGroup.visible = true;
+    hasActiveAnim = true;
+    multiGroup.rotation.y += 0.003;
+
+    multiGroup.children.forEach(function (g, i) {
+      var delay = i * 0.12;
+      var gp = Math.max(0, Math.min(1, (p - delay) / 0.45));
+      var ep = sm(gp);
+      g.scale.setScalar(ep);
+      g.position.y = (1 - ep) * -1.2;
+    });
+  }
+
+  var sceneFns = [sc0, sc1, sc2, sc3, sc4, sc5, sc6, sc7];
+
+  /* ────────────────────────────────────────────
+     MASTER UPDATE
+  ──────────────────────────────────────────── */
+  function masterUpdate(prog) {
+    var si = Math.min(7, Math.floor(prog * 8));
+    var lp = Math.max(0, Math.min(1, prog * 8 - si));
+
+    hideAll();
+
+    // Camera interpolation
+    var cur = camT[si];
+    var nxt = camT[Math.min(7, si + 1)];
+    var ep = sm(lp);
+    camera.position.set(
+      THREE.MathUtils.lerp(cur.px, nxt.px, ep),
+      THREE.MathUtils.lerp(cur.py, nxt.py, ep),
+      THREE.MathUtils.lerp(cur.pz, nxt.pz, ep)
+    );
+    camera.lookAt(
+      THREE.MathUtils.lerp(cur.lx, nxt.lx, ep),
+      THREE.MathUtils.lerp(cur.ly, nxt.ly, ep),
+      THREE.MathUtils.lerp(cur.lz, nxt.lz, ep)
+    );
+
+    sceneFns[si](lp);
+    updateOverlays(si, lp);
+  }
+
+  /* ────────────────────────────────────────────
+     RENDER LOOP
+  ──────────────────────────────────────────── */
+  function renderLoop() {
+    requestAnimationFrame(renderLoop);
+    if (isDirty || hasActiveAnim) {
+      masterUpdate(scrollProgress);
+      renderer.render(scene3, camera);
+      isDirty = false;
+    }
+  }
+  renderLoop();
+
+  /* ────────────────────────────────────────────
+     RESIZE
+  ──────────────────────────────────────────── */
+  window.addEventListener('resize', function () {
+    var w = window.innerWidth, h = window.innerHeight;
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h);
+    mobile = w < 900;
+    isDirty = true;
+  });
+
+  /* ────────────────────────────────────────────
+     NAV INVERSION (over dark sections)
+  ──────────────────────────────────────────── */
+  var navEl = document.getElementById('main-nav');
+  var clientsEl = document.getElementById('clients');
+  if (clientsEl) {
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        navEl.classList.toggle('inverted', e.isIntersecting);
+      });
+    }, { threshold: 0.05, rootMargin: '-56px 0px 0px 0px' }).observe(clientsEl);
+  }
+
+  /* ────────────────────────────────────────────
+     COUNTER ANIMATION
+  ──────────────────────────────────────────── */
+  var statEls = document.querySelectorAll('.stat-value');
+
+  function animateCounter(el) {
+    var target = parseFloat(el.dataset.value);
+    var suffix = el.dataset.suffix || '';
+    var prefix = el.dataset.prefix || '';
+    var decimals = parseInt(el.dataset.decimals, 10) || 0;
+
+    if (prefersReduced) {
+      el.textContent = prefix + (decimals > 0 ? target.toFixed(decimals) : String(target)) + suffix;
+      return;
+    }
+
+    var dur = 2000, start = performance.now();
+    function tick(now) {
+      var p = Math.min((now - start) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      var val = target * eased;
+      el.textContent = prefix + (decimals > 0 ? val.toFixed(decimals) : String(Math.round(val))) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  var countObs = new IntersectionObserver(function (entries, obs) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        animateCounter(e.target);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  statEls.forEach(function (el) { countObs.observe(el); });
+
+  /* ────────────────────────────────────────────
+     HERO ENTRANCE ANIMATION
+  ──────────────────────────────────────────── */
+  if (!prefersReduced) {
+    gsap.from('.fade-up', {
+      y: 35, opacity: 0, duration: 1.0,
+      ease: 'power3.out', stagger: 0.18, delay: 0.3
+    });
+  }
+
+  /* ────────────────────────────────────────────
+     CLOSE SECTION FADE-IN
+  ──────────────────────────────────────────── */
+  if (!prefersReduced) {
+    gsap.from('#close-section .wordmark', {
+      scrollTrigger: { trigger: '#close-section', start: 'top 80%' },
+      y: 30, opacity: 0, duration: 0.8, ease: 'power2.out'
+    });
+    gsap.from('#close-section .close-subtitle', {
+      scrollTrigger: { trigger: '#close-section', start: 'top 70%' },
+      y: 20, opacity: 0, duration: 0.6, ease: 'power2.out', delay: 0.2
+    });
+  }
+
+})();
+</script>
 </body>
 </html>
