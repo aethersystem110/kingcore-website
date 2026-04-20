@@ -769,20 +769,20 @@ body.no-webgl .fallback-scenes { display: block; }
   /* ────────────────────────────────────────────
      WINDING RIBBONS — helix TubeGeometry
   ──────────────────────────────────────────── */
-  function HelixCurve(radius, height, turns, phase) {
-    THREE.Curve.call(this);
-    this._r = radius; this._h = height; this._t = turns; this._p = phase || 0;
+  class HelixCurve extends THREE.Curve {
+    constructor(radius, height, turns, phase) {
+      super();
+      this._r = radius; this._h = height; this._t = turns; this._p = phase || 0;
+    }
+    getPoint(t) {
+      var a = 2 * Math.PI * this._t * t + this._p;
+      return new THREE.Vector3(
+        this._r * Math.cos(a),
+        this._h * t - this._h / 2,
+        this._r * Math.sin(a)
+      );
+    }
   }
-  HelixCurve.prototype = Object.create(THREE.Curve.prototype);
-  HelixCurve.prototype.constructor = HelixCurve;
-  HelixCurve.prototype.getPoint = function (t) {
-    var a = 2 * Math.PI * this._t * t + this._p;
-    return new THREE.Vector3(
-      this._r * Math.cos(a),
-      this._h * t - this._h / 2,
-      this._r * Math.sin(a)
-    );
-  };
 
   var ribbonCount = 3;
   var ribbons = [];
