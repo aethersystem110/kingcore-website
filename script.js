@@ -1,254 +1,371 @@
 /* ============================================
-   KING CORE — Scroll Animations (GSAP)
+   KING CORE — Scrollytelling Engine
+   Scroll = Time. The user controls the story.
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
   gsap.registerPlugin(ScrollTrigger);
 
-  /* --- Loader --- */
-  const loader = document.getElementById('loader');
-  window.addEventListener('load', () => {
-    gsap.to(loader, {
-      opacity: 0,
-      duration: 0.6,
-      delay: 0.8,
-      onComplete: () => {
-        loader.classList.add('hidden');
-        animateHero();
+  /* ============================================
+     PROGRESS BAR
+     ============================================ */
+  const progressBar = document.getElementById('progressBar');
+
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (scrollTop / docHeight) * 100;
+    progressBar.style.width = progress + '%';
+  });
+
+  /* ============================================
+     CHAPTER NAV — Active dot tracking
+     ============================================ */
+  const chapterDots = document.querySelectorAll('.chapter-dot');
+  const chapters = document.querySelectorAll('.chapter');
+
+  chapters.forEach((chapter, i) => {
+    ScrollTrigger.create({
+      trigger: chapter,
+      start: 'top center',
+      end: 'bottom center',
+      onEnter: () => setActiveChapter(i),
+      onEnterBack: () => setActiveChapter(i)
+    });
+  });
+
+  function setActiveChapter(index) {
+    chapterDots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
+    });
+  }
+
+  // Click to scroll to chapter
+  chapterDots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      const index = parseInt(dot.dataset.chapter);
+      const target = chapters[index];
+      if (target) {
+        window.scrollTo({
+          top: target.offsetTop,
+          behavior: 'smooth'
+        });
       }
     });
   });
 
-  // Fallback if load event already fired
-  if (document.readyState === 'complete') {
-    setTimeout(() => {
-      loader.classList.add('hidden');
-      animateHero();
-    }, 1000);
-  }
+  /* ============================================
+     PROLOGUE — "What holds it all together?"
+     ============================================ */
 
-  /* --- Navigation --- */
-  const nav = document.getElementById('nav');
-  const navToggle = document.getElementById('navToggle');
-  const navLinks = document.getElementById('navLinks');
-
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 80);
-  });
-
-  navToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-  });
-
-  // Close mobile nav on link click
-  navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      navLinks.classList.remove('active');
-    });
-  });
-
-  /* --- Hero Particles --- */
-  const particlesContainer = document.getElementById('heroParticles');
-  for (let i = 0; i < 40; i++) {
-    const particle = document.createElement('div');
-    particle.className = 'hero-particle';
-    particle.style.left = Math.random() * 100 + '%';
-    particle.style.top = Math.random() * 100 + '%';
-    particlesContainer.appendChild(particle);
-
-    gsap.to(particle, {
-      opacity: Math.random() * 0.4 + 0.1,
-      duration: Math.random() * 3 + 2,
-      repeat: -1,
-      yoyo: true,
-      delay: Math.random() * 3
-    });
-
-    gsap.to(particle, {
-      y: (Math.random() - 0.5) * 100,
-      x: (Math.random() - 0.5) * 50,
-      duration: Math.random() * 10 + 10,
-      repeat: -1,
-      yoyo: true,
-      ease: 'sine.inOut'
-    });
-  }
-
-  /* --- Hero Animation --- */
-  function animateHero() {
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
-    tl.to('.hero-word', {
-      y: 0,
-      duration: 1,
-      stagger: 0.15
-    })
-    .to('.hero-badge', {
-      opacity: 1,
-      y: 0,
-      duration: 0.8
-    }, '-=0.5')
-    .to('.hero-sub', {
-      opacity: 1,
-      y: 0,
-      duration: 0.8
-    }, '-=0.4')
-    .to('.hero-cta', {
-      opacity: 1,
-      y: 0,
-      duration: 0.8
-    }, '-=0.4');
-  }
-
-  /* --- Hero Parallax --- */
-  gsap.to('.hero-content', {
-    scrollTrigger: {
-      trigger: '.hero',
-      start: 'top top',
-      end: 'bottom top',
-      scrub: 1
-    },
-    y: 150,
-    opacity: 0.3
-  });
-
-  /* --- About Section --- */
-  gsap.from('.about-left', {
-    scrollTrigger: {
-      trigger: '.about',
-      start: 'top 75%',
-      toggleActions: 'play none none reverse'
-    },
-    x: -60,
-    opacity: 0,
-    duration: 1,
-    ease: 'power3.out'
-  });
-
-  gsap.from('.about-right .about-text', {
-    scrollTrigger: {
-      trigger: '.about-right',
-      start: 'top 75%',
-      toggleActions: 'play none none reverse'
-    },
-    y: 40,
-    opacity: 0,
-    duration: 0.8,
-    stagger: 0.2,
-    ease: 'power3.out'
-  });
-
-  gsap.to('.about-value', {
-    scrollTrigger: {
-      trigger: '.about-values',
-      start: 'top 80%',
-      toggleActions: 'play none none reverse'
-    },
-    y: 0,
+  // Rings pulse on load
+  gsap.to('.ring-core', {
     opacity: 1,
-    duration: 0.6,
-    stagger: 0.15,
-    ease: 'power3.out'
+    duration: 2,
+    delay: 0.5,
+    ease: 'power2.out'
   });
 
-  /* --- Products Horizontal Scroll --- */
-  const productsTrack = document.getElementById('productsTrack');
-  const cards = productsTrack.querySelectorAll('.product-card');
-  const totalScrollWidth = productsTrack.scrollWidth - window.innerWidth + 100;
+  gsap.to(['.ring-1', '.ring-2', '.ring-3', '.ring-4'], {
+    scale: 1.05,
+    duration: 4,
+    repeat: -1,
+    yoyo: true,
+    ease: 'sine.inOut',
+    stagger: 0.3
+  });
 
-  gsap.to(productsTrack, {
-    x: () => -totalScrollWidth,
-    ease: 'none',
+  // Word-by-word reveal of the question
+  const words = document.querySelectorAll('.word-reveal');
+  const prologueTL = gsap.timeline({
     scrollTrigger: {
-      trigger: '.products',
+      trigger: '.chapter-prologue',
       start: 'top top',
-      end: () => '+=' + totalScrollWidth,
-      scrub: 1,
-      pin: true,
-      invalidateOnRefresh: true,
-      anticipatePin: 1
+      end: '30% top',
+      scrub: 1
     }
   });
 
-  // Stagger card entry
-  cards.forEach((card, i) => {
-    gsap.from(card, {
+  words.forEach((word, i) => {
+    prologueTL.to(word, {
+      opacity: 1,
+      y: 0,
+      rotateX: 0,
+      duration: 0.4,
+      ease: 'power3.out'
+    }, i * 0.12);
+  });
+
+  // Answer lines — slide in one by one
+  const answerLines = document.querySelectorAll('.answer-line');
+  const answerTL = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.chapter-prologue',
+      start: '30% top',
+      end: '60% top',
+      scrub: 1
+    }
+  });
+
+  answerTL.to('#prologueAnswer', { opacity: 1, duration: 0.1 });
+
+  answerLines.forEach((line, i) => {
+    answerTL.to(line, {
+      opacity: 1,
+      x: 0,
+      duration: 0.5,
+      ease: 'power3.out'
+    }, i * 0.2);
+  });
+
+  // Brand reveal
+  gsap.timeline({
+    scrollTrigger: {
+      trigger: '.chapter-prologue',
+      start: '65% top',
+      end: '85% top',
+      scrub: 1
+    }
+  })
+  .to('.prologue-question', { opacity: 0.2, y: -30, duration: 0.5 })
+  .to('#prologueAnswer', { opacity: 0.2, y: -20, duration: 0.5 }, '<')
+  .to('#prologueReveal', {
+    opacity: 1,
+    scale: 1,
+    duration: 0.8,
+    ease: 'power3.out'
+  }, '-=0.3')
+  .to('.ring-core', {
+    scale: 3,
+    opacity: 0.8,
+    duration: 1,
+    ease: 'power2.out'
+  }, '<');
+
+  /* ============================================
+     CHAPTER 1 — THE RAW
+     ============================================ */
+
+  // Title entry
+  const rawTitleTL = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.chapter-raw',
+      start: 'top 80%',
+      end: 'top 20%',
+      scrub: 1
+    }
+  });
+
+  rawTitleTL
+    .to('#sceneRawTitle', { opacity: 1, duration: 0.3 })
+    .to('#sceneRawTitle .ct-word', {
+      y: 0,
+      opacity: 1,
+      duration: 0.5,
+      stagger: 0.15,
+      ease: 'power3.out'
+    }, '-=0.2')
+    .to('#sceneRawTitle .cinematic-sub', {
+      opacity: 1,
+      y: 0,
+      duration: 0.4
+    }, '-=0.2');
+
+  // Title fades, materials appear
+  const rawMaterialsTL = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.chapter-raw',
+      start: '15% top',
+      end: '85% top',
+      scrub: 1
+    }
+  });
+
+  rawMaterialsTL
+    .to('#sceneRawTitle', { opacity: 0, duration: 0.3 })
+    .to('#sceneRawMaterials', { opacity: 1, duration: 0.3 });
+
+  // Each material slides in at different scroll points
+  const materials = ['#matStrawboard', '#matCoreboard', '#matFinishing', '#matDextrine'];
+
+  materials.forEach((mat, i) => {
+    const startPct = 20 + (i * 15);
+    const endPct = startPct + 12;
+
+    gsap.to(mat, {
       scrollTrigger: {
-        trigger: '.products',
-        start: 'top 80%',
-        toggleActions: 'play none none reverse'
+        trigger: '.chapter-raw',
+        start: startPct + '% top',
+        end: endPct + '% top',
+        scrub: 1
       },
-      y: 60,
-      opacity: 0,
-      duration: 0.8,
-      delay: i * 0.1,
+      opacity: 1,
+      x: 0,
+      duration: 1,
       ease: 'power3.out'
     });
   });
 
-  /* --- Process Scrollytelling --- */
-  const steps = document.querySelectorAll('.process-step');
-  const processProgress = document.getElementById('processProgress');
-  const processStepNum = document.getElementById('processStepNum');
-  const processTitle = document.getElementById('processTitle');
-  const processDesc = document.getElementById('processDesc');
-  const totalSteps = steps.length;
-  const circumference = 2 * Math.PI * 130; // r=130
+  /* ============================================
+     CHAPTER 2 — THE CRAFT
+     ============================================ */
 
-  steps.forEach((step, i) => {
+  // Title entry
+  const craftTitleTL = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.chapter-craft',
+      start: 'top 80%',
+      end: 'top 30%',
+      scrub: 1
+    }
+  });
+
+  craftTitleTL.to('.scene-craft .ct-word', {
+    y: 0,
+    opacity: 1,
+    duration: 0.5,
+    stagger: 0.15,
+    ease: 'power3.out'
+  })
+  .to('.scene-craft .cinematic-sub', {
+    opacity: 1,
+    y: 0,
+    duration: 0.4
+  }, '-=0.2');
+
+  // Craft steps — each step takes a portion of the scroll
+  const craftSteps = document.querySelectorAll('.craft-step');
+  const craftProgressFill = document.getElementById('craftProgressFill');
+  const craftProgressLabel = document.getElementById('craftProgressLabel');
+  const totalCraftSteps = craftSteps.length;
+
+  // Divide the chapter scroll into step segments
+  craftSteps.forEach((step, i) => {
+    const segmentStart = 10 + (i * (80 / totalCraftSteps));
+    const segmentEnd = segmentStart + (80 / totalCraftSteps);
+
     ScrollTrigger.create({
-      trigger: step,
-      start: 'top center',
-      end: 'bottom center',
-      onEnter: () => updateProcess(i),
-      onEnterBack: () => updateProcess(i)
+      trigger: '.chapter-craft',
+      start: segmentStart + '% top',
+      end: segmentEnd + '% top',
+      onEnter: () => activateCraftStep(i),
+      onEnterBack: () => activateCraftStep(i)
     });
   });
 
-  function updateProcess(index) {
-    const step = steps[index];
-    const progress = (index + 1) / totalSteps;
+  function activateCraftStep(index) {
+    craftSteps.forEach((step, i) => {
+      step.classList.toggle('active', i === index);
+    });
 
-    // Update ring
-    const offset = circumference - (progress * circumference);
-    processProgress.style.strokeDashoffset = offset;
+    const progress = ((index + 1) / totalCraftSteps) * 100;
+    craftProgressFill.style.setProperty('--progress', progress + '%');
+    craftProgressLabel.textContent = (index + 1) + ' / ' + totalCraftSteps;
+  }
 
-    // Update step number
-    processStepNum.textContent = String(index + 1).padStart(2, '0');
+  // Activate first step by default
+  craftSteps[0].classList.add('active');
 
-    // Update text with fade
-    gsap.to([processTitle, processDesc], {
-      opacity: 0,
-      duration: 0.2,
-      onComplete: () => {
-        processTitle.textContent = step.dataset.title;
-        processDesc.textContent = step.dataset.desc;
-        gsap.to([processTitle, processDesc], {
-          opacity: 1,
-          duration: 0.4
-        });
-      }
+  /* ============================================
+     CHAPTER 3 — THE CORE (Products)
+     ============================================ */
+
+  // Title entry
+  const coreTitleTL = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.chapter-core',
+      start: 'top 80%',
+      end: 'top 30%',
+      scrub: 1
+    }
+  });
+
+  coreTitleTL.to('.scene-core .ct-word', {
+    y: 0,
+    opacity: 1,
+    duration: 0.5,
+    stagger: 0.15,
+    ease: 'power3.out'
+  })
+  .to('.scene-core .cinematic-sub', {
+    opacity: 1,
+    y: 0,
+    duration: 0.4
+  }, '-=0.2');
+
+  // Products — one at a time
+  const coreProducts = document.querySelectorAll('.core-product');
+  const totalProducts = coreProducts.length;
+
+  coreProducts.forEach((product, i) => {
+    const segmentStart = 10 + (i * (80 / totalProducts));
+    const segmentEnd = segmentStart + (80 / totalProducts);
+
+    ScrollTrigger.create({
+      trigger: '.chapter-core',
+      start: segmentStart + '% top',
+      end: segmentEnd + '% top',
+      onEnter: () => activateProduct(i),
+      onEnterBack: () => activateProduct(i)
+    });
+  });
+
+  function activateProduct(index) {
+    coreProducts.forEach((p, i) => {
+      p.classList.toggle('active', i === index);
     });
   }
 
-  /* --- Stats Counter --- */
-  const statCards = document.querySelectorAll('.stat-card');
+  coreProducts[0].classList.add('active');
 
-  gsap.to(statCards, {
+  /* ============================================
+     CHAPTER 4 — THE SCALE
+     ============================================ */
+
+  // Title
+  const scaleTitleTL = gsap.timeline({
     scrollTrigger: {
-      trigger: '.stats',
-      start: 'top 70%',
-      toggleActions: 'play none none reverse'
-    },
+      trigger: '.chapter-scale',
+      start: 'top 80%',
+      end: 'top 30%',
+      scrub: 1
+    }
+  });
+
+  scaleTitleTL.to('.scene-scale .ct-word', {
     y: 0,
     opacity: 1,
-    duration: 0.6,
-    stagger: 0.1,
-    ease: 'power3.out',
-    onComplete: () => {
-      document.querySelectorAll('.stat-number').forEach(num => {
-        animateCounter(num);
+    duration: 0.5,
+    stagger: 0.15,
+    ease: 'power3.out'
+  });
+
+  // Stats appear and count
+  let countersStarted = false;
+
+  ScrollTrigger.create({
+    trigger: '.chapter-scale',
+    start: '20% top',
+    onEnter: () => {
+      if (countersStarted) return;
+      countersStarted = true;
+
+      const stats = document.querySelectorAll('.scale-stat');
+      const quote = document.querySelector('.scale-quote');
+
+      stats.forEach((stat, i) => {
+        setTimeout(() => {
+          stat.classList.add('visible');
+
+          // Start counter
+          const counter = stat.querySelector('.counter');
+          if (counter) animateCounter(counter);
+        }, i * 200);
       });
+
+      setTimeout(() => {
+        quote.classList.add('visible');
+      }, stats.length * 200 + 400);
     }
   });
 
@@ -260,87 +377,71 @@ document.addEventListener('DOMContentLoaded', () => {
     function tick(now) {
       const elapsed = now - start;
       const progress = Math.min(elapsed / duration, 1);
-
-      // Ease out cubic
       const eased = 1 - Math.pow(1 - progress, 3);
-      const current = Math.floor(eased * target);
+      el.textContent = Math.floor(eased * target).toLocaleString();
 
-      el.textContent = current.toLocaleString();
-
-      if (progress < 1) {
-        requestAnimationFrame(tick);
-      }
+      if (progress < 1) requestAnimationFrame(tick);
     }
 
     requestAnimationFrame(tick);
   }
 
-  /* --- Materials Cards --- */
-  gsap.to('.material-card', {
+  /* ============================================
+     CHAPTER 5 — THE FUTURE
+     ============================================ */
+
+  gsap.from('.future-intro', {
     scrollTrigger: {
-      trigger: '.materials-grid',
-      start: 'top 75%',
+      trigger: '.chapter-future',
+      start: 'top 80%',
+      toggleActions: 'play none none reverse'
+    },
+    y: 40,
+    opacity: 0,
+    duration: 1,
+    ease: 'power3.out'
+  });
+
+  // Title words
+  gsap.to('.scene-future .ct-word', {
+    scrollTrigger: {
+      trigger: '.chapter-future',
+      start: 'top 70%',
       toggleActions: 'play none none reverse'
     },
     y: 0,
     opacity: 1,
-    duration: 0.6,
-    stagger: 0.12,
+    duration: 0.8,
+    stagger: 0.15,
     ease: 'power3.out'
   });
 
-  /* --- Contact Section --- */
-  gsap.from('.contact-left', {
+  gsap.from('.future-contact', {
     scrollTrigger: {
-      trigger: '.contact',
-      start: 'top 70%',
+      trigger: '.chapter-future',
+      start: 'top 50%',
       toggleActions: 'play none none reverse'
     },
-    x: -40,
+    y: 60,
     opacity: 0,
-    duration: 0.8,
+    duration: 1,
     ease: 'power3.out'
   });
 
-  gsap.from('.contact-right', {
-    scrollTrigger: {
-      trigger: '.contact',
-      start: 'top 70%',
-      toggleActions: 'play none none reverse'
-    },
-    x: 40,
-    opacity: 0,
-    duration: 0.8,
-    ease: 'power3.out'
-  });
-
-  /* --- Contact Form (demo handler) --- */
+  /* ============================================
+     CONTACT FORM (demo)
+     ============================================ */
   const contactForm = document.getElementById('contactForm');
   contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const btn = contactForm.querySelector('.btn');
-    const originalText = btn.textContent;
-    btn.textContent = 'Message Sent!';
+    const btn = contactForm.querySelector('.future-btn');
+    const original = btn.textContent;
+    btn.textContent = 'Message Sent';
     btn.style.background = '#22c55e';
     setTimeout(() => {
-      btn.textContent = originalText;
+      btn.textContent = original;
       btn.style.background = '';
       contactForm.reset();
     }, 3000);
-  });
-
-  /* --- Smooth scroll for anchor links --- */
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', (e) => {
-      e.preventDefault();
-      const target = document.querySelector(anchor.getAttribute('href'));
-      if (target) {
-        gsap.to(window, {
-          scrollTo: { y: target, offsetY: 80 },
-          duration: 1,
-          ease: 'power3.inOut'
-        });
-      }
-    });
   });
 });

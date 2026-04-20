@@ -3,426 +3,397 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>King Core | Imperial Synergies &mdash; Precision Paper Tube Manufacturing</title>
-  <meta name="description" content="King Core / Imperial Synergies - Premier paper tube winding manufacturer in Lahore, Pakistan. Precision-engineered cores for textile, packaging, and industrial applications.">
+  <title>King Core | The Story of a Paper Core</title>
+  <meta name="description" content="King Core / Imperial Synergies — the journey from raw fiber to precision-engineered paper cores. Lahore, Pakistan.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- Loader -->
-  <div class="loader" id="loader">
-    <div class="loader-inner">
-      <div class="loader-tube"></div>
-      <span class="loader-text">KING CORE</span>
-    </div>
+  <!-- Progress Bar -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- Chapter Indicator -->
+  <div class="chapter-nav" id="chapterNav">
+    <div class="chapter-dot active" data-chapter="0"><span>Prologue</span></div>
+    <div class="chapter-dot" data-chapter="1"><span>The Raw</span></div>
+    <div class="chapter-dot" data-chapter="2"><span>The Craft</span></div>
+    <div class="chapter-dot" data-chapter="3"><span>The Core</span></div>
+    <div class="chapter-dot" data-chapter="4"><span>The Scale</span></div>
+    <div class="chapter-dot" data-chapter="5"><span>The Future</span></div>
   </div>
 
-  <!-- Navigation -->
-  <nav class="nav" id="nav">
-    <div class="nav-inner">
-      <a href="#" class="nav-logo">
-        <span class="nav-logo-king">KING</span><span class="nav-logo-core">CORE</span>
-      </a>
-      <div class="nav-links" id="navLinks">
-        <a href="#about">About</a>
-        <a href="#products">Products</a>
-        <a href="#process">Process</a>
-        <a href="#stats">Impact</a>
-        <a href="#contact">Contact</a>
+  <!-- ============================================
+       PROLOGUE — "What holds it all together?"
+       ============================================ -->
+  <section class="chapter chapter-prologue" data-chapter="0">
+    <div class="chapter-sticky">
+      <div class="prologue-bg">
+        <div class="prologue-grain"></div>
+        <div class="prologue-vignette"></div>
+        <!-- Concentric rings representing a tube cross-section -->
+        <div class="prologue-rings" id="prologueRings">
+          <div class="ring ring-1"></div>
+          <div class="ring ring-2"></div>
+          <div class="ring ring-3"></div>
+          <div class="ring ring-4"></div>
+          <div class="ring ring-core"></div>
+        </div>
       </div>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </nav>
 
-  <!-- Hero -->
-  <section class="hero" id="hero">
-    <div class="hero-bg">
-      <div class="hero-gradient"></div>
-      <div class="hero-particles" id="heroParticles"></div>
-    </div>
-    <div class="hero-content">
-      <div class="hero-badge">
-        <span class="hero-badge-dot"></span>
-        Lahore, Pakistan
-      </div>
-      <h1 class="hero-title">
-        <span class="hero-line"><span class="hero-word">Precision</span></span>
-        <span class="hero-line"><span class="hero-word">Engineered</span></span>
-        <span class="hero-line hero-line-accent"><span class="hero-word">Paper Cores</span></span>
-      </h1>
-      <p class="hero-sub">
-        Crafting the backbone of industry since decades. From textile bobbins to heavy-duty shipping cores,
-        every tube we wind carries the weight of your business.
-      </p>
-      <div class="hero-cta">
-        <a href="#products" class="btn btn-primary">Explore Products</a>
-        <a href="#process" class="btn btn-ghost">See Our Process</a>
+      <div class="prologue-content">
+        <div class="prologue-question">
+          <span class="word-reveal">What</span>
+          <span class="word-reveal">holds</span>
+          <span class="word-reveal">it</span>
+          <span class="word-reveal">all</span>
+          <span class="word-reveal">together?</span>
+        </div>
+
+        <div class="prologue-answer" id="prologueAnswer">
+          <div class="answer-line">Every roll of fabric.</div>
+          <div class="answer-line">Every spool of tape.</div>
+          <div class="answer-line">Every sheet of paper.</div>
+          <div class="answer-line answer-line-em">Wound around a core.</div>
+        </div>
+
+        <div class="prologue-reveal" id="prologueReveal">
+          <span class="reveal-brand">KING CORE</span>
+          <span class="reveal-sub">Imperial Synergies &middot; Lahore, Pakistan</span>
+        </div>
       </div>
     </div>
-    <div class="hero-scroll">
-      <div class="hero-scroll-line"></div>
-      <span>Scroll</span>
-    </div>
+    <div class="chapter-scroll-height"></div>
   </section>
 
-  <!-- About -->
-  <section class="about" id="about">
-    <div class="container">
-      <div class="about-grid">
-        <div class="about-left">
-          <span class="section-tag">Who We Are</span>
-          <h2 class="about-title">
-            Built on <br><em>strength</em> &amp; <em>precision</em>
+  <!-- ============================================
+       CHAPTER 1 — "The Raw"
+       ============================================ -->
+  <section class="chapter chapter-raw" data-chapter="1">
+    <div class="chapter-sticky">
+      <div class="chapter-label"><span>Chapter One</span></div>
+
+      <!-- Scene 1: Title -->
+      <div class="scene scene-raw-title" id="sceneRawTitle">
+        <h2 class="cinematic-title">
+          <span class="ct-line"><span class="ct-word">The</span></span>
+          <span class="ct-line"><span class="ct-word ct-word-accent">Raw</span></span>
+        </h2>
+        <p class="cinematic-sub">Where every core begins</p>
+      </div>
+
+      <!-- Scene 2: Materials revealed one by one -->
+      <div class="scene scene-raw-materials" id="sceneRawMaterials">
+        <div class="material-stage">
+          <div class="material-layer" id="matStrawboard">
+            <div class="material-swatch swatch-straw"></div>
+            <div class="material-info">
+              <span class="material-name">Strawboard</span>
+              <span class="material-desc">The bulk. Recycled straw fibers compressed into rigid sheets. This is the body of the core &mdash; where strength begins.</span>
+              <span class="material-measure">Measured in kilograms</span>
+            </div>
+          </div>
+          <div class="material-layer" id="matCoreboard">
+            <div class="material-swatch swatch-core"></div>
+            <div class="material-info">
+              <span class="material-name">Coreboard</span>
+              <span class="material-desc">The spine. Dense, high-GSM board that determines crush resistance. One layer can bear hundreds of kilograms.</span>
+              <span class="material-measure">Measured in kilograms</span>
+            </div>
+          </div>
+          <div class="material-layer" id="matFinishing">
+            <div class="material-swatch swatch-finish"></div>
+            <div class="material-info">
+              <span class="material-name">Finishing Layer</span>
+              <span class="material-desc">The face. A smooth outer wrap for printability and surface quality. What the world sees.</span>
+              <span class="material-measure">Measured in kilograms</span>
+            </div>
+          </div>
+          <div class="material-layer" id="matDextrine">
+            <div class="material-swatch swatch-dextrine"></div>
+            <div class="material-info">
+              <span class="material-name">Dextrine</span>
+              <span class="material-desc">The bond. A natural starch adhesive that fuses every layer into one. Invisible, but it holds everything together.</span>
+              <span class="material-measure">Measured in bags</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="chapter-scroll-height chapter-scroll-tall"></div>
+  </section>
+
+  <!-- ============================================
+       CHAPTER 2 — "The Craft"
+       ============================================ -->
+  <section class="chapter chapter-craft" data-chapter="2">
+    <div class="chapter-sticky">
+      <div class="chapter-label"><span>Chapter Two</span></div>
+
+      <div class="scene scene-craft" id="sceneCraft">
+        <h2 class="cinematic-title cinematic-title-sm">
+          <span class="ct-line"><span class="ct-word">The</span></span>
+          <span class="ct-line"><span class="ct-word ct-word-accent">Craft</span></span>
+        </h2>
+
+        <div class="craft-journey" id="craftJourney">
+          <!-- Steps animate in/out as user scrolls -->
+          <div class="craft-step" data-craft="0">
+            <div class="craft-num">01</div>
+            <div class="craft-icon">
+              <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="10" y="20" width="60" height="40" rx="3"/>
+                <line x1="10" y1="35" x2="70" y2="35"/>
+                <line x1="10" y1="50" x2="70" y2="50"/>
+                <circle cx="40" cy="10" r="5"/>
+                <line x1="40" y1="15" x2="40" y2="20"/>
+              </svg>
+            </div>
+            <h3>Selection</h3>
+            <p>Raw materials arrive. Each batch is tested for moisture, weight, and fiber integrity. Only what passes moves forward.</p>
+          </div>
+          <div class="craft-step" data-craft="1">
+            <div class="craft-num">02</div>
+            <div class="craft-icon">
+              <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5">
+                <ellipse cx="40" cy="50" rx="28" ry="16"/>
+                <path d="M12 50 V30 C12 20 25 12 40 12 C55 12 68 20 68 30 V50"/>
+                <path d="M30 35 L40 25 L50 35" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>Mixing</h3>
+            <p>Dextrine adhesive is prepared to exact viscosity. Too thin and the layers slip. Too thick and they crack. Precision matters.</p>
+          </div>
+          <div class="craft-step" data-craft="2">
+            <div class="craft-num">03</div>
+            <div class="craft-icon">
+              <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="40" cy="40" r="28"/>
+                <circle cx="40" cy="40" r="12"/>
+                <path d="M52 40 A12 12 0 0 1 40 52" stroke-width="3"/>
+                <path d="M15 25 Q40 10 65 25" stroke-dasharray="3 3"/>
+              </svg>
+            </div>
+            <h3>Winding</h3>
+            <p>Sheets spiral around a steel mandrel under controlled tension. Layer after layer, the tube takes shape. This is where the core is born.</p>
+          </div>
+          <div class="craft-step" data-craft="3">
+            <div class="craft-num">04</div>
+            <div class="craft-icon">
+              <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="15" y="15" width="50" height="50" rx="3"/>
+                <line x1="40" y1="15" x2="40" y2="65" stroke-dasharray="4 3"/>
+                <path d="M30 8 L40 15 L50 8"/>
+                <path d="M30 72 L40 65 L50 72"/>
+              </svg>
+            </div>
+            <h3>Cutting</h3>
+            <p>Continuous tubes are sliced to exact lengths. Millimeter precision. Each cut verified against order specifications.</p>
+          </div>
+          <div class="craft-step" data-craft="4">
+            <div class="craft-num">05</div>
+            <div class="craft-icon">
+              <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="40" cy="40" r="28"/>
+                <path d="M28 40 L36 48 L54 30" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>Inspection</h3>
+            <p>Crush test. Dimension check. Surface scan. Every core is judged. The ones that pass carry our name. The rest don't leave.</p>
+          </div>
+          <div class="craft-step" data-craft="5">
+            <div class="craft-num">06</div>
+            <div class="craft-icon">
+              <svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="12" y="25" width="56" height="35" rx="3"/>
+                <polyline points="12,25 40,10 68,25"/>
+                <line x1="30" y1="40" x2="50" y2="40"/>
+                <line x1="30" y1="48" x2="45" y2="48"/>
+              </svg>
+            </div>
+            <h3>Dispatch</h3>
+            <p>Bundled, labeled, loaded. Our logistics ensure your lines never stop. The core leaves our floor and enters your world.</p>
+          </div>
+        </div>
+
+        <!-- Scroll progress for craft -->
+        <div class="craft-progress">
+          <div class="craft-progress-fill" id="craftProgressFill"></div>
+          <div class="craft-progress-label" id="craftProgressLabel">1 / 6</div>
+        </div>
+      </div>
+    </div>
+    <div class="chapter-scroll-height chapter-scroll-extra-tall"></div>
+  </section>
+
+  <!-- ============================================
+       CHAPTER 3 — "The Core" (Products)
+       ============================================ -->
+  <section class="chapter chapter-core" data-chapter="3">
+    <div class="chapter-sticky">
+      <div class="chapter-label chapter-label-light"><span>Chapter Three</span></div>
+
+      <div class="scene scene-core" id="sceneCore">
+        <h2 class="cinematic-title cinematic-title-light">
+          <span class="ct-line"><span class="ct-word">The</span></span>
+          <span class="ct-line"><span class="ct-word ct-word-gold">Core</span></span>
+        </h2>
+        <p class="cinematic-sub cinematic-sub-light">What we send into the world</p>
+
+        <div class="core-products" id="coreProducts">
+          <div class="core-product" data-product="0">
+            <div class="core-product-visual">
+              <div class="tube-viz tube-cone"></div>
+            </div>
+            <div class="core-product-text">
+              <span class="core-product-tag">Textile</span>
+              <h3>Cones &amp; Bobbins</h3>
+              <p>Precision tapers for yarn winding and dyeing. Smooth surfaces that don't snag. Built for high-speed spindles.</p>
+            </div>
+          </div>
+          <div class="core-product" data-product="1">
+            <div class="core-product-visual">
+              <div class="tube-viz tube-packaging"></div>
+            </div>
+            <div class="core-product-text">
+              <span class="core-product-tag">Packaging</span>
+              <h3>Film &amp; Foil Cores</h3>
+              <p>The invisible backbone of every roll of cling film, aluminum foil, and stretch wrap you've ever used.</p>
+            </div>
+          </div>
+          <div class="core-product" data-product="2">
+            <div class="core-product-visual">
+              <div class="tube-viz tube-heavy"></div>
+            </div>
+            <div class="core-product-text">
+              <span class="core-product-tag">Industrial</span>
+              <h3>Heavy-Duty Tubes</h3>
+              <p>Structural tubes for construction forming, shipping, and load-bearing applications. Engineered to not break.</p>
+            </div>
+          </div>
+          <div class="core-product" data-product="3">
+            <div class="core-product-visual">
+              <div class="tube-viz tube-paper"></div>
+            </div>
+            <div class="core-product-text">
+              <span class="core-product-tag">Paper Mill</span>
+              <h3>Converting Cores</h3>
+              <p>Tight-tolerance cores for paper mills running at thousands of RPM. Concentricity measured in fractions of a millimeter.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="chapter-scroll-height chapter-scroll-tall"></div>
+  </section>
+
+  <!-- ============================================
+       CHAPTER 4 — "The Scale"
+       ============================================ -->
+  <section class="chapter chapter-scale" data-chapter="4">
+    <div class="chapter-sticky">
+      <div class="chapter-label"><span>Chapter Four</span></div>
+
+      <div class="scene scene-scale" id="sceneScale">
+        <h2 class="cinematic-title cinematic-title-sm">
+          <span class="ct-line"><span class="ct-word">The</span></span>
+          <span class="ct-line"><span class="ct-word ct-word-accent">Scale</span></span>
+        </h2>
+
+        <div class="scale-numbers" id="scaleNumbers">
+          <div class="scale-stat" data-delay="0">
+            <div class="scale-num"><span class="counter" data-target="43">0</span></div>
+            <div class="scale-label">Clients trust us with their production lines</div>
+          </div>
+          <div class="scale-stat" data-delay="200">
+            <div class="scale-num"><span class="counter" data-target="1200">0</span><span class="scale-suffix">+</span></div>
+            <div class="scale-label">Invoices processed this financial year</div>
+          </div>
+          <div class="scale-stat" data-delay="400">
+            <div class="scale-num"><span class="counter" data-target="95">0</span><span class="scale-suffix">M</span></div>
+            <div class="scale-label">PKR in annual revenue</div>
+          </div>
+          <div class="scale-stat" data-delay="600">
+            <div class="scale-num"><span class="counter" data-target="99">0</span><span class="scale-suffix">%</span></div>
+            <div class="scale-label">On-time delivery rate</div>
+          </div>
+        </div>
+
+        <div class="scale-quote" id="scaleQuote">
+          <blockquote>
+            &ldquo;The core you never think about is the one doing its job perfectly.&rdquo;
+          </blockquote>
+        </div>
+      </div>
+    </div>
+    <div class="chapter-scroll-height"></div>
+  </section>
+
+  <!-- ============================================
+       CHAPTER 5 — "The Future" (Contact)
+       ============================================ -->
+  <section class="chapter chapter-future" data-chapter="5">
+    <div class="chapter-sticky chapter-sticky-scroll">
+      <div class="chapter-label chapter-label-light"><span>Chapter Five</span></div>
+
+      <div class="scene scene-future" id="sceneFuture">
+        <div class="future-intro">
+          <h2 class="cinematic-title cinematic-title-light cinematic-title-sm">
+            <span class="ct-line"><span class="ct-word">The</span></span>
+            <span class="ct-line"><span class="ct-word ct-word-gold">Future</span></span>
           </h2>
+          <p class="future-tagline">Your next core, engineered.</p>
         </div>
-        <div class="about-right">
-          <p class="about-text">
-            King Core, operating under Imperial Synergies, is a leading paper tube winding manufacturer based in Lahore, Pakistan.
-            We transform raw materials &mdash; strawboard, coreboard, and finishing layers &mdash; into precision-engineered
-            paper cores that serve as the structural foundation for industries worldwide.
-          </p>
-          <p class="about-text">
-            Our facility operates with meticulous quality control, ensuring every core meets exact specifications
-            for diameter, wall thickness, and crush strength. From lightweight textile cones to heavy-duty industrial
-            tubes, we deliver consistency at scale.
-          </p>
-          <div class="about-values">
-            <div class="about-value">
-              <div class="about-value-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-              </div>
-              <h4>Timely Delivery</h4>
-              <p>Reliable scheduling that keeps your production lines running</p>
-            </div>
-            <div class="about-value">
-              <div class="about-value-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
-              </div>
-              <h4>Quality Assured</h4>
-              <p>Every core inspected for dimensional accuracy and crush resistance</p>
-            </div>
-            <div class="about-value">
-              <div class="about-value-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-              </div>
-              <h4>Scale Ready</h4>
-              <p>From small batches to bulk orders &mdash; capacity to match your demand</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Horizontal Scroll Products -->
-  <section class="products" id="products">
-    <div class="products-header">
-      <span class="section-tag">What We Make</span>
-      <h2 class="products-title">Our Product Range</h2>
-      <p class="products-sub">Engineered for every application, built to perform under pressure.</p>
-    </div>
-    <div class="products-track-wrapper">
-      <div class="products-track" id="productsTrack">
-        <div class="product-card">
-          <div class="product-card-visual">
-            <div class="product-tube product-tube-textile"></div>
-          </div>
-          <div class="product-card-info">
-            <span class="product-card-num">01</span>
-            <h3>Textile Cones</h3>
-            <p>Precision-wound cones for yarn winding, dyeing, and textile processing. Available in standard and custom tapers.</p>
-            <ul class="product-specs">
-              <li>Custom taper angles</li>
-              <li>Smooth finish surface</li>
-              <li>High-speed compatible</li>
-            </ul>
-          </div>
-        </div>
-        <div class="product-card">
-          <div class="product-card-visual">
-            <div class="product-tube product-tube-packaging"></div>
-          </div>
-          <div class="product-card-info">
-            <span class="product-card-num">02</span>
-            <h3>Packaging Cores</h3>
-            <p>Robust cores for film, foil, tape, and flexible packaging roll winding. Engineered for high crush resistance.</p>
-            <ul class="product-specs">
-              <li>High crush strength</li>
-              <li>Consistent wall thickness</li>
-              <li>Multiple ID options</li>
-            </ul>
-          </div>
-        </div>
-        <div class="product-card">
-          <div class="product-card-visual">
-            <div class="product-tube product-tube-industrial"></div>
-          </div>
-          <div class="product-card-info">
-            <span class="product-card-num">03</span>
-            <h3>Industrial Tubes</h3>
-            <p>Heavy-duty tubes for construction, concrete forming, and shipping. Built to handle extreme loads.</p>
-            <ul class="product-specs">
-              <li>Heavy load capacity</li>
-              <li>Weather resistant options</li>
-              <li>Custom lengths</li>
-            </ul>
-          </div>
-        </div>
-        <div class="product-card">
-          <div class="product-card-visual">
-            <div class="product-tube product-tube-paper"></div>
-          </div>
-          <div class="product-card-info">
-            <span class="product-card-num">04</span>
-            <h3>Paper Mill Cores</h3>
-            <p>High-strength cores for paper mills and converting operations. Designed for consistent performance at high RPM.</p>
-            <ul class="product-specs">
-              <li>Balanced concentricity</li>
-              <li>Tight tolerance ID</li>
-              <li>Multi-ply construction</li>
-            </ul>
-          </div>
-        </div>
-        <div class="product-card">
-          <div class="product-card-visual">
-            <div class="product-tube product-tube-custom"></div>
-          </div>
-          <div class="product-card-info">
-            <span class="product-card-num">05</span>
-            <h3>Custom Solutions</h3>
-            <p>Bespoke cores engineered to your exact specifications. Whatever the application, we build to match.</p>
-            <ul class="product-specs">
-              <li>Any diameter or length</li>
-              <li>Special adhesives</li>
-              <li>Branding options</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Process Scrollytelling -->
-  <section class="process" id="process">
-    <div class="process-sticky">
-      <div class="process-visual">
-        <div class="process-ring" id="processRing">
-          <svg viewBox="0 0 300 300">
-            <circle class="process-ring-bg" cx="150" cy="150" r="130" />
-            <circle class="process-ring-progress" cx="150" cy="150" r="130" id="processProgress" />
-          </svg>
-          <div class="process-step-num" id="processStepNum">01</div>
-        </div>
-      </div>
-      <div class="process-info">
-        <span class="section-tag">How It's Made</span>
-        <h2 class="process-title" id="processTitle">Raw Material Selection</h2>
-        <p class="process-desc" id="processDesc">
-          Every core begins with carefully sourced strawboard, coreboard, and finishing layers.
-          We inspect each batch for consistency in weight, moisture, and fiber quality.
-        </p>
-      </div>
-    </div>
-    <div class="process-steps">
-      <div class="process-step" data-step="1" data-title="Raw Material Selection" data-desc="Every core begins with carefully sourced strawboard, coreboard, and finishing layers. We inspect each batch for consistency in weight, moisture, and fiber quality."></div>
-      <div class="process-step" data-step="2" data-title="Adhesive Preparation" data-desc="Our dextrine-based adhesive is mixed to precise viscosity specifications. The right adhesive formula ensures bonding strength while maintaining the core's structural integrity."></div>
-      <div class="process-step" data-step="3" data-title="Tube Winding" data-desc="Layers of board are spiral-wound on precision mandrels at controlled tension. Each revolution adds strength, building up the wall thickness layer by layer to exact specifications."></div>
-      <div class="process-step" data-step="4" data-title="Cutting &amp; Sizing" data-desc="Wound tubes are cut to precise lengths using automated cutters. Every cut is measured against order specifications to ensure dimensional accuracy within tight tolerances."></div>
-      <div class="process-step" data-step="5" data-title="Quality Inspection" data-desc="Each core undergoes crush strength testing, dimensional verification, and visual inspection. Only cores meeting our strict quality standards proceed to packaging."></div>
-      <div class="process-step" data-step="6" data-title="Packaging &amp; Dispatch" data-desc="Finished cores are carefully bundled, labeled, and loaded for dispatch. Our logistics team coordinates timely delivery to keep your production lines running without interruption."></div>
-    </div>
-  </section>
-
-  <!-- Stats -->
-  <section class="stats" id="stats">
-    <div class="stats-bg">
-      <div class="stats-grain"></div>
-    </div>
-    <div class="container">
-      <div class="stats-header">
-        <span class="section-tag section-tag-light">Our Impact</span>
-        <h2 class="stats-title">Numbers That Speak</h2>
-      </div>
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-number" data-target="40">0</div>
-          <div class="stat-suffix">+</div>
-          <div class="stat-label">Clients Served</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number" data-target="500000">0</div>
-          <div class="stat-suffix">kg</div>
-          <div class="stat-label">Monthly Capacity</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number" data-target="5">0</div>
-          <div class="stat-suffix">+</div>
-          <div class="stat-label">Product Lines</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number" data-target="99">0</div>
-          <div class="stat-suffix">%</div>
-          <div class="stat-label">On-Time Delivery</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Materials Parallax -->
-  <section class="materials" id="materials">
-    <div class="container">
-      <div class="materials-header">
-        <span class="section-tag">Raw Materials</span>
-        <h2 class="materials-title">The Foundation of Quality</h2>
-      </div>
-      <div class="materials-grid">
-        <div class="material-card">
-          <div class="material-card-bg"></div>
-          <div class="material-icon">
-            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
-              <rect x="8" y="12" width="48" height="40" rx="2"/>
-              <line x1="8" y1="24" x2="56" y2="24"/>
-              <line x1="8" y1="36" x2="56" y2="36"/>
-            </svg>
-          </div>
-          <h3>Strawboard</h3>
-          <p>Primary structural layer providing bulk and rigidity. Sourced in controlled GSM weights for consistent performance.</p>
-          <span class="material-unit">Measured in KG</span>
-        </div>
-        <div class="material-card">
-          <div class="material-card-bg"></div>
-          <div class="material-icon">
-            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
-              <circle cx="32" cy="32" r="24"/>
-              <circle cx="32" cy="32" r="12"/>
-              <circle cx="32" cy="32" r="4"/>
-            </svg>
-          </div>
-          <h3>Coreboard</h3>
-          <p>High-density inner layer engineered for crush resistance. The backbone that determines core strength rating.</p>
-          <span class="material-unit">Measured in KG</span>
-        </div>
-        <div class="material-card">
-          <div class="material-card-bg"></div>
-          <div class="material-icon">
-            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M8 52 L32 12 L56 52 Z"/>
-              <line x1="20" y1="36" x2="44" y2="36"/>
-            </svg>
-          </div>
-          <h3>Finishing Layer</h3>
-          <p>Outer surface treatment for smoothness and printability. Available in various GSM and color options.</p>
-          <span class="material-unit">Measured in KG</span>
-        </div>
-        <div class="material-card">
-          <div class="material-card-bg"></div>
-          <div class="material-icon">
-            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
-              <ellipse cx="32" cy="40" rx="20" ry="12"/>
-              <path d="M12 40 V28 C12 21.4 21 16 32 16 C43 16 52 21.4 52 28 V40"/>
-            </svg>
-          </div>
-          <h3>Dextrine</h3>
-          <p>Natural starch-based adhesive that bonds layers with industrial-strength grip. Environmentally responsible binding.</p>
-          <span class="material-unit">Measured in Bags</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section class="contact" id="contact">
-    <div class="container">
-      <div class="contact-grid">
-        <div class="contact-left">
-          <span class="section-tag">Get In Touch</span>
-          <h2 class="contact-title">
-            Let's build<br>something <em>strong</em>
-          </h2>
-          <p class="contact-text">
-            Whether you need standard cores or a custom solution engineered to your specifications,
-            we're ready to discuss your requirements.
-          </p>
-          <div class="contact-details">
-            <div class="contact-detail">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <div>
-                <strong>Location</strong>
-                <span>Lahore, Punjab, Pakistan</span>
+        <div class="future-contact">
+          <div class="future-contact-left">
+            <p class="future-text">Whether you need ten thousand cones or a single custom prototype, the conversation starts the same way.</p>
+            <div class="future-details">
+              <div class="future-detail">
+                <span class="future-detail-label">Location</span>
+                <span class="future-detail-value">Lahore, Punjab, Pakistan</span>
               </div>
-            </div>
-            <div class="contact-detail">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>
-              <div>
-                <strong>Email</strong>
-                <span>info@kingcore.pk</span>
+              <div class="future-detail">
+                <span class="future-detail-label">Email</span>
+                <span class="future-detail-value">info@kingcore.pk</span>
               </div>
-            </div>
-            <div class="contact-detail">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-              <div>
-                <strong>Phone</strong>
-                <span>+92 42 XXX XXXX</span>
+              <div class="future-detail">
+                <span class="future-detail-label">Company</span>
+                <span class="future-detail-value">Imperial Synergies</span>
               </div>
             </div>
           </div>
-        </div>
-        <div class="contact-right">
-          <form class="contact-form" id="contactForm">
-            <div class="form-group">
-              <input type="text" id="name" placeholder="Your Name" required>
-            </div>
-            <div class="form-group">
-              <input type="email" id="email" placeholder="Email Address" required>
-            </div>
-            <div class="form-group">
-              <input type="text" id="company" placeholder="Company Name">
-            </div>
-            <div class="form-group">
-              <select id="product" required>
-                <option value="" disabled selected>Product Interest</option>
+          <div class="future-contact-right">
+            <form class="future-form" id="contactForm">
+              <input type="text" placeholder="Your name" required>
+              <input type="email" placeholder="Email" required>
+              <input type="text" placeholder="Company">
+              <select required>
+                <option value="" disabled selected>What do you need?</option>
                 <option>Textile Cones</option>
                 <option>Packaging Cores</option>
                 <option>Industrial Tubes</option>
                 <option>Paper Mill Cores</option>
-                <option>Custom Solution</option>
+                <option>Something Custom</option>
               </select>
-            </div>
-            <div class="form-group form-group-full">
-              <textarea id="message" placeholder="Tell us about your requirements" rows="4" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary btn-full">Send Inquiry</button>
-          </form>
+              <textarea placeholder="Tell us more" rows="4"></textarea>
+              <button type="submit" class="future-btn">Start the Conversation</button>
+            </form>
+          </div>
         </div>
       </div>
+
+      <!-- Footer inside last chapter -->
+      <footer class="story-footer">
+        <div class="story-footer-inner">
+          <span class="footer-brand"><span class="fb-king">KING</span><span class="fb-core">CORE</span></span>
+          <span class="footer-line">Imperial Synergies &middot; Lahore, Pakistan &middot; &copy; 2026</span>
+        </div>
+      </footer>
     </div>
   </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-inner">
-        <div class="footer-brand">
-          <span class="nav-logo-king">KING</span><span class="nav-logo-core">CORE</span>
-          <p>Imperial Synergies &mdash; Precision paper tube manufacturing, Lahore, Pakistan.</p>
-        </div>
-        <div class="footer-links">
-          <a href="#about">About</a>
-          <a href="#products">Products</a>
-          <a href="#process">Process</a>
-          <a href="#contact">Contact</a>
-        </div>
-        <div class="footer-copy">
-          &copy; 2026 King Core / Imperial Synergies. All rights reserved.
-        </div>
-      </div>
-    </div>
-  </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
