@@ -155,7 +155,7 @@ a { color: inherit; text-decoration: none; }
 }
 .scrollytelling::after {
   content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-  background: radial-gradient(ellipse at center, transparent 50%, rgba(14,31,58,0.10) 100%);
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(14,31,58,0.12) 100%);
   pointer-events: none; z-index: 2;
 }
 .scene-overlay.pos-right { justify-content: flex-end; }
@@ -423,7 +423,6 @@ body.no-webgl .fallback-scenes { display: block; }
   <canvas id="tube-canvas" aria-hidden="true"></canvas>
 
   <div class="scene-overlay pos-center" data-scene="0" id="ov0"></div>
-
   <div class="scene-overlay pos-center" data-scene="1" id="ov1"></div>
 
   <div class="scene-overlay pos-right" data-scene="2" id="ov2">
@@ -601,26 +600,15 @@ body.no-webgl .fallback-scenes { display: block; }
 (function () {
   'use strict';
 
-  /* ────────────────────────────────────────────
-     FEATURE DETECTION
-  ──────────────────────────────────────────── */
+  // ── FEATURE DETECTION ──
   var hasWebGL = (function () {
-    try {
-      var c = document.createElement('canvas');
-      return !!(c.getContext('webgl') || c.getContext('experimental-webgl'));
-    } catch (e) { return false; }
+    try { var c = document.createElement('canvas'); return !!(c.getContext('webgl') || c.getContext('experimental-webgl')); }
+    catch (e) { return false; }
   })();
-
-  if (!hasWebGL) {
-    document.body.classList.add('no-webgl');
-    return;
-  }
-
+  if (!hasWebGL) { document.body.classList.add('no-webgl'); return; }
   var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ────────────────────────────────────────────
-     LENIS SMOOTH SCROLL
-  ──────────────────────────────────────────── */
+  // ── LENIS ──
   if (typeof Lenis !== 'undefined' && !prefersReduced) {
     var lenis = new Lenis({ duration: 1.2, smoothWheel: true, touchMultiplier: 1.5 });
     lenis.on('scroll', ScrollTrigger.update);
@@ -628,314 +616,200 @@ body.no-webgl .fallback-scenes { display: block; }
     gsap.ticker.lagSmoothing(0);
   }
 
-  /* ────────────────────────────────────────────
-     CONSTANTS
-  ──────────────────────────────────────────── */
-  var C = {
-    NAVY: 0x0E1F3A, GOLD: 0xB8893A, GOLD_HI: 0xD9B066,
-    BURGUNDY: 0x6B1E2E, CREAM: 0xF4EFE4,
-    KRAFT: 0x8B6F2E, KRAFT_LT: 0xA68544
-  };
+  // ── CONSTANTS ──
   var OUTER_R = 1.0, INNER_R = 0.8, TUBE_LEN = 3.2;
   var mobile = window.innerWidth < 900;
-  var SEGS = mobile ? 32 : 64;
+  var SEGS = mobile ? 32 : 48;
 
-  /* ────────────────────────────────────────────
-     THREE.JS RENDERER
-  ──────────────────────────────────────────── */
+  // ── RENDERER ──
   var canvas = document.getElementById('tube-canvas');
-  var renderer = new THREE.WebGLRenderer({
-    canvas: canvas, antialias: !mobile, alpha: false
-  });
+  var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: !mobile, alpha: false });
   renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, mobile ? 1.5 : 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.localClippingEnabled = true;
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.25;
+  renderer.toneMappingExposure = 1.1;
   renderer.physicallyCorrectLights = true;
-  renderer.setClearColor(C.CREAM, 1);
+  renderer.setClearColor(0xF4EFE4, 1);
+  renderer.shadowMap.enabled = !mobile;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
   var scene3 = new THREE.Scene();
-  var camera = new THREE.PerspectiveCamera(
-    35, window.innerWidth / window.innerHeight, 0.1, 100
-  );
+  var camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 100);
   camera.position.set(0, 0, 6);
 
-  /* ────────────────────────────────────────────
-     LIGHTING — cinematic 4-point
-  ──────────────────────────────────────────── */
-  var keyLight = new THREE.DirectionalLight(0xffeacc, 1.6);
-  keyLight.position.set(4, 5, 4);
+  // ── LIGHTING — cinematic 3-point + hemisphere ──
+  var keyLight = new THREE.DirectionalLight(0xfff2dc, 2.2);
+  keyLight.position.set(3, 4, 4);
+  keyLight.castShadow = !mobile;
+  if (!mobile) {
+    keyLight.shadow.mapSize.set(1024, 1024);
+    keyLight.shadow.bias = -0.0005;
+    keyLight.shadow.camera.near = 0.5;
+    keyLight.shadow.camera.far = 20;
+  }
   scene3.add(keyLight);
 
-  var fillLight = new THREE.DirectionalLight(0xd0daee, 0.3);
-  fillLight.position.set(-4, 2, -1);
+  var fillLight = new THREE.DirectionalLight(0xc8d4e8, 0.7);
+  fillLight.position.set(-4, 2, 2);
   scene3.add(fillLight);
 
-  var rimLight = new THREE.DirectionalLight(0xfff0d0, 0.7);
-  rimLight.position.set(-1, 3, -5);
+  var rimLight = new THREE.DirectionalLight(0xB8893A, 1.4);
+  rimLight.position.set(-2, 1, -4);
   scene3.add(rimLight);
 
-  var bottomBounce = new THREE.DirectionalLight(0xf4efe4, 0.15);
-  bottomBounce.position.set(0, -3, 2);
-  scene3.add(bottomBounce);
+  scene3.add(new THREE.AmbientLight(0xffffff, 0.25));
+  scene3.add(new THREE.HemisphereLight(0xfff2dc, 0x1a1510, 0.3));
 
-  scene3.add(new THREE.AmbientLight(0xfff8f0, 0.2));
-  scene3.add(new THREE.HemisphereLight(0xfff8f0, 0x8B6F2E, 0.15));
+  // ── ENVIRONMENT MAP ──
+  try {
+    var pmrem = new THREE.PMREMGenerator(renderer);
+    var envScene = new THREE.Scene();
+    envScene.background = new THREE.Color(0xf4efe4);
+    scene3.environment = pmrem.fromScene(envScene, 0.04).texture;
+    pmrem.dispose();
+  } catch (e) { /* env map optional */ }
 
-  /* ────────────────────────────────────────────
-     PROCEDURAL PAPER TEXTURES
-  ──────────────────────────────────────────── */
-  function makePaperColor(w, h) {
-    var c = document.createElement('canvas');
-    c.width = w; c.height = h;
+  // ── PROCEDURAL TEXTURES ──
+  function makeKraftTexture(w, h) {
+    var c = document.createElement('canvas'); c.width = w; c.height = h;
     var ctx = c.getContext('2d');
-
-    // Warm kraft base with subtle gradient
-    var grad = ctx.createLinearGradient(0, 0, w, h);
-    grad.addColorStop(0, '#9A7B3C');
-    grad.addColorStop(0.5, '#8B6F2E');
-    grad.addColorStop(1, '#7E6328');
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, w, h);
-
-    // Pixel-level grain noise
-    var id = ctx.getImageData(0, 0, w, h);
-    var d = id.data;
-    for (var i = 0; i < d.length; i += 4) {
-      var n = (Math.random() - 0.5) * 28;
-      d[i]   = Math.max(0, Math.min(255, d[i]   + n));
-      d[i+1] = Math.max(0, Math.min(255, d[i+1] + n * 0.9));
-      d[i+2] = Math.max(0, Math.min(255, d[i+2] + n * 0.6));
-    }
-    ctx.putImageData(id, 0, 0);
-
-    // Fiber lines — horizontal, wavy, very subtle
-    ctx.globalAlpha = 0.06;
-    for (var y = 0; y < h; y += 2) {
-      ctx.strokeStyle = Math.random() > 0.5 ? '#6B5520' : '#B08E44';
-      ctx.lineWidth = Math.random() * 0.6 + 0.2;
-      ctx.beginPath();
-      ctx.moveTo(0, y);
-      for (var x = 0; x < w; x += 15) {
-        ctx.lineTo(x, y + (Math.random() - 0.5) * 1.8);
-      }
+    ctx.fillStyle = '#8B6F2E'; ctx.fillRect(0, 0, w, h);
+    // Fiber grain — thousands of short random streaks
+    for (var i = 0; i < 8000; i++) {
+      var x = Math.random() * w, y = Math.random() * h;
+      var len = 2 + Math.random() * 8;
+      var shade = Math.random();
+      ctx.strokeStyle = shade > 0.5
+        ? 'rgba(120,90,40,' + (0.15 + Math.random() * 0.3) + ')'
+        : 'rgba(180,140,70,' + (0.1 + Math.random() * 0.2) + ')';
+      ctx.lineWidth = 0.5;
+      ctx.beginPath(); ctx.moveTo(x, y);
+      ctx.lineTo(x + len * Math.cos(Math.random() * 0.5), y + len * Math.sin(Math.random() * 0.5));
       ctx.stroke();
     }
-
-    // Diagonal winding seam lines at ~34 deg
-    ctx.globalAlpha = 0.09;
-    ctx.strokeStyle = '#5A4515';
-    ctx.lineWidth = 1.2;
-    var tan34 = Math.tan(34 * Math.PI / 180);
-    for (var off = -h; off < w + h; off += 36) {
+    // Helical seam lines — signature of spiral-wound
+    ctx.strokeStyle = 'rgba(60,40,15,0.35)'; ctx.lineWidth = 1.5;
+    for (var p = 0; p < 3; p++) {
       ctx.beginPath();
-      ctx.moveTo(off, 0);
-      ctx.lineTo(off + h * tan34, h);
+      ctx.moveTo(0, p * h / 3 - 40);
+      ctx.lineTo(w, p * h / 3 + 120);
       ctx.stroke();
     }
-
-    // Lighter seam highlight next to each dark line
-    ctx.globalAlpha = 0.05;
-    ctx.strokeStyle = '#C4A45A';
-    ctx.lineWidth = 0.8;
-    for (var off2 = -h + 2; off2 < w + h; off2 += 36) {
+    // Lighter highlight beside seams
+    ctx.strokeStyle = 'rgba(190,150,80,0.15)'; ctx.lineWidth = 1;
+    for (var p2 = 0; p2 < 3; p2++) {
       ctx.beginPath();
-      ctx.moveTo(off2, 0);
-      ctx.lineTo(off2 + h * tan34, h);
+      ctx.moveTo(0, p2 * h / 3 - 38);
+      ctx.lineTo(w, p2 * h / 3 + 122);
       ctx.stroke();
     }
-
-    ctx.globalAlpha = 1;
     var tex = new THREE.CanvasTexture(c);
-    tex.wrapS = THREE.RepeatWrapping;
-    tex.wrapT = THREE.RepeatWrapping;
-    tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+    tex.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
     return tex;
   }
 
-  function makePaperNormal(w, h) {
-    var c = document.createElement('canvas');
-    c.width = w; c.height = h;
+  function makeKraftNormal(w, h) {
+    var c = document.createElement('canvas'); c.width = w; c.height = h;
     var ctx = c.getContext('2d');
-    ctx.fillStyle = 'rgb(128,128,255)';
-    ctx.fillRect(0, 0, w, h);
-
-    var id = ctx.getImageData(0, 0, w, h);
-    var d = id.data;
+    ctx.fillStyle = 'rgb(128,128,255)'; ctx.fillRect(0, 0, w, h);
+    var id = ctx.getImageData(0, 0, w, h); var d = id.data;
     for (var i = 0; i < d.length; i += 4) {
-      d[i]   = Math.max(0, Math.min(255, 128 + (Math.random() - 0.5) * 18));
-      d[i+1] = Math.max(0, Math.min(255, 128 + (Math.random() - 0.5) * 18));
+      d[i]   = Math.max(0, Math.min(255, 128 + (Math.random() - 0.5) * 22));
+      d[i+1] = Math.max(0, Math.min(255, 128 + (Math.random() - 0.5) * 22));
     }
     ctx.putImageData(id, 0, 0);
-
     // Seam bump lines
-    ctx.globalAlpha = 0.18;
-    ctx.strokeStyle = 'rgb(145,128,255)';
-    ctx.lineWidth = 2.5;
-    var tan34 = Math.tan(34 * Math.PI / 180);
-    for (var off = -h; off < w + h; off += 36) {
-      ctx.beginPath();
-      ctx.moveTo(off, 0);
-      ctx.lineTo(off + h * tan34, h);
-      ctx.stroke();
+    ctx.globalAlpha = 0.22; ctx.strokeStyle = 'rgb(148,128,255)'; ctx.lineWidth = 3;
+    for (var p = 0; p < 3; p++) {
+      ctx.beginPath(); ctx.moveTo(0, p * h / 3 - 40); ctx.lineTo(w, p * h / 3 + 120); ctx.stroke();
     }
     ctx.globalAlpha = 1;
-
     var tex = new THREE.CanvasTexture(c);
-    tex.wrapS = THREE.RepeatWrapping;
-    tex.wrapT = THREE.RepeatWrapping;
+    tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
     return tex;
   }
 
-  function makePaperRoughness(w, h) {
-    var c = document.createElement('canvas');
-    c.width = w; c.height = h;
+  function makeKraftRoughness(w, h) {
+    var c = document.createElement('canvas'); c.width = w; c.height = h;
     var ctx = c.getContext('2d');
-    // High roughness base (white = rough)
-    ctx.fillStyle = 'rgb(220,220,220)';
-    ctx.fillRect(0, 0, w, h);
-
-    var id = ctx.getImageData(0, 0, w, h);
-    var d = id.data;
+    ctx.fillStyle = 'rgb(210,210,210)'; ctx.fillRect(0, 0, w, h);
+    var id = ctx.getImageData(0, 0, w, h); var d = id.data;
     for (var i = 0; i < d.length; i += 4) {
-      var n = (Math.random() - 0.5) * 40;
-      var v = Math.max(0, Math.min(255, 220 + n));
+      var v = Math.max(140, Math.min(255, 210 + (Math.random() - 0.5) * 50));
       d[i] = d[i+1] = d[i+2] = v;
     }
     ctx.putImageData(id, 0, 0);
-
     var tex = new THREE.CanvasTexture(c);
-    tex.wrapS = THREE.RepeatWrapping;
-    tex.wrapT = THREE.RepeatWrapping;
+    tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
     return tex;
   }
 
-  var paperColorTex = makePaperColor(512, 512);
-  var paperNormTex = makePaperNormal(512, 512);
-  var paperRoughTex = makePaperRoughness(256, 256);
-  var paperColorInner = makePaperColor(256, 256);
+  var kraftColorMap = makeKraftTexture(1024, 512);
+  var kraftNormalMap = makeKraftNormal(512, 512);
+  var kraftRoughMap = makeKraftRoughness(256, 256);
 
-  /* ────────────────────────────────────────────
-     CLIPPING PLANES (cutaway)
-  ──────────────────────────────────────────── */
+  // ── CLIPPING PLANES ──
   var clipX = new THREE.Plane(new THREE.Vector3(-1, 0, 0), 0);
   var clipZ = new THREE.Plane(new THREE.Vector3(0, 0, -1), 0);
 
-  /* ────────────────────────────────────────────
-     MATERIALS — textured paper
-  ──────────────────────────────────────────── */
-  var kraftMat = new THREE.MeshPhysicalMaterial({
-    map: paperColorTex,
-    normalMap: paperNormTex,
-    normalScale: new THREE.Vector2(0.35, 0.35),
-    roughnessMap: paperRoughTex,
-    roughness: 0.88,
-    metalness: 0.0,
-    clearcoat: 0.0,
-    clearcoatRoughness: 0.8
+  // ── MATERIALS ──
+  var kraftMat = new THREE.MeshStandardMaterial({
+    map: kraftColorMap, normalMap: kraftNormalMap,
+    normalScale: new THREE.Vector2(0.3, 0.3),
+    roughnessMap: kraftRoughMap, roughness: 0.85, metalness: 0
   });
+  // Store base values for wax transition reset
+  var KRAFT_BASE_ROUGH = 0.85;
+  var KRAFT_BASE_NS = 0.3;
+
   var kraftInnerMat = new THREE.MeshStandardMaterial({
-    map: paperColorInner,
-    roughness: 0.9,
-    side: THREE.BackSide
+    map: kraftColorMap, roughness: 0.9, side: THREE.BackSide
   });
   var endCapMat = new THREE.MeshStandardMaterial({
-    map: paperColorTex,
-    normalMap: paperNormTex,
-    normalScale: new THREE.Vector2(0.2, 0.2),
-    roughness: 0.85
+    map: kraftColorMap, normalMap: kraftNormalMap,
+    normalScale: new THREE.Vector2(0.2, 0.2), roughness: 0.85
   });
+  var botCapMat = endCapMat.clone();
+
   var goldMat = new THREE.MeshStandardMaterial({
-    color: C.GOLD, metalness: 0.5, roughness: 0.28,
+    color: 0xB8893A, metalness: 0.5, roughness: 0.28,
     emissive: 0x3A2200, emissiveIntensity: 0.15
   });
-  var burgundyMat = new THREE.MeshStandardMaterial({
-    color: C.BURGUNDY, roughness: 0.6, metalness: 0.1
-  });
-  var plateMat = new THREE.MeshStandardMaterial({
-    color: 0x888888, metalness: 0.65, roughness: 0.18
-  });
-  var wheelMat = new THREE.MeshStandardMaterial({
-    color: 0x555555, metalness: 0.75, roughness: 0.12
-  });
-  var waxMatl = new THREE.MeshPhysicalMaterial({
-    color: C.GOLD_HI, roughness: 0.06, metalness: 0.0,
-    clearcoat: 1.0, clearcoatRoughness: 0.03,
-    transparent: true, opacity: 0.7
-  });
+  var burgundyMat = new THREE.MeshStandardMaterial({ color: 0x6B1E2E, roughness: 0.6 });
 
-  /* ────────────────────────────────────────────
-     SEAL GROUP — concentric gold rings + dot
-  ──────────────────────────────────────────── */
+  // ── SEAL GROUP ──
   var sealGroup = new THREE.Group();
   [1.3, 1.0, 0.7].forEach(function (r) {
-    var g = new THREE.TorusGeometry(r, 0.032, 16, 96);
-    sealGroup.add(new THREE.Mesh(g, goldMat.clone()));
+    sealGroup.add(new THREE.Mesh(new THREE.TorusGeometry(r, 0.032, 16, 96), goldMat.clone()));
   });
-  // Burgundy disc
-  sealGroup.add(new THREE.Mesh(
-    new THREE.SphereGeometry(0.12, 16, 16), burgundyMat.clone()
-  ));
-  // Gold center dot
-  sealGroup.add(new THREE.Mesh(
-    new THREE.SphereGeometry(0.045, 12, 12), goldMat.clone()
-  ));
+  sealGroup.add(new THREE.Mesh(new THREE.SphereGeometry(0.12, 16, 16), burgundyMat.clone()));
+  sealGroup.add(new THREE.Mesh(new THREE.SphereGeometry(0.045, 12, 12), goldMat.clone()));
   scene3.add(sealGroup);
 
-  /* ────────────────────────────────────────────
-     TUBE GROUP — outer, inner, end caps
-  ──────────────────────────────────────────── */
+  // ── TUBE GROUP ──
   var tubeGroup = new THREE.Group();
   tubeGroup.visible = false;
-
   var outerMesh = new THREE.Mesh(
-    new THREE.CylinderGeometry(OUTER_R, OUTER_R, TUBE_LEN, SEGS, 1, true),
-    kraftMat
+    new THREE.CylinderGeometry(OUTER_R, OUTER_R, TUBE_LEN, SEGS, 1, true), kraftMat
   );
+  outerMesh.castShadow = true; outerMesh.receiveShadow = true;
   tubeGroup.add(outerMesh);
-
-  var innerMesh = new THREE.Mesh(
-    new THREE.CylinderGeometry(INNER_R, INNER_R, TUBE_LEN, SEGS, 1, true),
-    kraftInnerMat
-  );
-  tubeGroup.add(innerMesh);
-
+  tubeGroup.add(new THREE.Mesh(
+    new THREE.CylinderGeometry(INNER_R, INNER_R, TUBE_LEN, SEGS, 1, true), kraftInnerMat
+  ));
   var ringGeo = new THREE.RingGeometry(INNER_R, OUTER_R, SEGS);
   var topCap = new THREE.Mesh(ringGeo, endCapMat);
-  topCap.position.y = TUBE_LEN / 2;
-  topCap.rotation.x = -Math.PI / 2;
+  topCap.position.y = TUBE_LEN / 2; topCap.rotation.x = -Math.PI / 2;
   tubeGroup.add(topCap);
-
-  var botCapMat = endCapMat.clone();
   var botCap = new THREE.Mesh(ringGeo.clone(), botCapMat);
-  botCap.position.y = -TUBE_LEN / 2;
-  botCap.rotation.x = Math.PI / 2;
+  botCap.position.y = -TUBE_LEN / 2; botCap.rotation.x = Math.PI / 2;
   tubeGroup.add(botCap);
-
   scene3.add(tubeGroup);
 
-  /* ────────────────────────────────────────────
-     PLY LAYERS (cutaway reveal)
-  ──────────────────────────────────────────── */
-  var plyGroup = new THREE.Group();
-  plyGroup.visible = false;
-  var plyColors = [0x6E5720, 0x7A6025, 0x8B6F2E, 0x9A7B3C, 0x7A6025];
-  plyColors.forEach(function (c, i) {
-    var r = INNER_R + (OUTER_R - INNER_R) * (i + 0.5) / plyColors.length;
-    var g = new THREE.CylinderGeometry(r, r, TUBE_LEN, SEGS, 1, true);
-    var m = new THREE.MeshStandardMaterial({
-      color: c, roughness: 0.75, side: THREE.DoubleSide,
-      clippingPlanes: [clipX, clipZ]
-    });
-    plyGroup.add(new THREE.Mesh(g, m));
-  });
-  scene3.add(plyGroup);
-
-  /* ────────────────────────────────────────────
-     WINDING RIBBONS — helix TubeGeometry
-  ──────────────────────────────────────────── */
+  // ── 3D HELICAL SEAM (the spiral-wound signature) ──
   class HelixCurve extends THREE.Curve {
     constructor(radius, height, turns, phase) {
       super();
@@ -943,168 +817,88 @@ body.no-webgl .fallback-scenes { display: block; }
     }
     getPoint(t) {
       var a = 2 * Math.PI * this._t * t + this._p;
-      return new THREE.Vector3(
-        this._r * Math.cos(a),
-        this._h * t - this._h / 2,
-        this._r * Math.sin(a)
-      );
+      return new THREE.Vector3(this._r * Math.cos(a), this._h * t - this._h / 2, this._r * Math.sin(a));
     }
   }
+  var seamCurve = new HelixCurve(OUTER_R + 0.002, TUBE_LEN, 6, 0);
+  var seamMesh = new THREE.Mesh(
+    new THREE.TubeGeometry(seamCurve, 200, 0.008, 6, false),
+    new THREE.MeshStandardMaterial({ color: 0x5A4515, roughness: 0.9, metalness: 0 })
+  );
+  seamMesh.visible = false;
+  scene3.add(seamMesh);
 
-  var ribbonCount = 3;
-  var ribbons = [];
-  var ribbonIndexCounts = [];
-  for (var ri = 0; ri < ribbonCount; ri++) {
-    var hc = new HelixCurve(
-      OUTER_R - 0.01, TUBE_LEN * 1.05, 10,
-      (ri * 2 * Math.PI) / ribbonCount
-    );
-    var tubSegs = mobile ? 150 : 260;
-    var rGeo = new THREE.TubeGeometry(hc, tubSegs, 0.028, 5, false);
-    var rMat = new THREE.MeshStandardMaterial({
-      map: paperColorTex,
-      color: ri % 2 === 0 ? 0xBB9944 : 0x9A7B3C, roughness: 0.82
-    });
-    var rMesh = new THREE.Mesh(rGeo, rMat);
+  // ── PLY LAYERS (cutaway) ──
+  var plyGroup = new THREE.Group(); plyGroup.visible = false;
+  [0x6E5720, 0x7A6025, 0x8B6F2E, 0x9A7B3C, 0x7A6025].forEach(function (c, i) {
+    var r = INNER_R + (OUTER_R - INNER_R) * (i + 0.5) / 5;
+    plyGroup.add(new THREE.Mesh(
+      new THREE.CylinderGeometry(r, r, TUBE_LEN, SEGS, 1, true),
+      new THREE.MeshStandardMaterial({ color: c, roughness: 0.75, side: THREE.DoubleSide, clippingPlanes: [clipX, clipZ] })
+    ));
+  });
+  scene3.add(plyGroup);
+
+  // ── WINDING RIBBONS ──
+  var ribbons = [], ribbonIdxCounts = [];
+  for (var ri = 0; ri < 3; ri++) {
+    var hc = new HelixCurve(OUTER_R - 0.01, TUBE_LEN * 1.05, 10, ri * 2 * Math.PI / 3);
+    var rGeo = new THREE.TubeGeometry(hc, mobile ? 120 : 220, 0.028, 5, false);
+    var rMesh = new THREE.Mesh(rGeo, new THREE.MeshStandardMaterial({
+      map: kraftColorMap, color: ri % 2 === 0 ? 0xBB9944 : 0x9A7B3C, roughness: 0.82
+    }));
     rMesh.visible = false;
     ribbons.push(rMesh);
-    ribbonIndexCounts.push(rGeo.index ? rGeo.index.count : 0);
+    ribbonIdxCounts.push(rGeo.index ? rGeo.index.count : 0);
     scene3.add(rMesh);
   }
 
-  /* ────────────────────────────────────────────
-     CRUSH PLATES
-  ──────────────────────────────────────────── */
-  var plateGeoB = new THREE.BoxGeometry(3.2, 0.12, 3.2);
-  var topPlate = new THREE.Mesh(plateGeoB, plateMat);
-  var bottomPlate = new THREE.Mesh(plateGeoB, plateMat.clone());
-  topPlate.visible = false;
-  bottomPlate.visible = false;
-  scene3.add(topPlate);
-  scene3.add(bottomPlate);
-
-  /* ────────────────────────────────────────────
-     GRINDING WHEEL
-  ──────────────────────────────────────────── */
-  var grindingWheel = new THREE.Mesh(
-    new THREE.TorusGeometry(0.22, 0.04, 8, 32), wheelMat
-  );
-  grindingWheel.visible = false;
-  scene3.add(grindingWheel);
-
-  /* ────────────────────────────────────────────
-     DUST PARTICLES
-  ──────────────────────────────────────────── */
-  var dustCount = 24;
-  var dustGeo = new THREE.BufferGeometry();
-  var dustPosArr = new Float32Array(dustCount * 3);
-  var dustVel = [];
-  for (var di = 0; di < dustCount; di++) {
-    dustPosArr[di * 3] = (Math.random() - 0.5) * 0.4;
-    dustPosArr[di * 3 + 1] = TUBE_LEN / 2 + Math.random() * 0.3;
-    dustPosArr[di * 3 + 2] = (Math.random() - 0.5) * 0.4;
-    dustVel.push({
-      x: (Math.random() - 0.5) * 0.05,
-      y: Math.random() * 0.06 + 0.02,
-      z: (Math.random() - 0.5) * 0.05
-    });
-  }
-  dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPosArr, 3));
-  var dustMat = new THREE.PointsMaterial({
-    color: C.KRAFT_LT, size: 0.025, transparent: true, opacity: 0.5
-  });
-  var dustParticles = new THREE.Points(dustGeo, dustMat);
-  dustParticles.visible = false;
-  scene3.add(dustParticles);
-
-  /* ────────────────────────────────────────────
-     WAX RING
-  ──────────────────────────────────────────── */
-  var waxRing = new THREE.Mesh(
-    new THREE.TorusGeometry(OUTER_R + 0.06, 0.035, 8, SEGS), waxMatl
-  );
-  waxRing.rotation.x = Math.PI / 2;
-  waxRing.visible = false;
-  scene3.add(waxRing);
-
-  /* ────────────────────────────────────────────
-     MULTI-TUBE GROUP
-  ──────────────────────────────────────────── */
-  var multiGroup = new THREE.Group();
-  multiGroup.visible = false;
-  var multiSpecs = [
-    { r: 0.5, ir: 0.35, len: 2.0, x: -2.5 },
-    { r: 1.0, ir: 0.8,  len: 3.2, x: 0 },
-    { r: 0.75, ir: 0.58, len: 2.6, x: 2.5 }
-  ];
-  multiSpecs.forEach(function (s) {
+  // ── MULTI-TUBE GROUP ──
+  var multiGroup = new THREE.Group(); multiGroup.visible = false;
+  [{ r:0.5, ir:0.35, len:2.0, x:-2.5 }, { r:1.0, ir:0.8, len:3.2, x:0 }, { r:0.75, ir:0.58, len:2.6, x:2.5 }].forEach(function (s) {
     var g = new THREE.Group();
-    g.add(new THREE.Mesh(
-      new THREE.CylinderGeometry(s.r, s.r, s.len, SEGS, 1, true),
-      kraftMat.clone()
-    ));
-    g.add(new THREE.Mesh(
-      new THREE.CylinderGeometry(s.ir, s.ir, s.len, SEGS, 1, true),
-      kraftInnerMat.clone()
-    ));
+    var oM = new THREE.Mesh(new THREE.CylinderGeometry(s.r, s.r, s.len, SEGS, 1, true), kraftMat.clone());
+    oM.castShadow = true; g.add(oM);
+    g.add(new THREE.Mesh(new THREE.CylinderGeometry(s.ir, s.ir, s.len, SEGS, 1, true), kraftInnerMat.clone()));
     var rg = new THREE.RingGeometry(s.ir, s.r, SEGS);
-    var tc = new THREE.Mesh(rg, endCapMat.clone());
-    tc.position.y = s.len / 2; tc.rotation.x = -Math.PI / 2;
-    g.add(tc);
-    var bc = new THREE.Mesh(rg.clone(), endCapMat.clone());
-    bc.position.y = -s.len / 2; bc.rotation.x = Math.PI / 2;
-    g.add(bc);
+    var tc = new THREE.Mesh(rg, endCapMat.clone()); tc.position.y = s.len/2; tc.rotation.x = -Math.PI/2; g.add(tc);
+    var bc = new THREE.Mesh(rg.clone(), endCapMat.clone()); bc.position.y = -s.len/2; bc.rotation.x = Math.PI/2; g.add(bc);
     g.position.x = s.x;
     multiGroup.add(g);
   });
   scene3.add(multiGroup);
 
-  /* ────────────────────────────────────────────
-     CAMERA TARGETS — per scene
-  ──────────────────────────────────────────── */
+  // ── CAMERA TARGETS ──
   var camT = [
-    { px: 0,   py: 0,   pz: 6,    lx: 0,   ly: 0,   lz: 0 },     // 0 seal
-    { px: 0,   py: 0.3, pz: 4.5,  lx: 0,   ly: 0,   lz: 0 },     // 1 transition
-    { px: 1.8, py: 1.2, pz: 3.5,  lx: 0,   ly: 0,   lz: -0.5 },  // 2 winding
-    { px: 1.8, py: 0.2, pz: 1.8,  lx: 0.3, ly: 0,   lz: 0 },     // 3 cutaway
-    { px: 2.8, py: 0.6, pz: 2.5,  lx: 0,   ly: 0,   lz: 0 },     // 4 wax
-    { px: 3.8, py: 0.3, pz: 0.5,  lx: 0,   ly: 0,   lz: 0 },     // 5 crush
-    { px: 0.6, py: 2.0, pz: 1.5,  lx: 0,   ly: 1.2, lz: 0 },     // 6 edge
-    { px: 0,   py: 2.2, pz: 7,    lx: 0,   ly: 0,   lz: 0 }      // 7 multi
+    { px:0,   py:0,   pz:6,   lx:0,   ly:0,   lz:0 },    // 0 seal
+    { px:0,   py:0.3, pz:4.5, lx:0,   ly:0,   lz:0 },    // 1 transition
+    { px:1.8, py:1.0, pz:3.5, lx:0,   ly:0,   lz:-0.5 },  // 2 winding
+    { px:1.6, py:0.2, pz:1.6, lx:0.3, ly:0,   lz:0 },    // 3 cutaway
+    { px:2.5, py:0.4, pz:2.8, lx:0,   ly:0,   lz:0 },    // 4 wax (orbit)
+    { px:3.2, py:0.2, pz:1.8, lx:0,   ly:0,   lz:0 },    // 5 crush (side)
+    { px:0.3, py:1.8, pz:1.0, lx:0,   ly:1.4, lz:0 },    // 6 edge (close end)
+    { px:0,   py:1.8, pz:7,   lx:0,   ly:0,   lz:0 }     // 7 multi
   ];
 
-  /* ────────────────────────────────────────────
-     STATE
-  ──────────────────────────────────────────── */
-  var scrollProgress = 0;
-  var isDirty = true;
-  var hasActiveAnim = false;
-  var tubeRotY = 0;
+  // ── STATE ──
+  var scrollProgress = 0, isDirty = true, hasActiveAnim = false, tubeRotY = 0, frameCount = 0;
+  // Camera damping
+  var camPos = new THREE.Vector3(0, 0, 6);
+  var camTarget = new THREE.Vector3(0, 0, 6);
+  var camLook = new THREE.Vector3(); var camLookTarget = new THREE.Vector3();
 
-  /* ────────────────────────────────────────────
-     GSAP SCROLL TRIGGER
-  ──────────────────────────────────────────── */
+  // ── GSAP SCROLLTRIGGER ──
   gsap.registerPlugin(ScrollTrigger);
-
   ScrollTrigger.create({
-    trigger: '.scrollytelling',
-    start: 'top top',
-    end: '+=800%',
-    pin: true,
-    scrub: 0.5,
-    onUpdate: function (self) {
-      scrollProgress = self.progress;
-      isDirty = true;
-    }
+    trigger: '.scrollytelling', start: 'top top', end: '+=800%',
+    pin: true, scrub: 0.5,
+    onUpdate: function (self) { scrollProgress = self.progress; isDirty = true; }
   });
 
-  /* ────────────────────────────────────────────
-     OVERLAY MANAGEMENT
-  ──────────────────────────────────────────── */
+  // ── OVERLAY MANAGEMENT (throttled) ──
   var overlays = document.querySelectorAll('.scene-overlay');
   var wallEl = document.getElementById('wall-value');
   var crushEl = document.getElementById('crush-value');
-
   function updateOverlays(si, lp) {
     for (var i = 0; i < overlays.length; i++) {
       var ds = parseInt(overlays[i].getAttribute('data-scene'), 10);
@@ -1119,256 +913,167 @@ body.no-webgl .fallback-scenes { display: block; }
     }
   }
 
-  /* ────────────────────────────────────────────
-     UTILITY
-  ──────────────────────────────────────────── */
-  function sm(t) { return t * t * (3 - 2 * t); } // smoothstep
+  // ── UTILITY ──
+  function sm(t) { return t * t * (3 - 2 * t); }
 
-  /* ────────────────────────────────────────────
-     HIDE ALL 3D OBJECTS
-  ──────────────────────────────────────────── */
+  // ── HIDE ALL ──
   function hideAll() {
     sealGroup.visible = false;
     tubeGroup.visible = false;
+    seamMesh.visible = false;
     plyGroup.visible = false;
     ribbons.forEach(function (r) { r.visible = false; });
-    topPlate.visible = false;
-    bottomPlate.visible = false;
-    grindingWheel.visible = false;
-    dustParticles.visible = false;
-    waxRing.visible = false;
     multiGroup.visible = false;
     hasActiveAnim = false;
-    // Reset clipping
     kraftMat.clippingPlanes = [];
     kraftInnerMat.clippingPlanes = [];
     endCapMat.clippingPlanes = [];
     botCapMat.clippingPlanes = [];
     // Reset wax state
-    kraftMat.roughness = 0.92;
-    kraftMat.clearcoat = 0.0;
-    kraftMat.clearcoatRoughness = 0.8;
-    kraftMat.color.setHex(C.KRAFT);
+    kraftMat.roughness = KRAFT_BASE_ROUGH;
+    kraftMat.normalScale.set(KRAFT_BASE_NS, KRAFT_BASE_NS);
   }
 
-  /* ────────────────────────────────────────────
-     SCENE 0 — SEAL (static, pre-scroll)
-  ──────────────────────────────────────────── */
+  // ── SCENE 0: SEAL ──
   function sc0(p) {
     sealGroup.visible = true;
     sealGroup.rotation.set(0, 0, p * 0.12);
     sealGroup.scale.setScalar(1);
-    sealGroup.children.forEach(function (c) {
-      c.material.transparent = false;
-      c.material.opacity = 1;
-    });
+    sealGroup.children.forEach(function (c) { c.material.transparent = false; c.material.opacity = 1; });
   }
 
-  /* ────────────────────────────────────────────
-     SCENE 1 — TRANSITION (seal → tube)
-  ──────────────────────────────────────────── */
+  // ── SCENE 1: TRANSITION (seal → tube) ──
   function sc1(p) {
     sealGroup.visible = true;
-    sealGroup.rotation.x = p * 1.25;
-    sealGroup.rotation.z = 0;
+    sealGroup.rotation.x = p * 1.25; sealGroup.rotation.z = 0;
     sealGroup.scale.setScalar(1 + p * 0.8);
     var sealOp = 1 - Math.max(0, (p - 0.55) / 0.45);
-    sealGroup.children.forEach(function (c) {
-      c.material.transparent = true;
-      c.material.opacity = sealOp;
-    });
+    sealGroup.children.forEach(function (c) { c.material.transparent = true; c.material.opacity = sealOp; });
+    // Warmer background as tube arrives
+    var warmth = Math.max(0, (p - 0.3) / 0.7);
+    renderer.setClearColor(new THREE.Color().lerpColors(new THREE.Color(0xF4EFE4), new THREE.Color(0xF0E8D0), warmth), 1);
     if (p > 0.4) {
-      tubeGroup.visible = true;
+      tubeGroup.visible = true; seamMesh.visible = true;
       var tp = (p - 0.4) / 0.6;
       tubeGroup.scale.setScalar(0.2 + tp * 0.8);
-      outerMesh.material.transparent = true;
-      outerMesh.material.opacity = tp;
-      tubeGroup.rotation.y = 0;
-      tubeRotY = 0;
+      outerMesh.material.transparent = true; outerMesh.material.opacity = tp;
+      tubeGroup.rotation.y = 0; tubeRotY = 0;
     }
   }
 
-  /* ────────────────────────────────────────────
-     SCENE 2 — WINDING
-  ──────────────────────────────────────────── */
+  // ── SCENE 2: WINDING ──
   function sc2(p) {
-    tubeGroup.visible = true;
+    tubeGroup.visible = true; seamMesh.visible = true;
     tubeGroup.scale.setScalar(1);
     outerMesh.material.transparent = true;
     outerMesh.material.opacity = Math.min(1, p * 2.5);
     hasActiveAnim = true;
-    tubeRotY += 0.004;
-    tubeGroup.rotation.y = tubeRotY;
-
+    tubeRotY += 0.004; tubeGroup.rotation.y = tubeRotY;
     ribbons.forEach(function (r, i) {
       r.visible = true;
-      var total = ribbonIndexCounts[i];
-      if (total <= 0) return;
+      var total = ribbonIdxCounts[i]; if (total <= 0) return;
       var delay = i * 0.08;
-      var rp = Math.max(0, Math.min(1, (p - delay) / (1 - delay)));
-      r.geometry.setDrawRange(0, Math.floor(total * rp));
+      r.geometry.setDrawRange(0, Math.floor(total * Math.max(0, Math.min(1, (p - delay) / (1 - delay)))));
     });
   }
 
-  /* ────────────────────────────────────────────
-     SCENE 3 — WALL THICKNESS / CUTAWAY
-  ──────────────────────────────────────────── */
+  // ── SCENE 3: WALL THICKNESS / CUTAWAY ──
   function sc3(p) {
-    tubeGroup.visible = true;
-    tubeGroup.scale.setScalar(1);
-    outerMesh.material.transparent = false;
-    outerMesh.material.opacity = 1;
+    tubeGroup.visible = true; tubeGroup.scale.setScalar(1);
+    outerMesh.material.transparent = false; outerMesh.material.opacity = 1;
     hasActiveAnim = true;
-    tubeRotY += 0.003;
-    tubeGroup.rotation.y = tubeRotY;
-
+    tubeRotY += 0.003; tubeGroup.rotation.y = tubeRotY;
     kraftMat.clippingPlanes = [clipX, clipZ];
     kraftInnerMat.clippingPlanes = [clipX, clipZ];
     endCapMat.clippingPlanes = [clipX, clipZ];
     botCapMat.clippingPlanes = [clipX, clipZ];
-
     plyGroup.visible = true;
-
     var wallVals = ['8 mm', '10 mm', '12 mm'];
-    var idx = Math.min(2, Math.floor(p * 3));
-    if (wallEl) wallEl.textContent = wallVals[idx];
+    if (wallEl) wallEl.textContent = wallVals[Math.min(2, Math.floor(p * 3))];
   }
 
-  /* ────────────────────────────────────────────
-     SCENE 4 — WAX COATING
-  ──────────────────────────────────────────── */
+  // ── SCENE 4: WAX COATING (material transition, no applicator) ──
   function sc4(p) {
-    tubeGroup.visible = true;
+    tubeGroup.visible = true; seamMesh.visible = true;
     tubeGroup.scale.setScalar(1);
     outerMesh.material.transparent = false;
     hasActiveAnim = true;
-    tubeRotY += 0.005;
-    tubeGroup.rotation.y = tubeRotY;
-
-    waxRing.visible = true;
-    waxRing.position.y = THREE.MathUtils.lerp(TUBE_LEN * 0.8, -TUBE_LEN * 0.3, Math.min(1, p * 1.6));
-    waxMatl.opacity = Math.min(0.75, p * 2);
-
-    kraftMat.roughness = THREE.MathUtils.lerp(0.92, 0.25, p);
-    kraftMat.clearcoat = p;
-    kraftMat.clearcoatRoughness = THREE.MathUtils.lerp(0.8, 0.08, p);
-  }
-
-  /* ────────────────────────────────────────────
-     SCENE 5 — CRUSH STRENGTH
-  ──────────────────────────────────────────── */
-  function sc5(p) {
-    tubeGroup.visible = true;
-    tubeGroup.scale.setScalar(1);
-    outerMesh.material.transparent = false;
-
-    topPlate.visible = true;
-    bottomPlate.visible = true;
-
-    var pStart = 2.8;
-    var pEnd = TUBE_LEN / 2 + 0.15;
-    var cp = Math.min(1, p * 1.3);
-
-    if (p <= 0.8) {
-      topPlate.position.y = THREE.MathUtils.lerp(pStart, pEnd, cp);
-      bottomPlate.position.y = THREE.MathUtils.lerp(-pStart, -pEnd, cp);
-    } else {
-      var ret = (p - 0.8) / 0.2;
-      topPlate.position.y = THREE.MathUtils.lerp(pEnd, pStart, ret);
-      bottomPlate.position.y = THREE.MathUtils.lerp(-pEnd, -pStart, ret);
-    }
-
-    var forceVals = [0, 500, 1000, 1500, 1800];
-    var fi = Math.min(4, Math.floor(cp * 5));
-    if (crushEl) crushEl.textContent = forceVals[fi].toLocaleString() + ' kg';
-  }
-
-  /* ────────────────────────────────────────────
-     SCENE 6 — EDGE PRECISION
-  ──────────────────────────────────────────── */
-  function sc6(p) {
-    tubeGroup.visible = true;
-    tubeGroup.scale.setScalar(1);
-    outerMesh.material.transparent = false;
-
-    grindingWheel.visible = true;
-    hasActiveAnim = true;
-
-    var angle = p * Math.PI * 2;
-    grindingWheel.position.set(
-      Math.cos(angle) * (OUTER_R + 0.15),
-      TUBE_LEN / 2 + 0.02,
-      Math.sin(angle) * (OUTER_R + 0.15)
+    tubeRotY += 0.004; tubeGroup.rotation.y = tubeRotY;
+    // Matte → satin transition
+    kraftMat.roughness = THREE.MathUtils.lerp(KRAFT_BASE_ROUGH, 0.35, p);
+    kraftMat.normalScale.set(
+      THREE.MathUtils.lerp(KRAFT_BASE_NS, 0.15, p),
+      THREE.MathUtils.lerp(KRAFT_BASE_NS, 0.15, p)
     );
-    grindingWheel.rotation.y = angle;
-    grindingWheel.rotation.z += 0.15;
-
-    if (p > 0.15 && p < 0.85) {
-      dustParticles.visible = true;
-      var posAttr = dustGeo.attributes.position;
-      for (var i = 0; i < dustCount; i++) {
-        var dp = ((p - 0.15) * 5 + i * 0.12) % 1;
-        posAttr.setXYZ(i,
-          grindingWheel.position.x + dustVel[i].x * dp * 10,
-          TUBE_LEN / 2 + dustVel[i].y * dp * 7,
-          grindingWheel.position.z + dustVel[i].z * dp * 10
-        );
-      }
-      posAttr.needsUpdate = true;
-      dustMat.opacity = 0.45 * (1 - Math.abs(p - 0.5) * 2);
-    }
   }
 
-  /* ────────────────────────────────────────────
-     SCENE 7 — CUSTOM DIAMETERS
-  ──────────────────────────────────────────── */
+  // ── SCENE 5: CRUSH STRENGTH (product-photography, no plates) ──
+  function sc5(p) {
+    tubeGroup.visible = true; seamMesh.visible = true;
+    tubeGroup.scale.setScalar(1);
+    outerMesh.material.transparent = false;
+    hasActiveAnim = true;
+    tubeRotY += 0.002; tubeGroup.rotation.y = tubeRotY;
+    var forceVals = [0, 500, 1000, 1500, 1800];
+    var cp = Math.min(1, p * 1.2);
+    if (crushEl) crushEl.textContent = forceVals[Math.min(4, Math.floor(cp * 5))].toLocaleString() + ' kg';
+  }
+
+  // ── SCENE 6: EDGE PRECISION (macro close-up, no grinder) ──
+  function sc6(p) {
+    tubeGroup.visible = true; seamMesh.visible = true;
+    tubeGroup.scale.setScalar(1);
+    outerMesh.material.transparent = false;
+    hasActiveAnim = true;
+    tubeRotY += 0.002; tubeGroup.rotation.y = tubeRotY;
+  }
+
+  // ── SCENE 7: CUSTOM DIAMETERS ──
   function sc7(p) {
     multiGroup.visible = true;
     hasActiveAnim = true;
     multiGroup.rotation.y += 0.003;
-
     multiGroup.children.forEach(function (g, i) {
-      var delay = i * 0.12;
-      var gp = Math.max(0, Math.min(1, (p - delay) / 0.45));
+      var gp = Math.max(0, Math.min(1, (p - i * 0.12) / 0.45));
       var ep = sm(gp);
-      g.scale.setScalar(ep);
-      g.position.y = (1 - ep) * -1.2;
+      g.scale.setScalar(ep); g.position.y = (1 - ep) * -1.2;
     });
   }
 
   var sceneFns = [sc0, sc1, sc2, sc3, sc4, sc5, sc6, sc7];
 
-  /* ────────────────────────────────────────────
-     MASTER UPDATE
-  ──────────────────────────────────────────── */
+  // ── MASTER UPDATE ──
   function masterUpdate(prog) {
     var si = Math.min(7, Math.floor(prog * 8));
     var lp = Math.max(0, Math.min(1, prog * 8 - si));
-
     hideAll();
 
-    // Camera interpolation
-    var cur = camT[si];
-    var nxt = camT[Math.min(7, si + 1)];
+    // Camera target interpolation
+    var cur = camT[si], nxt = camT[Math.min(7, si + 1)];
     var ep = sm(lp);
-    camera.position.set(
+    camTarget.set(
       THREE.MathUtils.lerp(cur.px, nxt.px, ep),
       THREE.MathUtils.lerp(cur.py, nxt.py, ep),
       THREE.MathUtils.lerp(cur.pz, nxt.pz, ep)
     );
-    camera.lookAt(
+    camLookTarget.set(
       THREE.MathUtils.lerp(cur.lx, nxt.lx, ep),
       THREE.MathUtils.lerp(cur.ly, nxt.ly, ep),
       THREE.MathUtils.lerp(cur.lz, nxt.lz, ep)
     );
+    // Damped camera (cinematic weight)
+    camPos.lerp(camTarget, 0.15);
+    camLook.lerp(camLookTarget, 0.15);
+    camera.position.copy(camPos);
+    camera.lookAt(camLook);
 
     sceneFns[si](lp);
-    updateOverlays(si, lp);
+    // Throttle DOM overlay updates to every 3rd frame
+    frameCount++;
+    if (frameCount % 3 === 0) updateOverlays(si, lp);
   }
 
-  /* ────────────────────────────────────────────
-     RENDER LOOP
-  ──────────────────────────────────────────── */
+  // ── RENDER LOOP ──
   function renderLoop() {
     requestAnimationFrame(renderLoop);
     if (isDirty || hasActiveAnim) {
@@ -1379,90 +1084,52 @@ body.no-webgl .fallback-scenes { display: block; }
   }
   renderLoop();
 
-  /* ────────────────────────────────────────────
-     RESIZE
-  ──────────────────────────────────────────── */
+  // ── RESIZE ──
   window.addEventListener('resize', function () {
     var w = window.innerWidth, h = window.innerHeight;
-    camera.aspect = w / h;
-    camera.updateProjectionMatrix();
+    camera.aspect = w / h; camera.updateProjectionMatrix();
     renderer.setSize(w, h);
-    mobile = w < 900;
-    isDirty = true;
+    mobile = w < 900; isDirty = true;
   });
 
-  /* ────────────────────────────────────────────
-     NAV INVERSION (over dark sections)
-  ──────────────────────────────────────────── */
+  // ── NAV INVERSION ──
   var navEl = document.getElementById('main-nav');
   var clientsEl = document.getElementById('clients');
   if (clientsEl) {
     new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        navEl.classList.toggle('inverted', e.isIntersecting);
-      });
+      entries.forEach(function (e) { navEl.classList.toggle('inverted', e.isIntersecting); });
     }, { threshold: 0.05, rootMargin: '-56px 0px 0px 0px' }).observe(clientsEl);
   }
 
-  /* ────────────────────────────────────────────
-     COUNTER ANIMATION
-  ──────────────────────────────────────────── */
-  var statEls = document.querySelectorAll('.stat-value');
-
+  // ── COUNTER ANIMATION ──
   function animateCounter(el) {
     var target = parseFloat(el.dataset.value);
-    var suffix = el.dataset.suffix || '';
-    var prefix = el.dataset.prefix || '';
+    var suffix = el.dataset.suffix || '', prefix = el.dataset.prefix || '';
     var decimals = parseInt(el.dataset.decimals, 10) || 0;
-
-    if (prefersReduced) {
-      el.textContent = prefix + (decimals > 0 ? target.toFixed(decimals) : String(target)) + suffix;
-      return;
-    }
-
+    if (prefersReduced) { el.textContent = prefix + (decimals > 0 ? target.toFixed(decimals) : String(target)) + suffix; return; }
     var dur = 2000, start = performance.now();
     function tick(now) {
       var p = Math.min((now - start) / dur, 1);
-      var eased = 1 - Math.pow(1 - p, 3);
-      var val = target * eased;
+      var val = target * (1 - Math.pow(1 - p, 3));
       el.textContent = prefix + (decimals > 0 ? val.toFixed(decimals) : String(Math.round(val))) + suffix;
       if (p < 1) requestAnimationFrame(tick);
     }
     requestAnimationFrame(tick);
   }
-
   var countObs = new IntersectionObserver(function (entries, obs) {
-    entries.forEach(function (e) {
-      if (e.isIntersecting) {
-        animateCounter(e.target);
-        obs.unobserve(e.target);
-      }
-    });
+    entries.forEach(function (e) { if (e.isIntersecting) { animateCounter(e.target); obs.unobserve(e.target); } });
   }, { threshold: 0.5 });
-  statEls.forEach(function (el) { countObs.observe(el); });
+  document.querySelectorAll('.stat-value').forEach(function (el) { countObs.observe(el); });
 
-  /* ────────────────────────────────────────────
-     HERO ENTRANCE ANIMATION
-  ──────────────────────────────────────────── */
+  // ── HERO ENTRANCE ──
   if (!prefersReduced) {
-    gsap.from('.fade-up', {
-      y: 35, opacity: 0, duration: 1.0,
-      ease: 'power3.out', stagger: 0.18, delay: 0.3
-    });
+    gsap.from('.fade-up', { y: 35, opacity: 0, duration: 1.0, ease: 'power3.out', stagger: 0.18, delay: 0.3 });
   }
 
-  /* ────────────────────────────────────────────
-     CLOSE SECTION FADE-IN
-  ──────────────────────────────────────────── */
+  // ── CLOSE SECTION FADE ──
   if (!prefersReduced) {
-    gsap.from('#close-section .wordmark', {
-      scrollTrigger: { trigger: '#close-section', start: 'top 80%' },
-      y: 30, opacity: 0, duration: 0.8, ease: 'power2.out'
-    });
-    gsap.from('#close-section .close-subtitle', {
-      scrollTrigger: { trigger: '#close-section', start: 'top 70%' },
-      y: 20, opacity: 0, duration: 0.6, ease: 'power2.out', delay: 0.2
-    });
+    gsap.from('#close-section .wordmark', { scrollTrigger: { trigger: '#close-section', start: 'top 80%' }, y: 30, opacity: 0, duration: 0.8, ease: 'power2.out' });
+    gsap.from('#close-section .close-subtitle', { scrollTrigger: { trigger: '#close-section', start: 'top 70%' }, y: 20, opacity: 0, duration: 0.6, ease: 'power2.out', delay: 0.2 });
   }
 
 })();
