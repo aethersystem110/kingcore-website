@@ -1,541 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KINGCORE — Precision Paper Tubes · Lahore</title>
-<meta name="description" content="KINGCORE manufactures precision spiral-wound paper tubes for packaging, film, and textile producers. Lahore, Pakistan. Est. MMX.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --ink:#0a0f1a;--navy:#0E1F3A;--charcoal:#151c2b;
-  --gold:#B8893A;--gold-hi:#D4AA5C;--gold-dim:rgba(184,137,58,0.15);
-  --burgundy:#6B1E2E;--cream:#F4EFE4;--cream-dim:#EDE6D6;
-  --kraft:#A08040;--kraft-hi:#C4A45A;
-  --serif:'Cormorant Garamond',Georgia,serif;
-  --sans:'DM Sans','Inter',system-ui,sans-serif;
-  --ease:cubic-bezier(0.22,1,0.36,1);
-}
-html{overflow-x:hidden}
-body{background:var(--ink);color:var(--cream);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
-::selection{background:var(--gold);color:var(--ink)}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KingCore — Precision Paper Cores · Lahore, Pakistan</title>
+  <meta name="description" content="KingCore manufactures precision-wound industrial paper cores for textile, packaging, and film applications. Custom diameters, tight tolerances. Lahore, Pakistan.">
 
-/* ═══ NAV ═══ */
-.nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:24px 48px;mix-blend-mode:difference;pointer-events:none}
-.nav *{pointer-events:auto}
-.nav-brand{font-family:var(--sans);font-weight:700;font-size:13px;letter-spacing:6px;text-transform:uppercase;color:#fff}
-.nav-links{display:flex;gap:36px}
-.nav-links a{font-size:11px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.6);text-decoration:none;transition:color .3s}
-.nav-links a:hover{color:#fff}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-/* ═══ HERO ═══ */
-.hero{height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--ink);position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 45%,rgba(184,137,58,0.04) 0%,transparent 70%)}
-.hero-eyebrow{font-family:var(--sans);font-weight:500;font-size:11px;letter-spacing:8px;text-transform:uppercase;color:var(--gold);margin-bottom:48px;opacity:0;transform:translateY(20px)}
-.hero-mark{text-align:center;opacity:0;transform:translateY(30px)}
-.hero-mark h1{font-family:var(--serif);font-weight:300;font-size:clamp(64px,12vw,160px);letter-spacing:0.08em;line-height:0.85;color:var(--cream)}
-.hero-mark h1 span{display:block}
-.hero-rule{width:120px;height:1px;background:var(--gold);margin:20px auto;opacity:0;transform:scaleX(0);transform-origin:center}
-.hero-tagline{font-family:var(--sans);font-weight:500;font-size:11px;letter-spacing:10px;text-transform:uppercase;color:var(--gold);margin-top:16px;opacity:0}
-.hero-lede{font-family:var(--serif);font-weight:300;font-size:clamp(16px,1.8vw,22px);color:rgba(244,239,228,0.45);text-align:center;max-width:480px;margin-top:48px;line-height:1.7;opacity:0;transform:translateY(20px)}
-.scroll-cue{position:absolute;bottom:48px;display:flex;flex-direction:column;align-items:center;gap:12px;opacity:0}
-.scroll-cue span{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:rgba(244,239,228,0.25)}
-.scroll-cue .line{width:1px;height:40px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollPulse 2.5s ease-in-out infinite}
-@keyframes scrollPulse{0%,100%{opacity:0.3;transform:scaleY(0.6)}50%{opacity:1;transform:scaleY(1)}}
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 
-/* ═══ SCROLLYTELLING ═══ */
-.story{position:relative;height:100vh;background:var(--ink)}
-.story canvas{width:100%;height:100%;display:block}
-.story::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,transparent 40%,var(--ink) 85%);pointer-events:none;z-index:1}
-.panel{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;pointer-events:none;opacity:0;z-index:3}
-.panel-inner{padding:0 8vw;max-width:560px}
-.panel.right{justify-content:flex-end}
-.panel.right .panel-inner{text-align:right}
-.panel.center{justify-content:center}
-.panel.center .panel-inner{text-align:center;max-width:700px}
-.panel.bottom{align-items:flex-end;justify-content:center;padding-bottom:8vh}
-.panel.bottom .panel-inner{text-align:center;max-width:800px}
-.panel .eyebrow{font-family:var(--sans);font-weight:500;font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
-.panel .big-num{font-family:var(--serif);font-weight:300;font-size:clamp(72px,12vw,180px);line-height:0.85;color:var(--cream);letter-spacing:-0.02em}
-.panel .big-num .unit{font-size:0.35em;letter-spacing:0.05em;vertical-align:super;color:var(--gold);margin-left:4px}
-.panel .spec-label{font-family:var(--sans);font-weight:600;font-size:13px;letter-spacing:5px;text-transform:uppercase;color:rgba(244,239,228,0.5);margin-top:12px}
-.panel .spec-body{font-family:var(--serif);font-weight:300;font-size:clamp(15px,1.5vw,19px);color:rgba(244,239,228,0.35);line-height:1.7;margin-top:12px;max-width:360px}
-.panel .spec-body em{color:var(--gold-hi);font-style:italic}
-.panel .tolerance{display:inline-block;margin-top:16px;padding:6px 16px;border:1px solid var(--gold-dim);font-family:var(--sans);font-size:11px;letter-spacing:3px;color:var(--gold)}
-.multi-row{display:flex;gap:clamp(24px,5vw,64px);align-items:baseline}
-.multi-row .col{text-align:center}
-.multi-row .col .id{font-family:var(--serif);font-weight:300;font-size:clamp(40px,6vw,72px);color:var(--cream)}
-.multi-row .col .desc{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(244,239,228,0.35);margin-top:6px}
-
-/* ═══ INTERLUDE ═══ */
-.interlude{padding:clamp(80px,12vh,160px) 48px;background:var(--ink);text-align:center;position:relative}
-.interlude::before{content:'';position:absolute;top:0;left:50%;width:1px;height:80px;background:linear-gradient(to bottom,transparent,var(--gold-dim));transform:translateX(-50%)}
-.interlude .quote{font-family:var(--serif);font-weight:300;font-style:italic;font-size:clamp(22px,3vw,36px);color:rgba(244,239,228,0.6);line-height:1.5;max-width:600px;margin:0 auto}
-.interlude .quote em{color:var(--gold-hi);font-style:italic}
-
-/* ═══ CLIENTS ═══ */
-.clients{background:var(--cream);color:var(--navy);padding:clamp(80px,12vh,160px) 48px;text-align:center}
-.clients .eyebrow{font-family:var(--sans);font-weight:600;font-size:10px;letter-spacing:6px;text-transform:uppercase;color:var(--gold);margin-bottom:40px}
-.clients h2{font-family:var(--serif);font-weight:300;font-size:clamp(28px,4vw,52px);line-height:1.3;max-width:680px;margin:0 auto 48px;color:var(--navy)}
-.clients h2 em{font-style:italic;color:var(--gold)}
-.clients .names{font-family:var(--sans);font-weight:600;font-size:12px;letter-spacing:5px;text-transform:uppercase;color:rgba(14,31,58,0.4);margin-bottom:72px}
-.clients .names .dot{color:var(--gold);margin:0 20px}
-.stats{display:flex;justify-content:center;gap:clamp(32px,6vw,80px);flex-wrap:wrap}
-.stat-num{font-family:var(--serif);font-weight:300;font-size:clamp(40px,6vw,72px);color:var(--navy);line-height:1}
-.stat-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(14,31,58,0.35);margin-top:8px}
-
-/* ═══ CTA ═══ */
-.cta-section{background:var(--ink);padding:clamp(80px,12vh,160px) 48px;text-align:center;position:relative}
-.cta-section::before{content:'';position:absolute;top:0;left:50%;width:1px;height:80px;background:linear-gradient(to bottom,transparent,var(--gold-dim));transform:translateX(-50%)}
-.cta-section h2{font-family:var(--serif);font-weight:300;font-size:clamp(32px,5vw,64px);color:var(--cream);line-height:1.2;max-width:500px;margin:0 auto 48px}
-.cta-section h2 em{font-style:italic;color:var(--gold-hi)}
-.cta-btn{display:inline-flex;align-items:center;gap:16px;padding:20px 48px;background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:var(--sans);font-weight:600;font-size:12px;letter-spacing:4px;text-transform:uppercase;cursor:pointer;transition:all .4s var(--ease);position:relative;overflow:hidden}
-.cta-btn::before{content:'';position:absolute;inset:0;background:var(--gold);transform:translateY(100%);transition:transform .4s var(--ease);z-index:0}
-.cta-btn:hover::before{transform:translateY(0)}
-.cta-btn:hover{color:var(--ink)}
-.cta-btn span{position:relative;z-index:1}
-.cta-btn .arrow{position:relative;z-index:1;transition:transform .3s}
-.cta-btn:hover .arrow{transform:translateX(6px)}
-.cta-meta{margin-top:48px;font-size:11px;letter-spacing:2px;color:rgba(244,239,228,0.2)}
-.cta-meta .dot{color:var(--gold-dim);margin:0 12px}
-
-/* ═══ FOOTER ═══ */
-footer{background:var(--ink);border-top:1px solid rgba(244,239,228,0.06);padding:40px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px}
-.footer-brand{font-family:var(--sans);font-weight:700;font-size:12px;letter-spacing:5px;text-transform:uppercase;color:rgba(244,239,228,0.3)}
-.footer-right{font-size:11px;letter-spacing:2px;color:rgba(244,239,228,0.15);text-transform:uppercase}
-
-/* FALLBACK */
-.no-webgl-msg{display:none;padding:16px;background:var(--burgundy);color:var(--cream);text-align:center;font-size:13px}
-body.no-webgl .no-webgl-msg{display:block}
-body.no-webgl .story{display:none}
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-
-/* RESPONSIVE */
-@media(max-width:768px){
-  .nav{padding:16px 24px}
-  .nav-links{gap:20px}
-  .nav-links a{font-size:10px}
-  .panel-inner{padding:0 6vw}
-  .panel.right .panel-inner,.panel .panel-inner{text-align:center;margin:0 auto}
-  .panel.right{justify-content:center}
-  .panel{align-items:flex-end;padding-bottom:10vh}
-  .multi-row{flex-direction:column;gap:20px;align-items:center}
-  .clients{padding:64px 24px}
-  .stats{gap:24px}
-  .cta-section{padding:64px 24px}
-  footer{padding:32px 24px;flex-direction:column;text-align:center}
-}
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
-}
-</style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<nav class="nav">
-  <div class="nav-brand">KINGCORE</div>
-  <div class="nav-links">
-    <a href="#story">Process</a>
-    <a href="#clients">Clients</a>
-    <a href="#contact">Contact</a>
-  </div>
-</nav>
+  <!-- Cursor light -->
+  <div class="cursor-light" aria-hidden="true"></div>
 
-<section class="hero">
-  <p class="hero-eyebrow">EST. LAHORE &middot; PRECISION PAPER TUBES</p>
-  <div class="hero-mark">
-    <h1><span>KING</span><span>CORE</span></h1>
-  </div>
-  <div class="hero-rule"></div>
-  <p class="hero-tagline">PRECISION PAPER TUBES</p>
-  <p class="hero-lede">Wound tight. Built to hold. Every tube measured, cut, and chamfered to the tolerance your line demands.</p>
-  <div class="scroll-cue">
-    <span>Explore</span>
-    <div class="line"></div>
-  </div>
-</section>
+  <!-- Navigation -->
+  <header class="nav" id="nav">
+    <nav class="nav__inner container">
+      <a href="#" class="nav__wordmark">KingCore</a>
+      <a href="#contact" class="nav__cta">Contact Sales</a>
+    </nav>
+  </header>
 
-<section class="story" id="story">
-  <canvas id="c3" aria-hidden="true"></canvas>
+  <main>
 
-  <div class="panel center" data-scene="0"></div>
-  <div class="panel center" data-scene="1"></div>
-
-  <div class="panel right" data-scene="2">
-    <div class="panel-inner">
-      <p class="eyebrow">SPIRAL-WOUND CONSTRUCTION</p>
-      <div class="big-num">34<span class="unit">&deg;</span></div>
-      <p class="spec-label">HELICAL ANGLE</p>
-      <p class="spec-body">Kraft ribbons wound onto a precision mandrel. <em>Layer by layer.</em> Mechanical. Exact.</p>
-    </div>
-  </div>
-
-  <div class="panel right" data-scene="3">
-    <div class="panel-inner">
-      <p class="eyebrow">WALL CONSTRUCTION</p>
-      <div class="big-num" id="wall-num">10<span class="unit">mm</span></div>
-      <p class="spec-label">MULTI-PLY WALL THICKNESS</p>
-      <div class="tolerance">&plusmn; 0.15 mm</div>
-    </div>
-  </div>
-
-  <div class="panel" data-scene="4">
-    <div class="panel-inner">
-      <p class="eyebrow">SURFACE FINISH</p>
-      <div class="big-num">18<span class="unit">&micro;m</span></div>
-      <p class="spec-label">WAX COATING</p>
-      <p class="spec-body">Moisture-resistant. <em>Release-grade.</em></p>
-    </div>
-  </div>
-
-  <div class="panel right" data-scene="5">
-    <div class="panel-inner">
-      <p class="eyebrow">RADIAL CRUSH TEST &middot; 6&Prime; ID</p>
-      <div class="big-num" id="crush-num">1,800<span class="unit">kg</span></div>
-      <p class="spec-label">FLAT-PLATE COMPRESSION</p>
-      <p class="spec-body">Tested. <em>It holds.</em></p>
-    </div>
-  </div>
-
-  <div class="panel" data-scene="6">
-    <div class="panel-inner">
-      <p class="eyebrow">EDGE FINISH</p>
-      <div class="big-num" style="font-size:clamp(48px,8vw,100px)">Chamfered</div>
-      <p class="spec-label">DUST-FREE &middot; &plusmn; 0.5 MM LENGTH</p>
-    </div>
-  </div>
-
-  <div class="panel bottom" data-scene="7">
-    <div class="panel-inner">
-      <p class="eyebrow">BUILT TO SPEC</p>
-      <div class="multi-row">
-        <div class="col"><div class="id">3&Prime;</div><div class="desc">Film &amp; Label</div></div>
-        <div class="col"><div class="id">6&Prime;</div><div class="desc">Textile &amp; Paper Mill</div></div>
-        <div class="col"><div class="id" style="font-size:clamp(28px,4vw,48px)">Custom</div><div class="desc">1&Prime; &ndash; 12&Prime;</div></div>
+    <!-- Hero -->
+    <section class="hero" id="hero">
+      <div class="hero__inner container">
+        <div class="hero__text">
+          <p class="hero__eyebrow fade-up">Paper Cores &middot; Lahore, Pakistan</p>
+          <h1 class="hero__title fade-up">Precision-wound cores for Pakistan&rsquo;s manufacturers.</h1>
+          <p class="hero__sub fade-up">Industrial paper cores engineered for textile, packaging, and film applications. Made with uncompromising quality standards in Lahore.</p>
+          <a href="#contact" class="btn btn--primary fade-up">Contact Sales</a>
+        </div>
+        <div class="hero__image-wrap fade-up">
+          <img
+            src="assets/images/hero-tube.jpg"
+            alt="Large-diameter kraft paper industrial core standing upright, lit by warm amber light"
+            class="hero__image"
+            loading="eager"
+            fetchpriority="high"
+            width="720"
+            height="960"
+          >
+        </div>
       </div>
+    </section>
+
+    <!-- Capabilities -->
+    <section class="capabilities" id="capabilities">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-header__title fade-up">What we make</h2>
+          <p class="section-header__sub fade-up">Three product lines, each engineered to specification. Custom diameters, wall thicknesses, and lengths for your winding equipment.</p>
+        </div>
+        <div class="card-grid">
+          <article class="card fade-up" data-tilt>
+            <div class="card__image-wrap">
+              <img
+                src="assets/images/feature-1-sideprofile.jpg"
+                alt="Close-up side view of a matte kraft paper core with amber rim lighting"
+                class="card__image"
+                loading="lazy"
+                width="640"
+                height="360"
+              >
+            </div>
+            <div class="card__body">
+              <p class="card__eyebrow">Construction</p>
+              <h3 class="card__title">Spiral-wound precision</h3>
+              <p class="card__text">Built on calibrated winding equipment with tight tension control. Every core is dimensionally consistent, end to end.</p>
+            </div>
+            <div class="card__highlight" aria-hidden="true"></div>
+          </article>
+          <article class="card fade-up" data-tilt>
+            <div class="card__image-wrap">
+              <img
+                src="assets/images/feature-2-interior.jpg"
+                alt="Angled view of a paper core's hollow interior, warmly lit"
+                class="card__image"
+                loading="lazy"
+                width="640"
+                height="360"
+              >
+            </div>
+            <div class="card__body">
+              <p class="card__eyebrow">Specifications</p>
+              <h3 class="card__title">Custom inner diameters</h3>
+              <p class="card__text">From 3-inch through 6-inch ID as standard, with custom diameters available. Wall thickness engineered to your load requirements.</p>
+            </div>
+            <div class="card__highlight" aria-hidden="true"></div>
+          </article>
+          <article class="card fade-up" data-tilt>
+            <div class="card__image-wrap">
+              <img
+                src="assets/images/feature-3-range.jpg"
+                alt="Three kraft paper industrial cores of different diameters grouped together"
+                class="card__image"
+                loading="lazy"
+                width="640"
+                height="360"
+              >
+            </div>
+            <div class="card__body">
+              <p class="card__eyebrow">Scale</p>
+              <h3 class="card__title">Volume production</h3>
+              <p class="card__text">Monthly capacity for both high-volume runs and specialized orders. Consistent lead times and direct factory communication.</p>
+            </div>
+            <div class="card__highlight" aria-hidden="true"></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Specifications -->
+    <section class="specs" id="specs">
+      <div class="specs__inner container">
+        <div class="specs__stats">
+          <div class="stat fade-up">
+            <span class="stat__number" data-count="3" data-suffix="–6&Prime;">0</span>
+            <span class="stat__label">Inner diameter range</span>
+          </div>
+          <div class="stat fade-up">
+            <span class="stat__number" data-count="3" data-suffix="–15mm">0</span>
+            <span class="stat__label">Wall thickness</span>
+          </div>
+          <div class="stat fade-up">
+            <span class="stat__number" data-count="70" data-suffix="+ tons">0</span>
+            <span class="stat__label">Monthly capacity</span>
+          </div>
+          <div class="stat fade-up">
+            <span class="stat__number" data-count="0.5" data-prefix="&plusmn;" data-suffix="mm">0</span>
+            <span class="stat__label">Dimensional tolerance</span>
+          </div>
+        </div>
+        <div class="specs__prose">
+          <h2 class="specs__title fade-up">Engineered for your production line.</h2>
+          <p class="specs__text fade-up">Every specification is set by the customer. We supply textile mills, film converters, flexible packaging operations, and paper mills across Pakistan with cores that drop straight onto their equipment without adjustment.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Who we serve -->
+    <section class="serve" id="serve">
+      <div class="container">
+        <h2 class="section-header__title section-header__title--center fade-up">Trusted by Pakistan&rsquo;s manufacturers</h2>
+        <div class="tile-grid">
+          <div class="tile fade-up">
+            <div class="tile__icon tile__icon--circle" aria-hidden="true"></div>
+            <h3 class="tile__title">Textile Mills</h3>
+            <p class="tile__text">Yarn carriers and fabric winding cores</p>
+          </div>
+          <div class="tile fade-up">
+            <div class="tile__icon tile__icon--square" aria-hidden="true"></div>
+            <h3 class="tile__title">Film &amp; Packaging</h3>
+            <p class="tile__text">Cores for flexible films, foils, and laminates</p>
+          </div>
+          <div class="tile fade-up">
+            <div class="tile__icon tile__icon--hexagon" aria-hidden="true"></div>
+            <h3 class="tile__title">Paper Mills</h3>
+            <p class="tile__text">Industrial support cores at any diameter</p>
+          </div>
+          <div class="tile fade-up">
+            <div class="tile__icon tile__icon--triangle" aria-hidden="true"></div>
+            <h3 class="tile__title">Label &amp; Tape</h3>
+            <p class="tile__text">Tight-tolerance cores for high-speed converting</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+      <div class="container">
+        <p class="contact__eyebrow fade-up">Get in touch</p>
+        <h2 class="contact__title fade-up">Let&rsquo;s talk about your requirements.</h2>
+        <p class="contact__sub fade-up">Send us your specifications and volume requirements. We&rsquo;ll respond within one business day.</p>
+        <a href="mailto:sales@thekingcore.com" class="btn btn--primary btn--lg fade-up">Email sales@thekingcore.com</a>
+        <p class="contact__location fade-up">Lahore, Pakistan</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__inner container">
+      <p class="footer__copy">&copy; 2026 KingCore. All rights reserved.</p>
+      <a href="mailto:sales@thekingcore.com" class="footer__email">sales@thekingcore.com</a>
     </div>
-  </div>
-</section>
+  </footer>
 
-<div class="interlude">
-  <p class="quote">&ldquo;Coreboard, sourced with intent. Measured, cut, <em>chamfered.</em>&rdquo;</p>
-</div>
-
-<section class="clients" id="clients">
-  <p class="eyebrow">PURVEYORS OF PRECISION CORES</p>
-  <h2>Trusted by mills that measure in <em>microns,</em> not margins&nbsp;of&nbsp;error</h2>
-  <p class="names">IPAK<span class="dot">&middot;</span>GPAK<span class="dot">&middot;</span>NASEER PAPER MILLS</p>
-  <div class="stats">
-    <div class="stat"><div class="stat-num" data-to="70" data-suf="t">0t</div><div class="stat-label">Monthly Capacity</div></div>
-    <div class="stat"><div class="stat-num" data-to="12" data-suf=" yrs">0 yrs</div><div class="stat-label">In Trade</div></div>
-    <div class="stat"><div class="stat-num" data-to="0.5" data-pre="&plusmn;" data-suf="mm" data-dec="1">0mm</div><div class="stat-label">Tolerance</div></div>
-    <div class="stat"><div class="stat-num" data-to="24" data-suf="hr">0hr</div><div class="stat-label">Quote Turnaround</div></div>
-  </div>
-</section>
-
-<section class="cta-section" id="contact">
-  <h2>Need cores that <em>hold&nbsp;true.</em></h2>
-  <button class="cta-btn" onclick="window.location.href='mailto:info@kingcore.pk'">
-    <span>Request a Quote</span>
-    <span class="arrow">&rarr;</span>
-  </button>
-  <p class="cta-meta">Lahore, Pakistan<span class="dot">&middot;</span>info@kingcore.pk<span class="dot">&middot;</span>Reply within 24 hours</p>
-</section>
-
-<footer>
-  <div class="footer-brand">KINGCORE</div>
-  <div class="footer-right">Imperial Synergies &middot; Est. MMX &middot; &copy; 2026</div>
-</footer>
-
-<div class="no-webgl-msg" role="alert">WebGL not supported. Please use a modern browser.</div>
-
-<div class="sr-only" aria-live="polite">
-  KINGCORE precision paper tubes: spiral-wound at 34 degree helical angle, wall thickness 8 to 12 millimeters with plus-minus 0.15mm tolerance, 18 micron wax coating, 1800 kilogram crush strength, chamfered dust-free edges, available 3 inch to 12 inch inner diameters.
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-
-<script>
-(function(){
-'use strict';
-var hasGL=(function(){try{var c=document.createElement('canvas');return !!(c.getContext('webgl')||c.getContext('experimental-webgl'))}catch(e){return false}})();
-if(!hasGL){document.body.classList.add('no-webgl');return}
-var reduced=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-
-/* ── RENDERER ── */
-var canvas=document.getElementById('c3');
-var W=window.innerWidth,H=window.innerHeight,mob=W<768;
-var renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:!mob,alpha:false});
-renderer.setSize(W,H);
-renderer.setPixelRatio(Math.min(devicePixelRatio,2));
-renderer.outputEncoding=THREE.sRGBEncoding;
-renderer.toneMapping=THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure=0.95;
-renderer.physicallyCorrectLights=true;
-renderer.setClearColor(0x0a0f1a,1);
-
-var scene=new THREE.Scene();
-var cam=new THREE.PerspectiveCamera(32,W/H,0.1,80);
-cam.position.set(0,0,7);
-
-/* ── LIGHTING — studio product photography ── */
-// Key: warm spot from upper-right, focused
-var key=new THREE.SpotLight(0xffeedd,4.0,25,Math.PI*0.25,0.6,1.5);
-key.position.set(3.5,4,4);
-key.target.position.set(0,0,0);
-scene.add(key);scene.add(key.target);
-
-// Rim: gold backlight — outlines the tube edge
-var rim=new THREE.DirectionalLight(0xB8893A,2.0);
-rim.position.set(-2,1.5,-4);
-scene.add(rim);
-
-// Fill: very subtle cool from left
-var fill=new THREE.DirectionalLight(0x8090b0,0.3);
-fill.position.set(-4,1,2);
-scene.add(fill);
-
-// Ambient: nearly nothing — keep the darks dark
-scene.add(new THREE.AmbientLight(0x0a0f1a,0.4));
-scene.add(new THREE.HemisphereLight(0x1a1510,0x0a0810,0.15));
-
-/* ── GEOMETRY ── */
-var OR=1.0,IR=0.8,TL=3.2,SEG=mob?28:48;
-
-// Clean kraft material — no fake textures
-var kraftCol=new THREE.Color(0xA08040);
-var tubeMatOuter=new THREE.MeshStandardMaterial({color:kraftCol,roughness:0.72,metalness:0.0});
-var tubeMatInner=new THREE.MeshStandardMaterial({color:0x887030,roughness:0.85,side:THREE.BackSide});
-var endMat=new THREE.MeshStandardMaterial({color:0x907838,roughness:0.78});
-var goldMat=new THREE.MeshStandardMaterial({color:0xB8893A,metalness:0.55,roughness:0.25,emissive:0x3A2200,emissiveIntensity:0.2});
-var burgMat=new THREE.MeshStandardMaterial({color:0x6B1E2E,roughness:0.5});
-
-// Seal
-var sealGrp=new THREE.Group();
-[1.3,1.0,0.7].forEach(function(r){
-  sealGrp.add(new THREE.Mesh(new THREE.TorusGeometry(r,0.025,16,80),goldMat.clone()));
-});
-sealGrp.add(new THREE.Mesh(new THREE.SphereGeometry(0.1,16,16),burgMat.clone()));
-sealGrp.add(new THREE.Mesh(new THREE.SphereGeometry(0.035,12,12),goldMat.clone()));
-scene.add(sealGrp);
-
-// Tube
-var tubeGrp=new THREE.Group();tubeGrp.visible=false;
-var outerM=new THREE.Mesh(new THREE.CylinderGeometry(OR,OR,TL,SEG,1,true),tubeMatOuter);
-tubeGrp.add(outerM);
-tubeGrp.add(new THREE.Mesh(new THREE.CylinderGeometry(IR,IR,TL,SEG,1,true),tubeMatInner));
-var rg=new THREE.RingGeometry(IR,OR,SEG);
-var tc=new THREE.Mesh(rg,endMat);tc.position.y=TL/2;tc.rotation.x=-Math.PI/2;tubeGrp.add(tc);
-var bc=new THREE.Mesh(rg.clone(),endMat.clone());bc.position.y=-TL/2;bc.rotation.x=Math.PI/2;tubeGrp.add(bc);
-scene.add(tubeGrp);
-
-// Helical seam — subtle 3D line on tube surface
-class Helix extends THREE.Curve{
-  constructor(r,h,t,p){super();this.r=r;this.h=h;this.t=t;this.p=p||0}
-  getPoint(s){var a=2*Math.PI*this.t*s+this.p;return new THREE.Vector3(this.r*Math.cos(a),this.h*s-this.h/2,this.r*Math.sin(a))}
-}
-var seamMat=new THREE.MeshStandardMaterial({color:0x604820,roughness:0.9});
-var seam=new THREE.Mesh(new THREE.TubeGeometry(new Helix(OR+0.003,TL,6),180,0.006,5,false),seamMat);
-seam.visible=false;scene.add(seam);
-
-// Clipping
-var clipX=new THREE.Plane(new THREE.Vector3(-1,0,0),0);
-var clipZ=new THREE.Plane(new THREE.Vector3(0,0,-1),0);
-renderer.localClippingEnabled=true;
-
-// Ply layers
-var plyGrp=new THREE.Group();plyGrp.visible=false;
-[0x604820,0x706028,0x8B6F2E,0x9A7B3C,0x706028].forEach(function(c,i){
-  var r=IR+(OR-IR)*(i+0.5)/5;
-  plyGrp.add(new THREE.Mesh(new THREE.CylinderGeometry(r,r,TL,SEG,1,true),
-    new THREE.MeshStandardMaterial({color:c,roughness:0.7,side:THREE.DoubleSide,clippingPlanes:[clipX,clipZ]})));
-});
-scene.add(plyGrp);
-
-// Winding ribbons
-var ribbons=[],ribIdx=[];
-for(var i=0;i<3;i++){
-  var hc=new Helix(OR-0.01,TL*1.05,10,i*2*Math.PI/3);
-  var g=new THREE.TubeGeometry(hc,mob?100:200,0.025,5,false);
-  var m=new THREE.Mesh(g,new THREE.MeshStandardMaterial({color:i%2?0x907838:0xA08040,roughness:0.75}));
-  m.visible=false;ribbons.push(m);ribIdx.push(g.index?g.index.count:0);scene.add(m);
-}
-
-// Multi tubes
-var multiGrp=new THREE.Group();multiGrp.visible=false;
-[{r:.5,ir:.35,l:2,x:-2.4},{r:1,ir:.8,l:3.2,x:0},{r:.75,ir:.58,l:2.6,x:2.4}].forEach(function(s){
-  var g=new THREE.Group();
-  g.add(new THREE.Mesh(new THREE.CylinderGeometry(s.r,s.r,s.l,SEG,1,true),tubeMatOuter.clone()));
-  g.add(new THREE.Mesh(new THREE.CylinderGeometry(s.ir,s.ir,s.l,SEG,1,true),tubeMatInner.clone()));
-  var rg2=new THREE.RingGeometry(s.ir,s.r,SEG);
-  var t2=new THREE.Mesh(rg2,endMat.clone());t2.position.y=s.l/2;t2.rotation.x=-Math.PI/2;g.add(t2);
-  var b2=new THREE.Mesh(rg2.clone(),endMat.clone());b2.position.y=-s.l/2;b2.rotation.x=Math.PI/2;g.add(b2);
-  g.position.x=s.x;multiGrp.add(g);
-});
-scene.add(multiGrp);
-
-/* ── CAMERA TARGETS ── */
-var CT=[
-  {px:0,py:0,pz:7,lx:0,ly:0,lz:0},
-  {px:0,py:0.2,pz:5,lx:0,ly:0,lz:0},
-  {px:2,py:0.8,pz:4,lx:0,ly:0,lz:-.5},
-  {px:1.8,py:0.1,pz:1.8,lx:.2,ly:0,lz:0},
-  {px:2.8,py:0.3,pz:2.8,lx:0,ly:0,lz:0},
-  {px:3.5,py:0.2,pz:1.5,lx:0,ly:0,lz:0},
-  {px:0.3,py:1.8,pz:1.2,lx:0,ly:1.3,lz:0},
-  {px:0,py:1.5,pz:7.5,lx:0,ly:0,lz:0}
-];
-
-/* ── STATE ── */
-var prog=0,dirty=true,anim=false,rotY=0,fc=0;
-var cP=new THREE.Vector3(0,0,7),cT=new THREE.Vector3(0,0,7);
-var cL=new THREE.Vector3(),cLT=new THREE.Vector3();
-
-/* ── SCROLL ── */
-gsap.registerPlugin(ScrollTrigger);
-ScrollTrigger.create({trigger:'.story',start:'top top',end:'+=800%',pin:true,scrub:.5,
-  onUpdate:function(s){prog=s.progress;dirty=true}});
-
-/* ── PANELS ── */
-var panels=document.querySelectorAll('.panel');
-var wallEl=document.getElementById('wall-num');
-var crushEl=document.getElementById('crush-num');
-
-function updPanels(si,lp){
-  for(var i=0;i<panels.length;i++){
-    var d=parseInt(panels[i].dataset.scene,10);
-    if(d===si){
-      var o=1;if(lp<.12)o=lp/.12;else if(lp>.88)o=(1-lp)/.12;
-      panels[i].style.opacity=Math.max(0,Math.min(1,o));
-      panels[i].style.transform='translateY('+(1-Math.min(1,lp*4))*20+'px)';
-    }else{
-      panels[i].style.opacity='0';
-      panels[i].style.transform='translateY(20px)';
-    }
-  }
-}
-
-function sm(t){return t*t*(3-2*t)}
-
-/* ── HIDE ALL ── */
-function hide(){
-  sealGrp.visible=false;tubeGrp.visible=false;seam.visible=false;
-  plyGrp.visible=false;multiGrp.visible=false;anim=false;
-  ribbons.forEach(function(r){r.visible=false});
-  tubeMatOuter.clippingPlanes=[];tubeMatInner.clippingPlanes=[];
-  endMat.clippingPlanes=[];
-  tubeMatOuter.roughness=0.72;
-}
-
-/* ── SCENES ── */
-function s0(p){sealGrp.visible=true;sealGrp.rotation.z=p*0.1;sealGrp.scale.setScalar(1);
-  sealGrp.children.forEach(function(c){c.material.transparent=false;c.material.opacity=1})}
-
-function s1(p){
-  sealGrp.visible=true;sealGrp.rotation.x=p*1.2;sealGrp.scale.setScalar(1+p*0.6);
-  var op=1-Math.max(0,(p-.5)/.5);
-  sealGrp.children.forEach(function(c){c.material.transparent=true;c.material.opacity=op});
-  if(p>.35){tubeGrp.visible=true;seam.visible=true;var t=(p-.35)/.65;
-    tubeGrp.scale.setScalar(.3+t*.7);outerM.material.transparent=true;outerM.material.opacity=t;rotY=0;tubeGrp.rotation.y=0}
-}
-
-function s2(p){
-  tubeGrp.visible=true;seam.visible=true;tubeGrp.scale.setScalar(1);
-  outerM.material.transparent=true;outerM.material.opacity=Math.min(1,p*2.5);
-  anim=true;rotY+=.004;tubeGrp.rotation.y=rotY;
-  ribbons.forEach(function(r,i){r.visible=true;var tot=ribIdx[i];if(!tot)return;
-    var d=i*.08;r.geometry.setDrawRange(0,Math.floor(tot*Math.max(0,Math.min(1,(p-d)/(1-d)))))});
-}
-
-function s3(p){
-  tubeGrp.visible=true;tubeGrp.scale.setScalar(1);
-  outerM.material.transparent=false;outerM.material.opacity=1;
-  anim=true;rotY+=.003;tubeGrp.rotation.y=rotY;
-  tubeMatOuter.clippingPlanes=[clipX,clipZ];tubeMatInner.clippingPlanes=[clipX,clipZ];
-  endMat.clippingPlanes=[clipX,clipZ];plyGrp.visible=true;
-  var w=['8','10','12'];if(wallEl)wallEl.innerHTML=w[Math.min(2,Math.floor(p*3))]+'<span class="unit">mm</span>';
-}
-
-function s4(p){
-  tubeGrp.visible=true;seam.visible=true;tubeGrp.scale.setScalar(1);
-  outerM.material.transparent=false;anim=true;rotY+=.004;tubeGrp.rotation.y=rotY;
-  tubeMatOuter.roughness=THREE.MathUtils.lerp(.72,.3,p);
-}
-
-function s5(p){
-  tubeGrp.visible=true;seam.visible=true;tubeGrp.scale.setScalar(1);
-  outerM.material.transparent=false;anim=true;rotY+=.002;tubeGrp.rotation.y=rotY;
-  var vals=[0,500,1000,1500,1800];var cp=Math.min(1,p*1.2);
-  if(crushEl)crushEl.innerHTML=vals[Math.min(4,Math.floor(cp*5))].toLocaleString()+'<span class="unit">kg</span>';
-}
-
-function s6(p){
-  tubeGrp.visible=true;seam.visible=true;tubeGrp.scale.setScalar(1);
-  outerM.material.transparent=false;anim=true;rotY+=.002;tubeGrp.rotation.y=rotY;
-}
-
-function s7(p){
-  multiGrp.visible=true;anim=true;multiGrp.rotation.y+=.003;
-  multiGrp.children.forEach(function(g,i){var gp=Math.max(0,Math.min(1,(p-i*.12)/.45));
-    var e=sm(gp);g.scale.setScalar(e);g.position.y=(1-e)*-1.2});
-}
-
-var SF=[s0,s1,s2,s3,s4,s5,s6,s7];
-
-/* ── MASTER ── */
-function update(pr){
-  var si=Math.min(7,Math.floor(pr*8)),lp=Math.max(0,Math.min(1,pr*8-si));
-  hide();
-  var c=CT[si],n=CT[Math.min(7,si+1)],e=sm(lp);
-  cT.set(THREE.MathUtils.lerp(c.px,n.px,e),THREE.MathUtils.lerp(c.py,n.py,e),THREE.MathUtils.lerp(c.pz,n.pz,e));
-  cLT.set(THREE.MathUtils.lerp(c.lx,n.lx,e),THREE.MathUtils.lerp(c.ly,n.ly,e),THREE.MathUtils.lerp(c.lz,n.lz,e));
-  cP.lerp(cT,.12);cL.lerp(cLT,.12);cam.position.copy(cP);cam.lookAt(cL);
-  SF[si](lp);
-  fc++;if(fc%3===0)updPanels(si,lp);
-}
-
-/* ── RENDER ── */
-(function loop(){requestAnimationFrame(loop);
-  if(dirty||anim){update(prog);renderer.render(scene,cam);dirty=false}})();
-
-/* ── RESIZE ── */
-window.addEventListener('resize',function(){W=innerWidth;H=innerHeight;cam.aspect=W/H;cam.updateProjectionMatrix();renderer.setSize(W,H);mob=W<768;dirty=true});
-
-/* ── COUNTERS ── */
-function count(el){
-  var to=parseFloat(el.dataset.to),suf=el.dataset.suf||'',pre=el.dataset.pre||'',dec=parseInt(el.dataset.dec)||0;
-  if(reduced){el.textContent=pre+(dec?to.toFixed(dec):to)+suf;return}
-  var st=performance.now();
-  (function t(n){var p=Math.min((n-st)/2000,1),v=to*(1-Math.pow(1-p,3));
-    el.textContent=pre+(dec?v.toFixed(dec):Math.round(v))+suf;
-    if(p<1)requestAnimationFrame(t)})(st);
-}
-var cObs=new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){count(e.target);o.unobserve(e.target)}})},{threshold:.5});
-document.querySelectorAll('.stat-num').forEach(function(e){cObs.observe(e)});
-
-/* ── HERO ENTRANCE ── */
-if(!reduced){
-  var tl=gsap.timeline({delay:.3});
-  tl.to('.hero-eyebrow',{opacity:1,y:0,duration:.8,ease:'power3.out'})
-    .to('.hero-mark',{opacity:1,y:0,duration:1,ease:'power3.out'},'<.15')
-    .to('.hero-rule',{opacity:1,scaleX:1,duration:.6,ease:'power2.inOut'},'<.4')
-    .to('.hero-tagline',{opacity:1,duration:.6,ease:'power2.out'},'<.2')
-    .to('.hero-lede',{opacity:1,y:0,duration:.8,ease:'power3.out'},'<.2')
-    .to('.scroll-cue',{opacity:1,duration:.6},'<.3');
-}
-
-/* ── INTERLUDE + CLIENTS FADE ── */
-if(!reduced){
-  gsap.from('.interlude .quote',{scrollTrigger:{trigger:'.interlude',start:'top 75%'},y:30,opacity:0,duration:1,ease:'power2.out'});
-  gsap.from('.clients h2',{scrollTrigger:{trigger:'.clients',start:'top 70%'},y:30,opacity:0,duration:.8,ease:'power2.out'});
-}
-
-})();
-</script>
+  <script src="main.js"></script>
 </body>
 </html>
