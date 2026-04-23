@@ -6,17 +6,6 @@
 (function () {
   "use strict";
 
-  // Hide broken image icons — show gradient placeholder instead
-  document.querySelectorAll("img").forEach(function (img) {
-    img.addEventListener("error", function () {
-      this.style.opacity = "0";
-    });
-    // Handle already-failed images (cached 404s)
-    if (img.complete && img.naturalWidth === 0 && img.src) {
-      img.style.opacity = "0";
-    }
-  });
-
   // Bail out if user prefers reduced motion
   const prefersReducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
@@ -50,7 +39,6 @@
     initScrollFadeUps();
     initCardTilt();
     initStatsCountUp();
-    initCursorLight();
   });
 
   /* ----------------------------------------
@@ -109,8 +97,8 @@
       }
     );
 
-    // Hero image
-    var imageWrap = document.querySelector(".hero__image-wrap");
+    // Hero media (video on desktop, image on mobile)
+    var imageWrap = document.querySelector(".hero__media-wrap");
     if (imageWrap) {
       gsap.fromTo(
         imageWrap,
@@ -276,35 +264,4 @@
       });
   }
 
-  /* ----------------------------------------
-     Cursor light effect
-     ---------------------------------------- */
-  function initCursorLight() {
-    // Skip on touch devices
-    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-      return;
-    }
-
-    var light = document.querySelector(".cursor-light");
-    if (!light) return;
-
-    light.style.opacity = "1";
-
-    document.addEventListener("mousemove", function (e) {
-      gsap.to(light, {
-        x: e.clientX,
-        y: e.clientY,
-        duration: 0.3,
-        ease: "power2.out",
-      });
-    });
-
-    document.addEventListener("mouseleave", function () {
-      gsap.to(light, { opacity: 0, duration: 0.3 });
-    });
-
-    document.addEventListener("mouseenter", function () {
-      gsap.to(light, { opacity: 1, duration: 0.3 });
-    });
-  }
 })();

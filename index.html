@@ -18,9 +18,6 @@
 </head>
 <body>
 
-  <!-- Cursor light -->
-  <div class="cursor-light" aria-hidden="true"></div>
-
   <!-- Navigation -->
   <header class="nav" id="nav">
     <nav class="nav__inner container">
@@ -40,15 +37,24 @@
           <p class="hero__sub fade-up">Industrial paper cores engineered for textile, packaging, and film applications. Made with uncompromising quality standards in Lahore.</p>
           <a href="#contact" class="btn btn--primary fade-up">Contact Sales</a>
         </div>
-        <div class="hero__image-wrap fade-up">
+        <div class="hero__media-wrap fade-up">
+          <video
+            autoplay muted loop playsinline
+            poster="assets/images/hero-tube.jpg"
+            preload="metadata"
+            class="hero__video"
+          >
+            <source src="hero.mp4" type="video/mp4">
+          </video>
           <img
             src="assets/images/hero-tube.jpg"
             alt="Large-diameter kraft paper industrial core standing upright, lit by warm amber light"
-            class="hero__image"
+            class="hero__image hero__image--fallback"
             loading="eager"
             fetchpriority="high"
-            width="720"
-            height="960"
+            decoding="async"
+            width="1408"
+            height="768"
           >
         </div>
       </div>
@@ -69,8 +75,9 @@
                 alt="Close-up side view of a matte kraft paper core with amber rim lighting"
                 class="card__image"
                 loading="lazy"
-                width="640"
-                height="360"
+                decoding="async"
+                width="1408"
+                height="768"
               >
             </div>
             <div class="card__body">
@@ -87,8 +94,9 @@
                 alt="Angled view of a paper core's hollow interior, warmly lit"
                 class="card__image"
                 loading="lazy"
-                width="640"
-                height="360"
+                decoding="async"
+                width="1408"
+                height="768"
               >
             </div>
             <div class="card__body">
@@ -105,8 +113,9 @@
                 alt="Three kraft paper industrial cores of different diameters grouped together"
                 class="card__image"
                 loading="lazy"
-                width="640"
-                height="360"
+                decoding="async"
+                width="1408"
+                height="768"
               >
             </div>
             <div class="card__body">
