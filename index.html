@@ -1,212 +1,286 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KingCore — Precision Paper Cores · Lahore, Pakistan</title>
-  <meta name="description" content="KingCore manufactures precision-wound industrial paper cores for textile, packaging, and film applications. Custom diameters, tight tolerances. Lahore, Pakistan.">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KingCore — Precision Paper Cores, Lahore</title>
+  <meta name="description" content="Industrial paper cores, spiral-wound to tolerance, engineered for textile mills, film converters, and flexible packaging lines across Pakistan." />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,400..500&family=Inter:wght@300;400;500;600&display=swap" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,400..500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <!-- GSAP -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
   <!-- Navigation -->
-  <header class="nav" id="nav">
-    <nav class="nav__inner container">
-      <a href="#" class="nav__wordmark">KingCore</a>
-      <a href="#contact" class="nav__cta">Contact Sales</a>
-    </nav>
-  </header>
+  <nav class="nav" id="nav" aria-label="Primary">
+    <div class="nav-inner">
+      <a href="#top" class="nav-brand">KingCore</a>
+      <div class="nav-actions">
+        <a href="#contact" class="btn btn-ghost btn-sm" data-scroll>Contact Sales</a>
+      </div>
+    </div>
+  </nav>
 
-  <main>
+  <main id="top">
 
-    <!-- Hero -->
-    <section class="hero" id="hero">
-      <div class="hero__inner container">
-        <div class="hero__text">
-          <p class="hero__eyebrow fade-up">Paper Cores &middot; Lahore, Pakistan</p>
-          <h1 class="hero__title fade-up">Precision-wound cores for Pakistan&rsquo;s manufacturers.</h1>
-          <p class="hero__sub fade-up">Industrial paper cores engineered for textile, packaging, and film applications. Made with uncompromising quality standards in Lahore.</p>
-          <a href="#contact" class="btn btn--primary fade-up">Contact Sales</a>
+    <!-- ============================================
+         SECTION 1 — HERO
+         ============================================ -->
+    <section class="hero" id="hero" data-screen-label="01 Hero">
+      <div class="hero-media" aria-hidden="true">
+        <img
+          src="assets/images/hero-tube.jpg"
+          alt=""
+          class="hero-img"
+          id="heroImg"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <div class="hero-media-fade"></div>
+      </div>
+
+      <div class="hero-content">
+        <span class="eyebrow reveal-eyebrow">KingCore · Lahore</span>
+
+        <h1 class="hero-h1">
+          <span class="word-line">
+            <span class="word">Precision</span>
+            <span class="word">you</span>
+            <span class="word">can</span>
+            <span class="word word-italic"><em>feel.</em></span>
+          </span>
+        </h1>
+
+        <span class="hero-rule" aria-hidden="true"></span>
+
+        <p class="hero-sub">
+          Industrial paper cores, spiral-wound to tolerance, engineered for textile mills, film converters, and flexible packaging lines across Pakistan — and shipped worldwide.
+        </p>
+
+        <div class="hero-ctas">
+          <a href="#contact" class="btn btn-primary" data-scroll>Contact Sales</a>
+          <a href="#capabilities" class="btn btn-ghost" data-scroll>View capabilities</a>
         </div>
-        <div class="hero__media-wrap fade-up">
-          <video
-            autoplay muted loop playsinline
-            poster="assets/images/hero-tube.jpg"
-            preload="metadata"
-            class="hero__video"
-          >
-            <source src="hero.mp4" type="video/mp4">
-          </video>
-          <img
-            src="assets/images/hero-tube.jpg"
-            alt="Large-diameter kraft paper industrial core standing upright, lit by warm amber light"
-            class="hero__image hero__image--fallback"
-            loading="eager"
-            fetchpriority="high"
-            decoding="async"
-            width="1408"
-            height="768"
-          >
+      </div>
+
+      <div class="scroll-cue" aria-hidden="true">
+        <span>Scroll to explore</span>
+        <svg viewBox="0 0 12 20" width="10" height="18" fill="none" stroke="currentColor" stroke-width="1.2">
+          <path d="M6 2 V17" stroke-linecap="round" />
+          <path d="M2 13 L6 17 L10 13" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+    </section>
+
+    <!-- ============================================
+         SECTION 2 — NARRATIVE INTRO
+         ============================================ -->
+    <section class="narrative" id="narrative" data-screen-label="02 Narrative">
+      <div class="narrative-inner">
+        <span class="eyebrow narrative-eyebrow">What we do</span>
+        <p class="narrative-body">
+          <span class="n-sentence">Every roll of film, every bolt of fabric, every reel of tape — in Pakistan and across our export markets — rests on a paper core.</span>
+          <span class="n-sentence">Ours are made to be invisible — because when they work, no one thinks about them.</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================================
+         SECTION 3 — CAPABILITIES (pinned)
+         ============================================ -->
+    <section class="capabilities" id="capabilities" data-screen-label="03 Capabilities">
+      <div class="cap-pin">
+        <div class="cap-stage">
+
+          <div class="cap-images" aria-hidden="true">
+            <img src="assets/images/feature-1-sideprofile.jpg" alt="" class="cap-img cap-img-1" loading="lazy" />
+            <img src="assets/images/feature-2-interior.jpg" alt="" class="cap-img cap-img-2" loading="lazy" />
+            <img src="assets/images/feature-3-range.jpg"   alt="" class="cap-img cap-img-3" loading="lazy" />
+          </div>
+
+          <div class="cap-text">
+            <div class="cap-stage-marker" aria-hidden="true">
+              <span class="csm-current" id="csmCurrent">01</span>
+              <span class="csm-total">/ 03</span>
+            </div>
+
+            <article class="cap-panel cap-panel-1" data-panel="0">
+              <span class="eyebrow">01 · Construction</span>
+              <h2 class="cap-h2">Spiral-wound with <em>zero</em> compromise.</h2>
+              <p class="cap-body">Multi-ply kraft paper, fused under tension, cut to length with precision tolerance. Every core in every batch is dimensionally identical — because when it arrives on your production floor, it has to drop straight into place.</p>
+            </article>
+
+            <article class="cap-panel cap-panel-2" data-panel="1">
+              <span class="eyebrow">02 · Specifications</span>
+              <h2 class="cap-h2">Built to your <em>exact</em> requirements.</h2>
+              <p class="cap-body">Inner diameters from 3-inch through 6-inch as standard, with custom sizing on request. Wall thickness engineered to your load capacity. Lengths cut to your equipment. Your spec, our job.</p>
+            </article>
+
+            <article class="cap-panel cap-panel-3" data-panel="2">
+              <span class="eyebrow">03 · Scale</span>
+              <h2 class="cap-h2">From prototype runs to <em>production</em> volume.</h2>
+              <p class="cap-body">Whether you need fifty cores or fifty thousand, we run the same quality control across every order. No minimum orders that don't make sense, no maximum that constrains your production schedule.</p>
+            </article>
+          </div>
+
         </div>
       </div>
     </section>
 
-    <!-- Capabilities -->
-    <section class="capabilities" id="capabilities">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-header__title fade-up">What we make</h2>
-          <p class="section-header__sub fade-up">Three product lines, each engineered to specification. Custom diameters, wall thicknesses, and lengths for your winding equipment.</p>
+    <!-- Mobile fallback for capabilities -->
+    <section class="cap-mobile" aria-hidden="true">
+      <article class="capm-item">
+        <img src="assets/images/feature-1-sideprofile.jpg" alt="" loading="lazy" />
+        <span class="eyebrow">01 · Construction</span>
+        <h3>Spiral-wound with zero compromise.</h3>
+        <p>Multi-ply kraft paper, fused under tension, cut to length with precision tolerance. Every core in every batch is dimensionally identical.</p>
+      </article>
+      <article class="capm-item">
+        <img src="assets/images/feature-2-interior.jpg" alt="" loading="lazy" />
+        <span class="eyebrow">02 · Specifications</span>
+        <h3>Built to your exact requirements.</h3>
+        <p>Inner diameters from 3-inch through 6-inch as standard, with custom sizing on request. Your spec, our job.</p>
+      </article>
+      <article class="capm-item">
+        <img src="assets/images/feature-3-range.jpg" alt="" loading="lazy" />
+        <span class="eyebrow">03 · Scale</span>
+        <h3>From prototype runs to production volume.</h3>
+        <p>Whether you need fifty cores or fifty thousand, we run the same quality control across every order.</p>
+      </article>
+    </section>
+
+    <!-- ============================================
+         SECTION 4 — SPECIFICATIONS (stats)
+         ============================================ -->
+    <section class="specs" id="specs" data-screen-label="04 Specs">
+      <div class="specs-inner">
+        <div class="specs-head">
+          <span class="eyebrow">The numbers</span>
+          <h2 class="specs-h2">Engineered for <em>production.</em></h2>
         </div>
-        <div class="card-grid">
-          <article class="card fade-up" data-tilt>
-            <div class="card__image-wrap">
-              <img
-                src="assets/images/feature-1-sideprofile.jpg"
-                alt="Close-up side view of a matte kraft paper core with amber rim lighting"
-                class="card__image"
-                loading="lazy"
-                decoding="async"
-                width="1408"
-                height="768"
-              >
-            </div>
-            <div class="card__body">
-              <p class="card__eyebrow">Construction</p>
-              <h3 class="card__title">Spiral-wound precision</h3>
-              <p class="card__text">Built on calibrated winding equipment with tight tension control. Every core is dimensionally consistent, end to end.</p>
-            </div>
-            <div class="card__highlight" aria-hidden="true"></div>
-          </article>
-          <article class="card fade-up" data-tilt>
-            <div class="card__image-wrap">
-              <img
-                src="assets/images/feature-2-interior.jpg"
-                alt="Angled view of a paper core's hollow interior, warmly lit"
-                class="card__image"
-                loading="lazy"
-                decoding="async"
-                width="1408"
-                height="768"
-              >
-            </div>
-            <div class="card__body">
-              <p class="card__eyebrow">Specifications</p>
-              <h3 class="card__title">Custom inner diameters</h3>
-              <p class="card__text">From 3-inch through 6-inch ID as standard, with custom diameters available. Wall thickness engineered to your load requirements.</p>
-            </div>
-            <div class="card__highlight" aria-hidden="true"></div>
-          </article>
-          <article class="card fade-up" data-tilt>
-            <div class="card__image-wrap">
-              <img
-                src="assets/images/feature-3-range.jpg"
-                alt="Three kraft paper industrial cores of different diameters grouped together"
-                class="card__image"
-                loading="lazy"
-                decoding="async"
-                width="1408"
-                height="768"
-              >
-            </div>
-            <div class="card__body">
-              <p class="card__eyebrow">Scale</p>
-              <h3 class="card__title">Volume production</h3>
-              <p class="card__text">Monthly capacity for both high-volume runs and specialized orders. Consistent lead times and direct factory communication.</p>
-            </div>
-            <div class="card__highlight" aria-hidden="true"></div>
-          </article>
+
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-num" data-stat="diameter"><span class="sv">0</span></div>
+            <span class="stat-rule"></span>
+            <div class="stat-label">Inner diameter</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num" data-stat="wall"><span class="sv">0</span></div>
+            <span class="stat-rule"></span>
+            <div class="stat-label">Wall thickness</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num" data-stat="tons"><span class="sv">0</span></div>
+            <span class="stat-rule"></span>
+            <div class="stat-label">Tons monthly</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num" data-stat="tol"><span class="sv">0</span></div>
+            <span class="stat-rule"></span>
+            <div class="stat-label">Tolerance</div>
+          </div>
         </div>
+
+        <p class="specs-note">Every specification is non-negotiable. Dimensional consistency is how we keep customers' production lines running without interruption — in Lahore, Karachi, or halfway across the world.</p>
+
+        <!-- Export info -->
+        <div class="export-strip">
+          <div class="export-head">
+            <span class="eyebrow">Export</span>
+            <h3 class="export-h3">Shipping beyond Pakistan.</h3>
+          </div>
+          <div class="export-grid">
+            <div class="export-item">
+              <span class="export-label">Packaging</span>
+              <span class="export-value">Palletised, strapped, shrink-wrapped to sea-freight standard</span>
+            </div>
+            <div class="export-item">
+              <span class="export-label">Documentation</span>
+              <span class="export-value">Commercial invoice, packing list, COO, fumigation as required</span>
+            </div>
+            <div class="export-item">
+              <span class="export-label">Incoterms</span>
+              <span class="export-value">FOB Karachi, CIF, or DAP — your preference</span>
+            </div>
+            <div class="export-item">
+              <span class="export-label">Container loading</span>
+              <span class="export-value">20ft &amp; 40ft — loaded at our facility, sealed on departure</span>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
-    <!-- Specifications -->
-    <section class="specs" id="specs">
-      <div class="specs__inner container">
-        <div class="specs__stats">
-          <div class="stat fade-up">
-            <span class="stat__number" data-count="3" data-suffix="–6&Prime;">0</span>
-            <span class="stat__label">Inner diameter range</span>
-          </div>
-          <div class="stat fade-up">
-            <span class="stat__number" data-count="3" data-suffix="–15mm">0</span>
-            <span class="stat__label">Wall thickness</span>
-          </div>
-          <div class="stat fade-up">
-            <span class="stat__number" data-count="70" data-suffix="+ tons">0</span>
-            <span class="stat__label">Monthly capacity</span>
-          </div>
-          <div class="stat fade-up">
-            <span class="stat__number" data-count="0.5" data-prefix="&plusmn;" data-suffix="mm">0</span>
-            <span class="stat__label">Dimensional tolerance</span>
-          </div>
+    <!-- ============================================
+         SECTION 5 — INDUSTRIES
+         ============================================ -->
+    <section class="industries" id="industries" data-screen-label="05 Industries">
+      <div class="ind-inner">
+        <div class="ind-head">
+          <span class="eyebrow">Who we serve</span>
+          <h2 class="ind-h2">Built for manufacturers at home <em>and abroad.</em></h2>
         </div>
-        <div class="specs__prose">
-          <h2 class="specs__title fade-up">Engineered for your production line.</h2>
-          <p class="specs__text fade-up">Every specification is set by the customer. We supply textile mills, film converters, flexible packaging operations, and paper mills across Pakistan with cores that drop straight onto their equipment without adjustment.</p>
-        </div>
+        <ul class="ind-list">
+          <li class="ind-row">
+            <span class="ind-num">01</span>
+            <span class="ind-name">Textile Mills</span>
+            <span class="ind-desc">Yarn carriers, fabric winding cores, dye tubes</span>
+          </li>
+          <li class="ind-row">
+            <span class="ind-num">02</span>
+            <span class="ind-name">Film &amp; Packaging</span>
+            <span class="ind-desc">Flexible films, foils, laminates, shrink wrap</span>
+          </li>
+          <li class="ind-row">
+            <span class="ind-num">03</span>
+            <span class="ind-name">Paper Mills</span>
+            <span class="ind-desc">Industrial support cores, any diameter, any length</span>
+          </li>
+          <li class="ind-row">
+            <span class="ind-num">04</span>
+            <span class="ind-name">Label &amp; Tape</span>
+            <span class="ind-desc">Tight-tolerance cores for high-speed converting</span>
+          </li>
+        </ul>
       </div>
     </section>
 
-    <!-- Who we serve -->
-    <section class="serve" id="serve">
-      <div class="container">
-        <h2 class="section-header__title section-header__title--center fade-up">Trusted by Pakistan&rsquo;s manufacturers</h2>
-        <div class="tile-grid">
-          <div class="tile fade-up">
-            <div class="tile__icon tile__icon--circle" aria-hidden="true"></div>
-            <h3 class="tile__title">Textile Mills</h3>
-            <p class="tile__text">Yarn carriers and fabric winding cores</p>
-          </div>
-          <div class="tile fade-up">
-            <div class="tile__icon tile__icon--square" aria-hidden="true"></div>
-            <h3 class="tile__title">Film &amp; Packaging</h3>
-            <p class="tile__text">Cores for flexible films, foils, and laminates</p>
-          </div>
-          <div class="tile fade-up">
-            <div class="tile__icon tile__icon--hexagon" aria-hidden="true"></div>
-            <h3 class="tile__title">Paper Mills</h3>
-            <p class="tile__text">Industrial support cores at any diameter</p>
-          </div>
-          <div class="tile fade-up">
-            <div class="tile__icon tile__icon--triangle" aria-hidden="true"></div>
-            <h3 class="tile__title">Label &amp; Tape</h3>
-            <p class="tile__text">Tight-tolerance cores for high-speed converting</p>
-          </div>
-        </div>
+    <!-- ============================================
+         SECTION 6 — CONTACT
+         ============================================ -->
+    <section class="contact" id="contact" data-screen-label="06 Contact">
+      <div class="contact-inner">
+        <h2 class="contact-h2">
+          <span class="contact-line">Let's talk</span>
+          <span class="contact-line"><em>specifications.</em></span>
+        </h2>
+        <p class="contact-body">Send your dimensions, tolerances, volume, and destination port. We respond within one business day — usually much sooner. Export enquiries welcome.</p>
+        <a href="mailto:sales@thekingcore.com" class="btn btn-primary btn-lg contact-btn">Email sales@thekingcore.com</a>
+        <span class="contact-foot">KingCore · Lahore, Pakistan</span>
       </div>
     </section>
 
-    <!-- Contact -->
-    <section class="contact" id="contact">
-      <div class="container">
-        <p class="contact__eyebrow fade-up">Get in touch</p>
-        <h2 class="contact__title fade-up">Let&rsquo;s talk about your requirements.</h2>
-        <p class="contact__sub fade-up">Send us your specifications and volume requirements. We&rsquo;ll respond within one business day.</p>
-        <a href="mailto:sales@thekingcore.com" class="btn btn--primary btn--lg fade-up">Email sales@thekingcore.com</a>
-        <p class="contact__location fade-up">Lahore, Pakistan</p>
+    <!-- ============================================
+         SECTION 7 — FOOTER
+         ============================================ -->
+    <footer class="footer" data-screen-label="07 Footer">
+      <div class="footer-inner">
+        <span class="footer-left">© 2026 KingCore</span>
+        <span class="footer-center" aria-hidden="true">·</span>
+        <a href="mailto:sales@thekingcore.com" class="footer-right">sales@thekingcore.com</a>
       </div>
-    </section>
+    </footer>
 
   </main>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="footer__inner container">
-      <p class="footer__copy">&copy; 2026 KingCore. All rights reserved.</p>
-      <a href="mailto:sales@thekingcore.com" class="footer__email">sales@thekingcore.com</a>
-    </div>
-  </footer>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="main.js"></script>
 </body>
 </html>
