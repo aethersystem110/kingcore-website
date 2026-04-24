@@ -193,7 +193,7 @@
     tons: (v) => Math.round(v) + '+',
     tol: (v) => '±' + v.toFixed(1) + 'mm'
   };
-  const targets = { diameter: 6, wall: 15, tons: 70, tol: 0.5 };
+  const targets = { diameter: 6, wall: 15, tons: 400, tol: 0.5 };
 
   statEls.forEach(el => {
     const key = el.dataset.stat;
